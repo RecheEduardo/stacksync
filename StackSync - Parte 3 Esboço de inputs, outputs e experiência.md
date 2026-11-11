@@ -2,6 +2,8 @@
 
 Nov 7, 2026 · @Eduardo
 
+**Revisão de 10/11/2026.** Esta parte foi revisada para refletir a entrevista de produto registrada no `PRODUCT.md`: planejamento além de refatoração, três níveis de profundidade, questionário adaptativo com respostas sugeridas pela inteligência artificial, Índice de Ajuste com frase por faixa e plano ideal que pode citar tecnologias. Onde a versão anterior dizia o contrário, o texto foi substituído. As regras novas vão de RN-89 a RN-97, as decisões de D-13 a D-18, e o caso de uso novo é o UC-23.
+
 Esta parte transforma a pesquisa (Parte 1) e os casos de uso (Parte 2) em um esboço funcional do StackSync: o que o arquiteto informa, o que o sistema avalia, qual veredito devolve e como cada tela sustenta assertividade e transparência. É um esboço de valor de negócio e de experiência do usuário, separado de propósito de qualquer decisão de tecnologia.
 
 ## Como ler este documento
@@ -12,19 +14,21 @@ Esta parte transforma a pesquisa (Parte 1) e os casos de uso (Parte 2) em um esb
 | Engenharia (etapa técnica seguinte) | Modelo conceitual, regras de negócio, fórmulas, parâmetros de calibração e rastreabilidade | 5, 7, 8, 9, 11, 17 |
 | Ambos | Conceito central e princípios inegociáveis | 1, 2, 5, 6 |
 
-**Fronteira com a tecnologia.** Nada aqui decide linguagem, framework, armazenamento, infraestrutura ou forma de implementação do StackSync. Frases como "o sistema registra" ou "o StackSync calcula" descrevem comportamento observável, não mecanismo. Termos como microsserviços, p99, saga ou monólito modular aparecem porque são o vocabulário dos sistemas que o arquiteto descreve (o domínio), não escolhas de implementação do StackSync.
+**Fronteira com a tecnologia.** Nada aqui decide linguagem, framework, armazenamento, infraestrutura ou forma de implementação do StackSync. Frases como "o sistema registra" ou "o StackSync calcula" descrevem comportamento observável, não mecanismo. Termos como microsserviços, p99, saga ou monólito modular aparecem porque são o vocabulário dos sistemas que o arquiteto descreve (o domínio), não escolhas de implementação do StackSync. O mesmo vale para as tecnologias que o plano ideal cita ao usuário: são conteúdo do resultado, não escolhas de implementação do StackSync.
 
 **Valores iniciais.** Todos os números de calibração (pesos, tolerâncias, limiares) são pontos de partida a calibrar durante o desenvolvimento (seção 11), como a Parte 1 já estabelece para a matriz de pesos.
 
 **Exemplos.** Os sistemas e números dos exemplos são ilustrativos.
 
-**Sigla IA.** Neste documento, IA significa sempre Índice de Ajuste. Inteligência artificial é escrita por extenso.
-
 ## 1. Resumo executivo
 
-- **Duas perguntas, não uma.** O StackSync responde: (1) a arquitetura atual está ajustada às necessidades reais do sistema? e, opcionalmente, (2) a refatoração pretendida se justifica e está pronta para começar?
+- **Planejamento e refatoração.** O StackSync atende quem vai planejar (sistema novo, módulo ou funcionalidade nova num sistema existente, escolha de ferramenta técnica) e quem vai refatorar (sistema inteiro, ferramenta técnica, módulo específico). Ele responde três perguntas: o quanto o sistema atual, ou a ideia do usuário, se ajusta à necessidade real; se a ideia prévia faz sentido, comparada a não mudar nada; e qual seria o plano ideal.
 - **Ajuste é relacional.** Nenhum estilo arquitetural é bom ou ruim em si. O StackSync compara a necessidade (o que negócio, carga, times e riscos exigem) com a capacidade (o que a arquitetura entrega e quanto ela cobra) em 8 eixos. Capacidade além da necessidade é sobreajuste; aquém, subajuste; dentro da tolerância, ajustado.
-- **Veredito em faixa, não em ponto.** O resultado traz um Índice de Ajuste (IA) de 0 a 100 com faixa de incerteza, graus separados de sobreajuste e de subajuste (que nunca se compensam), uma categoria (Ajustado, Sobreajustado, Subajustado, Misto, Indefinido entre duas categorias ou Inconclusivo) e o nível de confiança.
+- **Veredito em faixa, não em ponto.** O resultado traz um Índice de Ajuste de 0 a 100 com faixa de incerteza, graus separados de sobreajuste e de subajuste (que nunca se compensam), uma categoria (Ajustado, Sobreajustado, Subajustado, Misto, Indefinido entre duas categorias ou Inconclusivo) e o nível de confiança.
+- **Frase por faixa, nunca sim ou não.** Cada faixa do Índice de Ajuste de uma proposta tem uma frase declarativa de aderência, para que uma ideia reprovada por décimos não leia o mesmo texto de uma ideia ruim.
+- **Três níveis de profundidade.** Rápido (cerca de 7 minutos), Equilibrado (15 a 20 minutos, recomendado) e Avançado (35 a 50 minutos). Os fatores de peso 5 da Parte 1 são cobertos em todos.
+- **Questionário que se adapta, resultado que não muda de humor.** As primeiras respostas preparam o terreno, a inteligência artificial escolhe a próxima pergunta dentro de uma estrutura com pesos e sugere as respostas mais comuns para o perfil, sem marcar nenhuma. Quem decide o resultado é o modelo: mesmas respostas, mesmo resultado.
+- **Plano ideal.** Direções e forma da arquitetura em todos os níveis; tecnologias com nome, comparadas às concorrentes por critérios explícitos, a partir do Equilibrado; sequência de passos no Avançado. Quando nada compensa, o plano é "não mexa".
 - **A intenção passa por 8 portões, em ordem.** Gatilho legítimo, meta mensurável, direção do ajuste, materialidade do ganho, alternativa menos invasiva, retorno no horizonte, auditoria de vieses e prontidão (índice S e regra de veto da Parte 1). O primeiro portão reprovado define o veredito da intenção, e todos os portões ficam visíveis.
 - **O ônus da prova é da mudança.** Na dúvida, o StackSync não recomenda mudar. "Não fazer nada" é um resultado de primeira classe: quando o sistema está ajustado, o veredito diz isso e para. Nada de listas de melhorias para preencher a tela.
 - **Ganho irrisório não vira proposta.** Um limiar de materialidade calibrável separa ganho real de ganho cosmético. Um desajuste cuja correção não se paga no horizonte de vida do sistema é reportado como "conviver".
@@ -45,11 +49,17 @@ As decisões abaixo foram tomadas nesta parte e servem de premissa para as próx
 | D-05 | Limiar de materialidade e veredito "conviver" | Atende ao objetivo central: eliminar propostas sem ganho ou com ganho irrisório |
 | D-06 | Perguntas-ponte curadas e campo livre "não sei, mas..." | Ideia original do projeto, ajustada ao todo: o sistema formula perguntas consistentes e auditáveis, e o arquiteto ainda pode contar o que sabe com as próprias palavras. Toda inferência é confirmada e marcada |
 | D-07 | O veredito parcial não aparece durante o preenchimento | Evita que o arquiteto ajuste respostas para chegar a um resultado desejado |
-| D-08 | Direções de ajuste expressas em atributos e movimentos, nunca em produtos | O StackSync avalia decisões; não vende tecnologia (RN-01, RN-30) |
-| D-09 | Ator principal único (arquiteto de soluções) e leitores secundários do resultado | Mantém a Parte 2. Liderança e times consomem o relatório, não operam a análise |
-| D-10 | Dois modos: rápido (perguntas essenciais) e completo (casos de uso inteiros) | Permite um primeiro veredito em minutos e aprofundar só onde a incerteza muda o resultado |
+| D-08 | O plano ideal pode citar tecnologias com nome, sempre comparadas às concorrentes por critérios explícitos; as direções continuam em atributos (revisada em 10/11/2026) | O usuário precisa de um plano que consiga usar; o critério, e não a moda, sustenta a escolha (RN-01, RN-30, RN-95) |
+| D-09 | Um ator principal, quem está diante de um planejamento ou refatoração (arquiteto de soluções, tech lead e, no nível Rápido, às vezes quem nem é arquiteto), e leitores secundários do resultado | Mantém o ator único da Parte 2, ampliado no nível Rápido. Liderança e times consomem o relatório, não operam a análise |
+| D-10 | Três níveis de profundidade: Rápido (cerca de 7 minutos), Equilibrado (15 a 20 minutos, recomendado) e Avançado (35 a 50 minutos) | Arquitetos são ocupados; cada nível atende um perfil, e dá para aprofundar depois sem perder respostas |
 | D-11 | Calibração global versionada; calibração local restrita a pesos e materialidade, sempre ao lado da padrão | Calibrar é necessário (RN-56), mas não pode virar meio de forçar um veredito |
 | D-12 | Um novo caso de uso de primeira classe (UC-20, diagnóstico de ajuste) que não exige intenção de refatoração | A Parte 2 parte de uma proposta. Validar que nada precisa mudar é um uso legítimo e frequente |
+| D-13 | Dois ramos, planejamento e refatoração, com três subníveis cada (5.9) | O mesmo método serve para decidir antes de construir e antes de mudar |
+| D-14 | Questionário adaptativo: a inteligência artificial escolhe a próxima pergunta dentro de uma estrutura de decisão com pesos | Perguntas que parecem conhecer o usuário tornam o preenchimento curto e fluido sem perder os âmbitos que mais pesam |
+| D-15 | Respostas sugeridas, de 2 a 4, nunca marcadas e geradas sem ver a ideia prévia | Adiantam a leitura sem ancorar a resposta nem confirmar a ideia do usuário (PR-16) |
+| D-16 | Inteligência artificial obrigatória nesta fase, com a chave do próprio usuário; o modelo, não a inteligência artificial, decide o resultado | Sem ela, a personalização some; o resultado continua reproduzível |
+| D-17 | Frase declarativa por faixa do Índice de Ajuste de uma proposta | Um "não" binário igualaria uma ideia quase boa a uma ideia ruim |
+| D-18 | Plano ideal em camadas que crescem com o nível | Cada nível entrega o detalhe que o seu tempo de preenchimento sustenta |
 
 ## 3. O StackSync
 
@@ -72,15 +82,17 @@ Decisões de refatoração costumam ser tomadas como escolha de tecnologia, quan
 | Fidelidade à necessidade real | O veredito mede a distância entre o que o sistema precisa e o que ele tem, nos dois sentidos. Se não há distância relevante, o veredito é "ajustado" e fim |
 | Economia | Evita migrações sem ganho, aponta alternativas menos invasivas e mostra o custo de agir e o de não agir |
 | Decisão defensável | O arquiteto sai com um veredito explicável para liderança e times, e com um rascunho de ADR quando houver decisão |
+| Fluidez | Três níveis com orçamento de tempo, perguntas simples e não invasivas, e respostas sugeridas que adiantam a leitura |
 
 ### 3.3 Para quem
 
-**Ator principal (único, como na Parte 2):** o arquiteto de soluções, responsável por avaliar o sistema e esboçar todas as necessidades de uma refatoração antes de aprová-la.
+**Ator principal (único, como na Parte 2):** quem está diante de um planejamento ou de uma refatoração e precisa decidir bem sem perder tempo: arquiteto de soluções, tech lead e, no nível Rápido, às vezes alguém que nem é arquiteto. É ocupado, tem pouca paciência para formulário e desconfia de pergunta que pareça querer saber demais sobre o negócio. Usa o StackSync a cada tarefa de planejamento ou refatoração, não uma vez por sistema.
 
 Contextos de uso do arquiteto, que orientam a experiência:
 
 | Contexto | Necessidade principal | Recurso que mais importa |
 | --- | --- | --- |
+| Diante de um planejamento | Escolher forma e ferramentas sem esquecer âmbitos que pesam | Ramo de planejamento, plano ideal, "a solução mais simples basta" |
 | Dono do sistema há anos | Validar com evidência o que já intui; defender um "não" ou um "sim" | Veredito rápido, trilha e relatório |
 | Recém-chegado ao sistema | Formar uma visão sem conhecer todas as respostas | "Não sei" com perguntas-ponte, plano de descoberta |
 | Consultor externo | Diagnóstico isento, apresentável ao cliente | Transparência, robustez, relatório para liderança |
@@ -92,7 +104,8 @@ Contextos de uso do arquiteto, que orientam a experiência:
 
 ### 3.4 O que o StackSync não é
 
-- **Não é recomendador de tecnologia.** Ele avalia decisões e aponta direções em termos de atributos ("reduzir saltos síncronos no fluxo de pedido"), nunca produtos ou ferramentas.
+- **Não é vitrine de tecnologia.** Quando o plano ideal cita uma tecnologia, ela foi comparada às concorrentes por critérios explícitos (complexidade, simplicidade, ecossistema, licença, fim de suporte, cadeia de suprimentos), e a popularidade nunca é motivo sozinho (RN-01, RN-95). Não há catálogo fechado nem parceria.
+- **Não pergunta sobre o negócio.** Pergunta características do sistema (tamanho, times, carga, ritmo de mudança, implantação, dados, operação), nunca regras específicas, nomes de clientes ou código (RN-96).
 - **Não substitui o julgamento do arquiteto.** A decisão continua sendo do arquiteto; o StackSync a torna explícita, comparável e defensável.
 - **Não é um analisador automático de código.** Nesta concepção, as entradas são declaradas pelo arquiteto, com evidência anexável. Medições importadas de outras fontes podem existir no futuro sem mudar o modelo, porque a origem "medida" já está prevista.
 - **Não é dogmático.** Não favorece monólito nem distribuição. Uma arquitetura distribuída que atende às necessidades é "ajustada".
@@ -107,6 +120,8 @@ Contextos de uso do arquiteto, que orientam a experiência:
 5. **Antiviés por desenho.** Ônus da prova na mudança, materialidade, alternativas em ordem neutra, veredito parcial oculto e auditoria de vieses.
 6. **Calibração visível.** Toda conclusão diz com qual versão de pesos e limiares foi calculada e se mudaria com pequenas variações.
 7. **Evidência a um clique.** Cada regra cita o estudo, o tipo de evidência e o número que a sustenta.
+8. **Perguntas que parecem conhecer o usuário.** O percurso se adapta às primeiras respostas e sugere as respostas mais comuns para o perfil, sem induzir.
+9. **Plano ideal utilizável.** Direções, forma, tecnologias comparadas e passos, conforme o nível, ou "não mexa".
 
 ## 4. Base de conhecimento consolidada (Partes 1 e 2)
 
@@ -547,6 +562,21 @@ Obrigações são fatos externos com prazo: fim de suporte de runtime, framework
 
 A matriz de 16 fatores mede a **prontidão de uma intenção**. Os eixos medem o **ajuste do sistema atual**. Os dois usam as mesmas respostas sempre que possível, para que o arquiteto não responda duas vezes.
 
+### 5.9 Ramos e subníveis
+
+Toda análise começa pelo ramo e pelo subnível (RN-89). Eles definem o que se compara e quais lentes entram.
+
+| Ramo | Subnível | O que se compara | Lentes | "Não mudar" equivale a |
+| --- | --- | --- | --- | --- |
+| Refatoração | Sistema inteiro | Necessidade contra a capacidade atual; ideia prévia e plano ideal contra a necessidade | Ajuste (8 eixos), saúde, intenção | "Não mexa" |
+| Refatoração | Ferramenta técnica (linguagem, banco, framework) | Necessidade contra as propriedades da ferramenta atual e das candidatas (fatores técnicos da Parte 1; UC-09) | Saúde (H3, H4), intenção, fatores 10, 11, 12, 15 e 16 | "Mantenha a ferramenta", ou "atualize a versão" quando a obrigação é de fim de suporte |
+| Refatoração | Módulo específico | Os 8 eixos restritos ao módulo e às fronteiras dele | Ajuste no escopo do módulo, saúde, intenção | "Não mexa no módulo" |
+| Planejamento | Sistema novo | Necessidade declarada contra a forma proposta; não há capacidade atual | Ajuste projetado, intenção sem custo de paralelismo | "A solução mais simples basta" |
+| Planejamento | Módulo ou funcionalidade nova num sistema existente | Necessidade do módulo contra a capacidade do sistema que o recebe | Ajuste, intenção | "Cabe no que existe" |
+| Planejamento | Escolha de ferramenta técnica | Necessidade contra as candidatas | Fatores técnicos da Parte 1 | "A opção mais simples que atende" |
+
+No planejamento de sistema novo, sem capacidade atual, o Índice de Ajuste mede a ideia prévia e o plano ideal contra a necessidade. O ônus da prova recai sobre a complexidade: a forma mais simples que atende é a hipótese padrão, e algo mais elaborado só entra com ganho material (RN-73 aplicada ao planejamento).
+
 ## 6. Princípios inegociáveis: antiviés e transparência
 
 ### 6.1 Os dois vieses que o StackSync combate
@@ -566,7 +596,7 @@ O StackSync trata os dois, mas de forma assimétrica: **o ônus da prova é da m
 | PR-04 | Materialidade | Ganho abaixo do limiar é declarado "irrisório" e não gera recomendação |
 | PR-05 | Conviver também é decisão | Desajuste cuja correção não se paga no horizonte é reportado como "conviver", com a conta à mostra |
 | PR-06 | Simetria de estilos | Nenhum estilo é premiado; casos-âncora incluem arquiteturas distribuídas ajustadas e monólitos ajustados |
-| PR-07 | Direções, não produtos | O StackSync nunca recomenda tecnologia, ferramenta ou fornecedor |
+| PR-07 | Tecnologia por critério, nunca por moda | Tecnologia só aparece no plano ideal, comparada às concorrentes por critérios explícitos; popularidade nunca sozinha (revisado em 10/11/2026) |
 | PR-08 | Incerteza explícita | Faixas, confiança, origem de cada resposta e perguntas de maior valor |
 | PR-09 | Rastreabilidade total | Todo número abre respostas, regras, parâmetros e evidências |
 | PR-10 | Contestabilidade | O arquiteto pode discordar de qualquer nível derivado, com justificativa; o relatório mostra o padrão e o contestado |
@@ -575,6 +605,8 @@ O StackSync trata os dois, mas de forma assimétrica: **o ônus da prova é da m
 | PR-13 | Calibração visível | Todo veredito mostra a versão da calibração e a robustez a pequenas variações |
 | PR-14 | Só o que importa | O resultado mostra o que muda o veredito e as obrigações reais, sem boas práticas genéricas |
 | PR-15 | Valorizar o legado | O questionário pede explicitamente os pontos fortes do sistema atual (RN-12) |
+| PR-16 | Personalizar sem induzir | Respostas sugeridas nunca vêm marcadas, não veem a ideia prévia e convivem sempre com "Não sei" e o campo livre |
+| PR-17 | Frase, não sim ou não | O Índice de Ajuste de uma proposta aparece com a frase da sua faixa; faixa que cruza um limite mostra as duas frases |
 
 ### 6.3 O veredito "Ajustado": o que aparece e o que nunca aparece
 
@@ -594,7 +626,7 @@ Este é o caso que mais revela o viés de uma ferramenta. As regras abaixo são 
 - Listas de "melhorias sugeridas", "oportunidades" ou "boas práticas".
 - Convite para aprofundar a análise como forma de melhorar o sistema. Aprofundar só é oferecido quando a confiança é baixa, e com a função declarada de reduzir a incerteza.
 - Linguagem de urgência, alerta ou otimização ("você poderia ganhar ainda mais...").
-- Sugestão de tecnologia.
+- Sugestão de tecnologia ou plano de mudança: o plano ideal do Ajustado é "não mexa".
 
 Quando o sistema está ajustado e saudável, sem obrigações, o veredito é: **"Ajustado e saudável. Nenhuma ação necessária."** Fim.
 
@@ -617,7 +649,7 @@ Quando o sistema está ajustado e saudável, sem obrigações, o veredito é: **
 
 ## 7. Novos casos de uso e regras de negócio
 
-A Parte 3 acrescenta três casos de uso no mesmo modelo da Parte 2 (Cockburn) e continua a numeração das regras a partir de RN-71.
+A Parte 3 acrescenta quatro casos de uso (o UC-23 entrou na revisão de 10/11/2026) no mesmo modelo da Parte 2 (Cockburn) e continua a numeração das regras a partir de RN-71.
 
 ### UC-20 — Diagnosticar o ajuste do sistema às necessidades
 
@@ -628,19 +660,19 @@ A Parte 3 acrescenta três casos de uso no mesmo modelo da Parte 2 (Cockburn) e 
 | Gatilho | O arquiteto quer validar o sistema: revisão periódica, chegada a um sistema novo, pressão por mudança ou preparação de uma proposta |
 | Pré-condições | Sistema identificado |
 | Garantia mínima | Respostas salvas com origem, confiança e data; lacunas listadas |
-| Garantia de sucesso | Veredito com categoria, IA em faixa, graus de sobre e subajuste, eixos, saúde, obrigações datadas, robustez, lacunas de maior valor, trilha e versão da calibração |
+| Garantia de sucesso | Veredito com categoria, Índice de Ajuste em faixa, frase da faixa, plano ideal, graus de sobre e subajuste, eixos, saúde, obrigações datadas, robustez, lacunas de maior valor, trilha e versão da calibração |
 | Relações | Inclui UC-21. Pode originar uma intenção (UC-01) a partir de uma direção de ajuste. Reaproveita dados de UC-02 e UC-03 |
 
 **Cenário principal**
 
-1. O arquiteto cria uma análise, escolhe o objetivo "diagnosticar ajuste" e a profundidade (rápida ou completa).
-2. O sistema apresenta os blocos A a F com as perguntas da profundidade escolhida.
+1. O arquiteto cria uma análise, escolhe o ramo (planejamento ou refatoração) e o subnível (5.9), descreve a ideia prévia, se houver, e escolhe a profundidade (Rápido, Equilibrado ou Avançado).
+2. O sistema conduz um percurso adaptativo com perguntas dos blocos A a F, dentro do orçamento do nível, com respostas sugeridas (RN-91, RN-92).
 3. O arquiteto responde, indicando a origem de cada resposta; quando não sabe, segue UC-21.
 4. O sistema aponta tensões entre respostas, sem bloquear.
 5. O arquiteto revisa e pede o veredito.
-6. O sistema deriva necessidade e capacidade por eixo, calcula IA, sobreajuste e subajuste em faixa e classifica.
+6. O sistema deriva necessidade e capacidade por eixo, calcula o Índice de Ajuste, o sobreajuste e subajuste em faixa, classifica e escreve a frase da faixa (RN-93).
 7. O sistema avalia os indicadores de saúde e as obrigações datadas.
-8. Se houver desajuste material e horizonte suficiente, o sistema mostra direções de ajuste sem custo estimado; caso contrário, não mostra sugestão alguma.
+8. Se houver desajuste material e horizonte suficiente, o sistema monta o plano ideal nas camadas do nível (RN-94); caso contrário, o plano ideal é "não mexa" (ou "conviver").
 9. O sistema calcula a robustez e as perguntas de maior valor e exibe o resultado com a trilha.
 
 **Extensões**
@@ -649,7 +681,7 @@ A Parte 3 acrescenta três casos de uso no mesmo modelo da Parte 2 (Cockburn) e 
 - 5a. Mais de 40% do peso dos eixos sem nenhum sinal: veredito Inconclusivo, com plano de descoberta (RN-77).
 - 6a. A faixa cruza o limite entre categorias: "Indefinido entre X e Y", com as perguntas que resolveriam (RN-77).
 - 6b. O arquiteto contesta um nível derivado: o sistema registra a justificativa e mostra o resultado padrão e o contestado (RN-86).
-- 8a. Veredito Ajustado: nenhuma sugestão; apenas obrigações, saúde crítica (se houver) e "o que mudaria" (RN-75).
+- 8a. Veredito Ajustado: plano ideal "não mexa", sem nenhuma sugestão; apenas obrigações, saúde crítica (se houver) e "o que mudaria" (RN-75).
 - 8b. Desajuste cuja correção não se paga no horizonte (B-01): o sistema reporta "conviver" (RN-84).
 - 8c. O arquiteto quer avaliar uma direção de ajuste: o sistema cria uma intenção pré-preenchida (UC-01).
 - 9a. O arquiteto altera respostas depois de ver o veredito: as alterações ficam registradas no histórico (RN-81).
@@ -709,6 +741,33 @@ A Parte 3 acrescenta três casos de uso no mesmo modelo da Parte 2 (Cockburn) e 
 - 4a. Um caso-âncora mudou de veredito por boa razão (gabarito revisto): o gabarito é atualizado com justificativa registrada.
 - 6a. Calibração local pelo arquiteto: só pesos (K-01, K-02) e limiar de materialidade (K-06), com justificativa; o resultado mostra sempre o veredito padrão ao lado (RN-82).
 
+### UC-23 — Avaliar um planejamento
+
+| Campo | Conteúdo |
+| --- | --- |
+| Objetivo | Decidir a forma e as ferramentas de um sistema novo, de um módulo novo num sistema existente ou de uma escolha de ferramenta, sem esquecer os âmbitos que pesam |
+| Nível | Objetivo do usuário |
+| Gatilho | O usuário vai começar algo novo e quer validar a ideia que tem ou receber um plano |
+| Pré-condições | Enquadramento respondido (A-02, A-06) |
+| Garantia mínima | Respostas salvas com origem e data; lacunas listadas |
+| Garantia de sucesso | Índice de Ajuste da ideia prévia (se houver) e do plano ideal contra a necessidade declarada, em faixa e com frase; plano ideal nas camadas do nível; motivos com evidência |
+| Relações | Inclui UC-21. Usa as regras de UC-09 quando o subnível é escolha de ferramenta |
+
+**Cenário principal**
+
+1. O usuário escolhe planejamento, o subnível e a profundidade, e descreve a ideia prévia, se houver.
+2. O sistema conduz o percurso adaptativo, priorizando a necessidade (blocos B, C e E) e, no módulo novo, a capacidade do sistema que o recebe (bloco D).
+3. O sistema deriva a necessidade por eixo e projeta a capacidade da ideia prévia e das formas candidatas.
+4. O sistema adota como hipótese padrão a forma mais simples que atende à necessidade e só propõe algo mais complexo quando o ganho é material.
+5. A partir do Equilibrado, o sistema avalia as tecnologias candidatas pela RN-95.
+6. O sistema mostra o Índice de Ajuste da ideia prévia ao lado do Índice de Ajuste do plano ideal, com as frases das faixas e os motivos.
+
+**Extensões**
+
+- 1a. Sem ideia prévia: o resultado traz só o plano ideal.
+- 4a. A forma mais simples já atende: o plano ideal é "a solução mais simples basta", com o que a faria deixar de bastar.
+- 5a. Uma candidata só se destaca por popularidade: ela não é escolhida por isso (RN-01, RN-58).
+
 ### Regras novas (RN-71 a RN-88)
 
 - **RN-71.** Ajuste é relacional: é avaliado como necessidade × capacidade, por eixo. Nenhum estilo é bom ou ruim em si (P1-3.0: decisões por atributos de qualidade, nunca pelo estilo).
@@ -723,12 +782,24 @@ A Parte 3 acrescenta três casos de uso no mesmo modelo da Parte 2 (Cockburn) e 
 - **RN-80.** Perguntas-ponte têm um nível só. Sem resposta, a pergunta vira lacuna com "como descobrir" e "quem pode saber".
 - **RN-81.** O veredito parcial não é exibido durante o preenchimento. Alterações feitas depois de ver o veredito ficam registradas e visíveis no relatório.
 - **RN-82.** Todo veredito exibe a versão da calibração. Calibração local aparece ao lado do veredito padrão.
-- **RN-83.** Direções de ajuste são expressas em atributos e movimentos, nunca em produtos, ferramentas ou fornecedores.
+- **RN-83.** Direções de ajuste são expressas em atributos e movimentos. Tecnologias com nome só aparecem na camada de tecnologias do plano ideal, pelas regras da RN-95 (revisada em 10/11/2026).
 - **RN-84.** Desajuste cuja correção não se paga no horizonte do sistema é reportado como "conviver", com a conta visível.
 - **RN-85.** Saúde e obrigações datadas são reportadas como fatos, separadas do ajuste, e não geram plano de refatoração automaticamente.
 - **RN-86.** O arquiteto pode contestar qualquer nível derivado, com justificativa; o relatório mostra o padrão e o contestado.
 - **RN-87.** O StackSync não favorece nenhum estilo; os casos-âncora incluem arquiteturas distribuídas e monolíticas ajustadas.
 - **RN-88.** Uma nova calibração só é publicada com justificativa e sem piorar a taxa de falso alarme de refatoração nos casos-âncora.
+
+### Regras da revisão de 10/11/2026 (RN-89 a RN-97)
+
+- **RN-89.** Toda análise começa pelo ramo (planejamento ou refatoração) e pelo subnível (5.9), e esse enquadramento define as perguntas e as lentes usadas.
+- **RN-90.** Há três níveis de profundidade com orçamento de tempo: Rápido (cerca de 7 minutos), Equilibrado (15 a 20 minutos, recomendado) e Avançado (35 a 50 minutos). Em todos, os fatores de peso 5 da Parte 1 (meta, times, dados, custo de transição e reversibilidade) são cobertos, ao menos por estimativa.
+- **RN-91.** A próxima pergunta é escolhida dentro de uma estrutura de decisão com pesos tirados da pesquisa. A inteligência artificial escolhe dentro dela pelo perfil provável do sistema; não cria perguntas fora dela nem decide o resultado.
+- **RN-92.** Cada pergunta traz de 2 a 4 respostas sugeridas para o perfil, o campo livre e "Não sei". Nenhuma sugestão vem marcada, e as sugestões são geradas sem acesso à ideia prévia nem a resultado parcial.
+- **RN-93.** O Índice de Ajuste de uma proposta é exibido com a frase declarativa da sua faixa (9.12). Faixa de incerteza que cruza um limite mostra as duas frases. A ideia prévia é sempre comparada com não mudar nada.
+- **RN-94.** O plano ideal tem camadas por nível: direções e forma (todos), tecnologias (Equilibrado e Avançado) e sequência de passos com ponto de volta (Avançado). Quando nada compensa, o plano é "não mexa" ou, no planejamento, "a solução mais simples basta".
+- **RN-95.** Toda tecnologia candidata, inclusive as sugeridas pela inteligência artificial, é comparada às concorrentes por complexidade, simplicidade, popularidade (nunca motivo sozinho, RN-01), saúde do ecossistema, licença, fim de suporte e cadeia de suprimentos (RN-30 a RN-35). Fatos com data têm fonte. O que já foi avaliado vai para uma base de referência que cresce, para que as mesmas respostas deem o mesmo plano.
+- **RN-96.** As perguntas são técnicas, em linguagem simples nos níveis Rápido e Equilibrado, e não invasivas: perguntam características do sistema, nunca regras específicas do negócio, nomes de clientes ou código.
+- **RN-97.** Quando houver implementação, os pesos e limiares serão calibrados por uma bateria massiva de cenários com solução conhecida, escolhendo a distribuição que melhor acerta os grupos de casos sem piorar o falso alarme (RN-88).
 
 ## 8. Modelo de entrada
 
@@ -746,12 +817,13 @@ O arquiteto descreve o sistema em sete blocos. Os blocos A a F formam o diagnós
 | F | Saúde, entrega e operação | Saúde e capacidade | UC-02, UC-03, UC-09, UC-11, UC-18 |
 | G | Intenção de refatoração (opcional) | Intenção | UC-01, UC-04 a UC-16 |
 
-**Dois modos de profundidade:**
+**Três níveis de profundidade:**
 
-- **Rápido:** só as perguntas marcadas como essenciais (E). São 33 no diagnóstico e mais 6 com intenção. Gera veredito de ajuste completo e, para a intenção, avalia os portões P1 a P5 (veredito máximo: "Justificada em princípio"). Tempo-alvo de 15 a 25 minutos (hipótese a validar com usuários).
-- **Completo:** todas as perguntas, incluindo os casos de uso da Parte 2 por inteiro (cenários de qualidade, alternativas detalhadas, custos, plano de dados, fatias, vieses, matriz e checklist). Avalia os oito portões.
+- **Rápido (cerca de 7 minutos):** de 10 a 12 perguntas, escolhidas entre as essenciais (E) pelo peso e pelo perfil. Gera o veredito de ajuste, a frase da faixa, o plano ideal com direções e forma e, para a ideia prévia, os portões P1 a P5 (veredito máximo: "Justificada em princípio"). Toda resposta conta como estimativa. Público: quem quer uma avaliação prática, às vezes sem ser arquiteto.
+- **Equilibrado (15 a 20 minutos, recomendado):** cerca de 25 a 30 perguntas, essenciais e as complementares (C) de maior peso para o perfil. Acrescenta as tecnologias comparadas ao plano ideal e permite marcar respostas medidas. Público: o arquiteto que quer embasamento para defender ou derrubar uma proposta sem um levantamento gigante.
+- **Avançado (35 a 50 minutos):** todas as perguntas aplicáveis, incluindo os casos de uso da Parte 2 (cenários de qualidade, alternativas detalhadas, custos, plano de dados, fatias, vieses, matriz e checklist). Avalia os oito portões e acrescenta a sequência de passos ao plano ideal. Público: o arquiteto disposto a analisar a arquitetura como um todo.
 
-O arquiteto pode começar no modo rápido e aprofundar depois, por bloco ou por pergunta, sem perder respostas. A ordem dos blocos é sugerida, mas a navegação é livre.
+Os números de perguntas são estimativas a validar; o que vale é o orçamento de tempo. O usuário pode começar num nível e aprofundar depois, sem perder respostas. A ordem das perguntas vem do percurso adaptativo (8.8), e o usuário pode voltar a qualquer resposta dada.
 
 ### 8.2 Origem da resposta e confiança
 
@@ -768,6 +840,7 @@ Toda resposta tem uma origem. A origem define a largura da faixa e a confiança 
 - **Validade da evidência.** Medidas com mais de 12 meses (K-13) aparecem como "antigas" e passam a contar como estimativa.
 - **Evidência anexável.** Qualquer resposta aceita uma nota ou referência (link, documento, nome de quem informou). Medidas sem fonte contam como estimativa.
 - **Autor e data.** Cada resposta registra quem respondeu e quando, para o histórico (T-19).
+- **Origem por nível.** No Rápido, toda resposta conta como estimativa e a origem não é perguntada. No Equilibrado e no Avançado, o usuário pode marcar que tem o dado medido, com fonte e data.
 
 ### 8.3 Quando o arquiteto não sabe
 
@@ -779,7 +852,7 @@ A ideia original do projeto (responder algo próximo quando não se sabe a pergu
 
 Regras que mantêm o recurso a serviço do valor proposto:
 
-- Perguntas-ponte são curadas, não improvisadas, para que duas análises do mesmo sistema façam as mesmas perguntas (assertividade).
+- Perguntas-ponte são curadas, não improvisadas, para que a conversão em faixa seja a mesma em toda análise (assertividade). A inteligência artificial pode escolher quando oferecê-las, mas não as reescreve.
 - Há um nível só de perguntas-ponte (RN-80). Sem resposta, vira lacuna, sem interrogatório em cascata.
 - Inferência sempre confirmada e sempre marcada (RN-79).
 - "Não sei" nunca bloqueia o diagnóstico; só bloqueia a aprovação de mudança quando atinge fator de peso 5 (RN-78).
@@ -787,17 +860,19 @@ Regras que mantêm o recurso a serviço do valor proposto:
 
 ### 8.4 Catálogo de perguntas
 
-Legenda: **Modo** E = essencial (modo rápido) e C = completo. **Alimenta** indica eixo (E1–E8), indicador (H1–H6), fator da matriz (F1–F16), portão (P1–P8) ou regra.
+Legenda: **Modo** E = essencial: candidata em todos os níveis (o Rápido escolhe de 10 a 12 delas pelo peso e pelo perfil); C = complementar: entra no Equilibrado (as de maior peso para o perfil) e no Avançado (todas as aplicáveis). A seleção e a ordem vêm do percurso adaptativo (8.8). **Alimenta** indica eixo (E1–E8), indicador (H1–H6), fator da matriz (F1–F16), portão (P1–P8) ou regra.
 
 #### Bloco A — Enquadramento da análise
 
 | ID | Pergunta (como aparece) | Resposta | Modo | Alimenta | Perguntas-ponte |
 | --- | --- | --- | --- | --- | --- |
 | A-01 | Qual sistema você vai analisar? | Nome e descrição curta | E | Identificação | — |
-| A-02 | O que você quer saber? | Se a arquitetura está ajustada / Se uma refatoração pretendida se justifica / Se uma mudança em execução está dando resultado | E | Define o fluxo (UC-20, UC-01, UC-19) | — |
+| A-02 | O que você quer avaliar? | Planejamento / Refatoração | E | Define o ramo (5.9; UC-20, UC-23, UC-01) | — |
 | A-03 | Qual a sua relação com o sistema? | Construí ou mantenho há mais de 1 ano / Mantenho há menos de 1 ano / Acabei de chegar / Sou consultor externo | E | Só experiência: sugere o uso de "não sei" e do plano de descoberta; não altera cálculos | — |
-| A-04 | Quanto tempo você tem agora? | Rápido (essenciais) / Completo | E | Profundidade | — |
+| A-04 | Quanto tempo você tem agora? | Rápido (cerca de 7 minutos) / Equilibrado (15 a 20 minutos, recomendado) / Avançado (35 a 50 minutos) | E | Profundidade e orçamento de perguntas (RN-90) | — |
 | A-05 | Quais componentes estão no escopo? | Lista | C | Escopo (UC-01, UC-03) | — |
+| A-06 | Em que nível? | Refatoração: sistema inteiro / ferramenta técnica (linguagem, banco, framework) / módulo específico. Planejamento: sistema novo / módulo ou funcionalidade nova num sistema existente / escolha de ferramenta técnica | E | Subnível (5.9; RN-89) | — |
+| A-07 | Você já tem uma ideia? | Texto livre, opcional | E | Ideia prévia: frase da faixa e comparação contra não mudar (RN-93); base de G-03 no Avançado | — |
 
 #### Bloco B — Negócio, horizonte e restrições
 
@@ -954,6 +1029,16 @@ O StackSync aponta respostas que parecem se contradizer, sem bloquear. O arquite
 | TS-07 | F-08 = boa cobertura e F-03 = falhas frequentes | "Boa cobertura de testes com muitas falhas de implantação: os testes cobrem as áreas que mais mudam?" |
 | TS-08 | B-01 = menos de 1 ano e intenção com retorno de vários anos | "O sistema tem horizonte curto, mas a mudança só se pagaria depois. Isso será avaliado no portão P6." |
 
+### 8.8 Percurso adaptativo e respostas sugeridas
+
+O catálogo acima é o conjunto de perguntas possíveis, não a ordem em que aparecem.
+
+- **Estrutura de decisão.** Cada pergunta tem um peso por ramo e subnível, derivado dos fatores e eixos que alimenta, e condições de entrada (por exemplo, perguntas sobre comunicação entre partes só entram se houver mais de uma parte). A estrutura garante a cobertura dos fatores de peso 5 em todos os níveis (RN-90).
+- **Escolha da próxima pergunta.** A inteligência artificial lê as respostas dadas, estima o perfil mais provável do sistema e escolhe, dentro da estrutura, a pergunta de maior valor para esse perfil que ainda cabe no orçamento do nível (RN-91). Sem resposta do provedor, vale a ordem padrão da estrutura.
+- **Respostas sugeridas.** Para a pergunta escolhida, a inteligência artificial propõe de 2 a 4 respostas mais comuns para o perfil. Elas aparecem como opções comuns, nenhuma marcada, com o campo livre e "Não sei" (RN-92). A resposta escolhida passa pela mesma normalização de qualquer outra; texto livre que precise de interpretação segue a RN-79.
+- **Contexto mínimo.** A inteligência artificial recebe o enquadramento e as respostas dadas, nunca a ideia prévia nem resultados parciais, para não puxar as sugestões na direção que confirma a ideia.
+- **Linguagem.** Nos níveis Rápido e Equilibrado, a pergunta e as sugestões usam linguagem simples, com o termo técnico explicado ao lado quando aparece (RN-96).
+
 ## 9. O que é executado
 
 Esta seção descreve o que o StackSync calcula e decide, em termos de regras de negócio. Como calcular é decisão da etapa técnica.
@@ -963,14 +1048,14 @@ Esta seção descreve o que o StackSync calcula e decide, em termos de regras de
 1. **Normalizar respostas:** origem, confiança, validade e faixa de cada resposta.
 2. **Detectar tensões** entre respostas (8.7).
 3. **Derivar necessidade e capacidade** de cada eixo, com trilha (9.2).
-4. **Calcular desvios**, aplicar tolerância e saturação, e obter sobreajuste, subajuste e IA em faixa (9.3).
+4. **Calcular desvios**, aplicar tolerância e saturação, e obter sobreajuste, subajuste e Índice de Ajuste em faixa (9.3).
 5. **Classificar** o veredito de ajuste e a confiança (9.4).
 6. **Avaliar saúde, obrigações datadas e custo de não agir** (9.5).
-7. **Gerar direções de ajuste**, só se houver desajuste material e horizonte suficiente; caso contrário, nenhuma, ou "conviver" (9.6).
+7. **Montar o plano ideal:** direções (9.6) e, conforme o nível, forma, tecnologias e passos (9.11), só se houver desajuste material e horizonte suficiente; caso contrário, "não mexa" ou "conviver".
 8. **Se houver intenção:** projetar o estado pretendido, percorrer a esteira de portões e calcular a prontidão (9.7, 9.8).
 9. **Testar a robustez** do veredito (9.9).
 10. **Ranquear as lacunas** pelo valor da informação (9.10).
-11. **Montar o resultado** com trilha completa e versão da calibração (seção 10).
+11. **Montar o resultado** com a frase da faixa (9.12), a trilha completa e a versão da calibração (seção 10).
 
 ### 9.2 Derivação dos níveis
 
@@ -1008,13 +1093,13 @@ O = 100 \cdot \frac{\sum_i w_i \, e_i^{+}}{E_{max} \sum_i w_i}
 \qquad
 U = 100 \cdot \frac{\sum_i w_i \, e_i^{-}}{E_{max} \sum_i w_i}
 \qquad
-IA = 100 - O - U
+\text{Índice de Ajuste} = 100 - O - U
 ```
 
 - **O** é o grau de sobreajuste e **U** o de subajuste, ambos de 0 a 100. Cada eixo contribui para um lado só, então O + U nunca passa de 100 e um lado nunca compensa o outro (RN-72).
 - **Tolerância** é a zona morta em torno do ajuste perfeito: desvios pequenos não contam. É a principal alavanca contra alarmes por diferenças irrelevantes (K-03).
 - **Saturação** (E_max, 2 níveis por padrão) limita a contribuição de um eixo. Um eixo saturado aparece como "no limite ou além" no mapa, para não esconder pioras adicionais.
-- **Faixas:** O, U e IA são calculados com o menor e o maior desvio efetivo plausível de cada eixo, a partir das faixas de N e C.
+- **Faixas:** O, U e o Índice de Ajuste são calculados com o menor e o maior desvio efetivo plausível de cada eixo, a partir das faixas de N e C.
 - **Verificação quantitativa (E3, E4):** se a disponibilidade composta da cadeia síncrona (produto das disponibilidades) ou a chance de lentidão 1 − (1 − p)^n violarem as metas, o eixo recebe déficit adicional (K-16: violação leve soma 1 nível; violação de mais do dobro do tolerado soma 2).
 
 ### 9.4 Classificação do veredito de ajuste
@@ -1028,7 +1113,7 @@ IA = 100 - O - U
 | Indefinido entre X e Y | A faixa atravessa limites de categoria; o resultado lista as categorias possíveis |
 | Inconclusivo | Mais de 40% do peso dos eixos sem nenhum sinal |
 
-**Confiança** (pela largura da faixa do IA): alta até 10 pontos; média de 11 a 25; baixa acima de 25.
+**Confiança** (pela largura da faixa do Índice de Ajuste): alta até 10 pontos; média de 11 a 25; baixa acima de 25.
 
 **Modificador "conviver":** aplicado a Sobreajustado, Subajustado ou Misto quando o horizonte do sistema (B-01) é menor que o horizonte mínimo (K-15, 12 meses por padrão) ou quando a correção avaliada como intenção não se paga (P6).
 
@@ -1040,12 +1125,12 @@ IA = 100 - O - U
 
 ### 9.6 Direções de ajuste
 
-Uma direção é um movimento que aproximaria a capacidade da necessidade em um eixo. Não é uma proposta: não tem custo, prazo ou tecnologia.
+Uma direção é um movimento que aproximaria a capacidade da necessidade em um eixo. Sozinha, não é uma proposta: não tem custo, prazo ou tecnologia. É a primeira camada do plano ideal (9.11), que acrescenta forma, tecnologias e passos conforme o nível.
 
 **Condições para aparecer (todas):**
 
 1. O eixo está fora da tolerância.
-2. O ganho potencial de ajuste (aumento do IA se aquele eixo voltasse para dentro da tolerância) é maior ou igual ao limiar de materialidade (K-06).
+2. O ganho potencial de ajuste (aumento do Índice de Ajuste se aquele eixo voltasse para dentro da tolerância) é maior ou igual ao limiar de materialidade (K-06).
 3. O horizonte do sistema é maior ou igual ao horizonte mínimo (K-15). Se não for, o resultado mostra "conviver".
 
 **Ordem:** primeiro os pré-requisitos (E7 antes de mais distribuição; E1 antes de E2; E6 junto de E2), depois o maior ganho potencial.
@@ -1067,20 +1152,20 @@ Cada direção exibe: o movimento, os eixos afetados, o ganho potencial de ajust
 
 Os portões são avaliados em ordem. Cada um termina em **passa**, **não passa** ou **indeterminado** (quando a faixa atravessa o limiar). O veredito da intenção é dado pelo primeiro portão que não passa; se antes disso algum ficar indeterminado, o veredito é **Inconclusiva**, nomeando o portão. Todos os portões avaliáveis aparecem, mesmo depois do que definiu o veredito, para que o arquiteto veja o quadro inteiro. Em todos, vale o limite desfavorável da faixa (RN-74).
 
-| Portão | Pergunta | Passa quando | Se não passa | Fica indeterminado quando | Regras | Modo |
+| Portão | Pergunta | Passa quando | Se não passa | Fica indeterminado quando | Regras | Níveis |
 | --- | --- | --- | --- | --- | --- | --- |
-| P1 Gatilho legítimo | O motivo é real e verificável? | Motivo de categoria legítima, com evidência | Sem fundamento | Motivo legítimo sem evidência | RN-01, RN-03, RN-04 | Rápido |
-| P2 Meta mensurável | Qual métrica melhora, de quanto para quanto? | Atributo de qualidade com unidade, valor atual e meta; a meta não é um estilo | Inconclusiva: falta meta mensurável (fator 1 com nota 0, veto) | Valor atual desconhecido | RN-05, RN-06, RN-08 | Rápido |
-| P3 Direção do ajuste | A mudança aproxima o sistema do ajuste? | IA projetado maior que o atual, mesmo no limite desfavorável | Contraproducente | As faixas do IA atual e do projetado se sobrepõem | RN-71, RN-72 | Rápido |
-| P4 Materialidade | O ganho é relevante? | Ganho de IA ≥ 10 pontos, ou a meta do cenário de qualidade passa a ser atendida, ou elimina uma obrigação datada ou classe de vulnerabilidade; e o ganho não depende só de fatores de peso 1 ou 2 | Ganho irrisório | A faixa do ganho atravessa o limiar | RN-58, RN-76 | Rápido |
-| P5 Alternativa menos invasiva | Há caminho mais barato ou mais reversível com ganho equivalente? | Nenhuma alternativa alcança ao menos 80% do ganho com menor custo ou maior reversibilidade | Existe caminho melhor (com a alternativa indicada) | Custos ou reversibilidade desconhecidos para comparar | RN-14 a RN-17, RN-21, RN-31 | Rápido (por ajuste e invasividade) e completo (com custo) |
-| P6 Retorno e prazos | A mudança se paga dentro da vida útil e cumpre os prazos? | Retorno no limite desfavorável dentro de 70% do horizonte restante; se resolve uma obrigação, termina antes do prazo; há data de desligamento | Não se paga | Estimativas ausentes | RN-02, RN-46 a RN-48, RN-51 a RN-53 | Completo |
-| P7 Auditoria de vieses | A decisão está livre dos sete vieses? | As sete perguntas respondidas com evidência | Respostas negativas viram riscos; a resposta 1 reabre P2, a 4 reabre P5 e a 5 exige gates antes de P8 | Perguntas sem resposta | RN-54, RN-55 | Completo |
-| P8 Prontidão | Está pronta para começar? | Sem veto, itens 1 a 12 do checklist marcados, regra prática atendida | Justificada, mas não pronta (lista dos bloqueios) | Nunca: fator de peso 5 desconhecido conta como nota 0 e aciona o veto (RN-62) | RN-56 a RN-62 | Completo |
+| P1 Gatilho legítimo | O motivo é real e verificável? | Motivo de categoria legítima, com evidência | Sem fundamento | Motivo legítimo sem evidência | RN-01, RN-03, RN-04 | Todos |
+| P2 Meta mensurável | Qual métrica melhora, de quanto para quanto? | Atributo de qualidade com unidade, valor atual e meta; a meta não é um estilo | Inconclusiva: falta meta mensurável (fator 1 com nota 0, veto) | Valor atual desconhecido | RN-05, RN-06, RN-08 | Todos |
+| P3 Direção do ajuste | A mudança aproxima o sistema do ajuste? | Índice de Ajuste projetado maior que o atual, mesmo no limite desfavorável | Contraproducente | As faixas do Índice de Ajuste atual e do projetado se sobrepõem | RN-71, RN-72 | Todos |
+| P4 Materialidade | O ganho é relevante? | Ganho no Índice de Ajuste ≥ 10 pontos, ou a meta do cenário de qualidade passa a ser atendida, ou elimina uma obrigação datada ou classe de vulnerabilidade; e o ganho não depende só de fatores de peso 1 ou 2 | Ganho irrisório | A faixa do ganho atravessa o limiar | RN-58, RN-76 | Todos |
+| P5 Alternativa menos invasiva | Há caminho mais barato ou mais reversível com ganho equivalente? | Nenhuma alternativa alcança ao menos 80% do ganho com menor custo ou maior reversibilidade | Existe caminho melhor (com a alternativa indicada) | Custos ou reversibilidade desconhecidos para comparar | RN-14 a RN-17, RN-21, RN-31 | Todos (por ajuste e invasividade); Avançado (com custo) |
+| P6 Retorno e prazos | A mudança se paga dentro da vida útil e cumpre os prazos? | Retorno no limite desfavorável dentro de 70% do horizonte restante; se resolve uma obrigação, termina antes do prazo; há data de desligamento | Não se paga | Estimativas ausentes | RN-02, RN-46 a RN-48, RN-51 a RN-53 | Avançado |
+| P7 Auditoria de vieses | A decisão está livre dos sete vieses? | As sete perguntas respondidas com evidência | Respostas negativas viram riscos; a resposta 1 reabre P2, a 4 reabre P5 e a 5 exige gates antes de P8 | Perguntas sem resposta | RN-54, RN-55 | Avançado |
+| P8 Prontidão | Está pronta para começar? | Sem veto, itens 1 a 12 do checklist marcados, regra prática atendida | Justificada, mas não pronta (lista dos bloqueios) | Nunca: fator de peso 5 desconhecido conta como nota 0 e aciona o veto (RN-62) | RN-56 a RN-62 | Avançado |
 
-**Invasividade** (para P5 no modo rápido): escopo (parcial ou total), reversibilidade (fatias com ponto de volta ou não), troca de tecnologia (sim ou não) e movimentação de dados (sim ou não). Uma alternativa que alcança ao menos 80% do ganho sendo menos invasiva em pelo menos um critério, e não mais invasiva em nenhum, é considerada melhor.
+**Invasividade** (para P5 nos níveis Rápido e Equilibrado): escopo (parcial ou total), reversibilidade (fatias com ponto de volta ou não), troca de tecnologia (sim ou não) e movimentação de dados (sim ou não). Uma alternativa que alcança ao menos 80% do ganho sendo menos invasiva em pelo menos um critério, e não mais invasiva em nenhum, é considerada melhor.
 
-**Modo rápido:** se P1 a P5 passam e P6 a P8 não foram avaliados, o veredito é "Justificada em princípio".
+**Rápido e Equilibrado:** P1 a P5 são avaliados; se passam, o veredito é "Justificada em princípio". P6 a P8 exigem custos, retorno e prontidão e são avaliados no Avançado.
 
 ### 9.8 Prontidão (índice S e veto)
 
@@ -1110,10 +1195,42 @@ O resultado também nomeia o parâmetro e a resposta mais sensíveis.
 
 ### 9.10 Perguntas de maior valor
 
-Para cada resposta desconhecida, inferida ou estimada, o StackSync calcula quanto a faixa do IA encolheria e se a categoria ficaria definida caso a resposta fosse medida. O resultado mostra:
+Para cada resposta desconhecida, inferida ou estimada, o StackSync calcula quanto a faixa do Índice de Ajuste encolheria e se a categoria ficaria definida caso a resposta fosse medida. O resultado mostra:
 
 - as três perguntas de maior valor, com o efeito esperado ("estreitaria a faixa de 58–88 para cerca de ±8");
 - as lacunas que não mudam o veredito, marcadas como "pode pular".
+
+### 9.11 Plano ideal
+
+O plano ideal é o que o StackSync faria no lugar do usuário, dado o que ele respondeu. Como as direções, ele segue o ônus da prova: só traz mudança quando há desajuste material e horizonte suficiente, e começa pelos pré-requisitos.
+
+| Camada | Níveis | Conteúdo |
+| --- | --- | --- |
+| Direções | Todos | Os movimentos de 9.6, na ordem dos pré-requisitos |
+| Forma da arquitetura | Todos | A forma que leva o sistema para dentro da tolerância: quantas partes, onde ficam as fronteiras, onde a comunicação é síncrona ou assíncrona, como os dados se dividem |
+| Tecnologias | Equilibrado e Avançado | Por decisão (linguagem, banco, framework, mensageria e similares), a candidata escolhida e as concorrentes avaliadas pela RN-95, com os motivos |
+| Sequência de passos | Avançado | Fatias incrementais na ordem de UC-17 (mais juros e menos acoplamento de dados primeiro), cada uma com ponto de volta, custo de transição estimado e o que muda se uma resposta estiver errada |
+
+- O plano ideal recebe o próprio Índice de Ajuste projetado, em faixa, e passa pelos portões P3 a P5 como qualquer alternativa. Se não passa em materialidade, o plano é "não mexa".
+- Quando há ideia prévia, o resultado mostra as duas lado a lado: a ideia prévia e o plano ideal, cada uma com a frase da sua faixa e a diferença contra não mudar.
+- No planejamento de sistema novo, a hipótese padrão é a forma mais simples que atende; a variante equivalente a "não mexa" é "a solução mais simples basta".
+- O resultado diz quais respostas, se fossem diferentes, mais mexeriam no plano (9.10).
+
+### 9.12 Faixas de aderência
+
+O Índice de Ajuste de uma proposta (a ideia prévia ou o plano ideal) é lido por faixas, cada uma com uma frase. Valores iniciais, calibráveis (K-18):
+
+| Faixa | Frase |
+| --- | --- |
+| 85 a 100 | "Sua proposta atende à necessidade real." |
+| 70 a 84 | "Sua proposta atende à necessidade na maior parte; alguns pontos pedem ajuste." |
+| 50 a 69 | "Sua proposta resolve parte do problema, mas deixa necessidades importantes de fora ou cria outras." |
+| 30 a 49 | "Sua proposta se afasta da necessidade real em pontos centrais." |
+| 0 a 29 | "Sua proposta não corresponde à necessidade descrita." |
+
+- Faixa de incerteza que cruza um limite mostra as duas frases ("Entre ... e ..."), com as perguntas de maior valor (9.10).
+- Ao lado da frase da ideia prévia vem a diferença contra não mudar nada, em faixa ("comparada a não mudar: +12 pontos, entre +6 e +18").
+- Para o sistema atual, a frase continua sendo a da categoria de ajuste (10.1), e o fechamento do Ajustado (6.3) continua valendo.
 
 ## 10. Modelo de saída
 
@@ -1135,11 +1252,11 @@ Para cada resposta desconhecida, inferida ou estimada, o StackSync calcula quant
 | --- | --- | --- |
 | Justificada e pronta | Todos os portões passam | "A mudança se justifica e está pronta para começar." |
 | Justificada, mas não pronta | P1 a P7 passam; P8 não passa | "A mudança se justifica, mas não está pronta: [n] bloqueios precisam ser resolvidos." |
-| Justificada em princípio | P1 a P5 passam; P6 a P8 não avaliados (modo rápido) | "A mudança se justifica em princípio. Custo, retorno e prontidão ainda não foram avaliados." |
+| Justificada em princípio | P1 a P5 passam; P6 a P8 não avaliados (Rápido e Equilibrado) | "A mudança se justifica em princípio. Custo, retorno e prontidão ainda não foram avaliados." |
 | Existe caminho melhor | P5 não passa | "O problema é real, mas [alternativa] alcança [x]% do ganho com [menor custo / mais reversibilidade]." |
 | Não se paga | P6 não passa | "A mudança não se paga no horizonte de [vida útil]." ou "A mudança não termina antes de [obrigação e data]." |
 | Ganho irrisório | P4 não passa | "O ganho estimado (+[n] pontos) está abaixo do limiar de materialidade ([10]). Não fazer nada é a decisão recomendada." |
-| Contraproducente | P3 não passa | "A mudança afasta o sistema do ajuste: IA projetado [x], contra [y] hoje." |
+| Contraproducente | P3 não passa | "A mudança afasta o sistema do ajuste: Índice de Ajuste projetado [x], contra [y] hoje." |
 | Sem fundamento | P1 não passa | "O motivo informado não basta para uma refatoração. Qual atributo de qualidade está sendo afetado?" |
 | Inconclusiva | Portão indeterminado antes de qualquer reprovação, ou P2 sem meta mensurável | "Não dá para concluir no portão [Pn]: [motivo]. Responda [perguntas] para decidir." |
 
@@ -1150,14 +1267,14 @@ Em ordem de leitura. "Sempre" aparece em todo resultado; "condicional" só quand
 | # | Componente | Quando |
 | --- | --- | --- |
 | 1 | Cabeçalho: sistema, data, objetivo, profundidade, versão da calibração, composição das respostas (medidas, estimadas, inferidas, desconhecidas) | Sempre |
-| 2 | Veredito de ajuste: categoria, frase, IA em faixa, O e U em faixa, confiança | Sempre |
-| 3 | Veredito da intenção | Se houver intenção |
+| 2 | Veredito de ajuste: frase da categoria (10.1), Índice de Ajuste em faixa, O e U em faixa, confiança | Sempre |
+| 3 | Avaliação da ideia prévia: frase da faixa (9.12) e diferença contra não mudar; no Avançado, também o veredito da intenção pelos portões | Se houver ideia prévia |
 | 4 | Razões principais (até 3), com evidência | Sempre |
 | 5 | Mapa de ajuste por eixo | Sempre |
 | 6 | Indicadores de saúde | Sempre (no Ajustado, em formato compacto, com destaque só para críticos) |
 | 7 | Obrigações datadas | Se existirem |
 | 8 | Custo de não agir | Se houver desajuste, intenção, saúde crítica ou obrigação |
-| 9 | Direções de ajuste ou "conviver" | Se as condições de 9.6 valerem |
+| 9 | Plano ideal nas camadas do nível (9.11), "não mexa" ou "conviver" | Sempre |
 | 10 | Robustez | Sempre |
 | 11 | Perguntas de maior valor e "pode pular" | Se a confiança não for alta, ou se houver lacunas |
 | 12 | O que mudaria este veredito (recolhido) | Sempre |
@@ -1172,10 +1289,10 @@ Em ordem de leitura. "Sempre" aparece em todo resultado; "condicional" só quand
 - **"Necessidades declaradas".** O veredito se refere ao que foi informado, e diz isso.
 - **Faixas por extenso.** "Entre 44 e 57", não "cerca de 50".
 - **Sem superlativos, urgência artificial nem condicional vago** ("você poderia considerar..."). Se os portões não passaram, não há recomendação de mudança.
-- **Sem nomes de tecnologia, produto ou fornecedor** em direções ou recomendações.
+- **Tecnologia só no plano ideal,** comparada às concorrentes e com os critérios (RN-95); nunca em direções, razões ou no Ajustado.
 - **Evidência citada com autor, ano e tipo** ("Taibi et al., 2017 — entrevistas com 21 praticantes").
 - **Termos técnicos com explicação** disponível no próprio texto (p99, fan-out, saga), porque os leitores do relatório nem sempre são técnicos.
-- **Vocabulário fixo:** necessidade, capacidade, ajuste, sobreajuste, subajuste, tolerância, materialidade, faixa, confiança, portão, lacuna, obrigação datada.
+- **Vocabulário fixo:** necessidade, capacidade, ajuste, sobreajuste, subajuste, tolerância, materialidade, faixa, confiança, portão, lacuna, obrigação datada, faixa de aderência, plano ideal.
 - **Fechamento no Ajustado:** "Nenhuma refatoração estrutural se justifica hoje." Depois disso, nada que soe como sugestão.
 
 ### 10.5 Exemplos completos (ilustrativos)
@@ -1189,7 +1306,7 @@ Calibração inicial em todos: pesos E1 4, E2 5, E3 4, E4 3, E5 3, E6 5, E7 4, E
 **Resultado.**
 
 - **Ajustado e saudável. Nenhuma ação necessária.** "A arquitetura atende às necessidades declaradas."
-- IA 95 (entre 90 e 98) · Sobreajuste 3 (0–6) · Subajuste 2 (0–5) · Confiança alta · Calibração v0.1.
+- Índice de Ajuste 95 (entre 90 e 98) · Sobreajuste 3 (0–6) · Subajuste 2 (0–5) · Confiança alta · Calibração v0.1.
 - **Razões:** (1) uma parte implantável atende a um time, e nenhum time espera outro para implantar (E2, E6); (2) latência e disponibilidade dentro das metas, com folga (E4, E5); (3) fronteiras internas claras nas áreas que mais mudam (E1).
 - **Mapa:** os 8 eixos dentro da tolerância; E4 com leve folga de escala, ainda dentro da tolerância.
 - **Saúde:** os 6 indicadores saudáveis. **Obrigações:** nenhuma nos próximos 18 meses.
@@ -1206,7 +1323,7 @@ Calibração inicial em todos: pesos E1 4, E2 5, E3 4, E4 3, E5 3, E6 5, E7 4, E
 **Diagnóstico.**
 
 - **Sobreajustado.** "A arquitetura tem mais distribuição e mais mecanismos de consistência do que as necessidades declaradas pedem, principalmente em distribuição, alinhamento sociotécnico e comunicação."
-- IA 50 (entre 43 e 57) · Sobreajuste 50 (43–57) · Subajuste 0 (0–3) · Confiança média · Calibração v0.1.
+- Índice de Ajuste 50 (entre 43 e 57) · Sobreajuste 50 (43–57) · Subajuste 0 (0–3) · Confiança média · Calibração v0.1.
 
 | Eixo | Peso | Necessidade | Capacidade | Desvio | Contribuição |
 | --- | --- | --- | --- | --- | --- |
@@ -1219,7 +1336,7 @@ Calibração inicial em todos: pesos E1 4, E2 5, E3 4, E4 3, E5 3, E6 5, E7 4, E
 | E7 Operacional | 4 | 3,0 | 2,5 | −0,5 | Dentro da tolerância |
 | E8 Flexibilidade | 2 | 1,0 | 2,0 | +1,0 | Sobra leve |
 
-Conta: sobras efetivas ponderadas = 5×2,0 + 4×1,5 + 3×1,0 + 5×2,0 + 2×0,5 = 30; O = 100 × 30 / (2 × 30) = 50; U = 0; IA = 50.
+Conta: sobras efetivas ponderadas = 5×2,0 + 4×1,5 + 3×1,0 + 5×2,0 + 2×0,5 = 30; O = 100 × 30 / (2 × 30) = 50; U = 0; Índice de Ajuste = 50.
 
 - **Razões:** (1) 18 partes para um time de 4 pessoas, 4,5 partes por pessoa (E6, E2); (2) as forças de juntar (dados compartilhados por 3 partes, fluxo com 6 chamadas em sequência) superam as de separar (E2); (3) 35% do custo de infraestrutura vai para comunicação entre partes, sinal clássico de sobreajuste (RN-25).
 - **Verificação quantitativa:** disponibilidade composta do fluxo de agendamento = 99,95%^6 ≈ 99,70%, dentro da meta de 99,5%, com folga reduzida.
@@ -1227,7 +1344,7 @@ Conta: sobras efetivas ponderadas = 5×2,0 + 4×1,5 + 3×1,0 + 5×2,0 + 2×0,5 =
 - **Direções de ajuste:** (1) consolidar partes onde as forças de juntar predominam (E2 e E6), ganho potencial de até +33; (2) simplificar a comunicação no fluxo de agendamento (E3), até +10. "Custo e retorno não avaliados." Ação: avaliar como intenção.
 - *Considerado e descartado:* "Reduzir mecanismos de escala (E4): ganho potencial de +5, abaixo do limiar."
 
-**Veredito da intenção: Contraproducente.** "A mudança afasta o sistema do ajuste: IA projetado 43 (entre 36 e 50), contra 50 hoje. A meta declarada (2x de carga com p99 abaixo de 500 ms) já é atendida pela capacidade atual."
+**Veredito da intenção: Contraproducente.** "A mudança afasta o sistema do ajuste: Índice de Ajuste projetado 43 (entre 36 e 50), contra 50 hoje. A meta declarada (2x de carga com p99 abaixo de 500 ms) já é atendida pela capacidade atual."
 
 | Portão | Resultado | Motivo |
 | --- | --- | --- |
@@ -1235,8 +1352,8 @@ Conta: sobras efetivas ponderadas = 5×2,0 + 4×1,5 + 3×1,0 + 5×2,0 + 2×0,5 =
 | P2 Meta | Passa | Mensurável; observação: já atendida hoje |
 | P3 Direção | **Não passa** | E3 e E6 pioram; E7 passa a ter falta (mais partes exigem rastreamento distribuído); E2 já estava saturado |
 | P4 Materialidade | Não passa | Ganho de −7 |
-| P5 Alternativa | Não passa | "Consolidar em 3 a 4 partes com fronteiras internas" projeta IA 84 (entre 77 e 89) |
-| P6 a P8 | Não avaliados | Modo rápido |
+| P5 Alternativa | Não passa | "Consolidar em 3 a 4 partes com fronteiras internas" projeta Índice de Ajuste 84 (entre 77 e 89) |
+| P6 a P8 | Não avaliados | Avaliados só no Avançado |
 
 #### Exemplo C — ERP de Distribuição: Subajustado; intenção "Existe caminho melhor"
 
@@ -1247,20 +1364,20 @@ Conta: sobras efetivas ponderadas = 5×2,0 + 4×1,5 + 3×1,0 + 5×2,0 + 2×0,5 =
 **Diagnóstico.**
 
 - **Subajustado.** "A arquitetura limita as necessidades declaradas, principalmente em alinhamento sociotécnico, distribuição e modularidade interna."
-- IA 51 (entre 44 e 57) · Subajuste 49 · Sobreajuste 0 · Confiança média.
+- Índice de Ajuste 51 (entre 44 e 57) · Subajuste 49 · Sobreajuste 0 · Confiança média.
 - **Razões:** (1) seis times compartilham uma única implantação, com coordenação em quase toda entrega (E6, E2); (2) fronteiras internas fracas justamente nas áreas que mais mudam (E1, H1); (3) o fim de mês excede a folga do faturamento (E4).
 - **Saúde:** H1 crítico (30% do tempo perdido, autorrelato; hotspots com defeitos recorrentes); H2 atenção; H3 atenção; H4 atenção (EOL em 8 meses); H5 saudável; H6 crítico.
 - **Obrigação datada:** fim de suporte do framework principal em 8 meses.
 - **Custo de não agir:** cerca de 13,5 pessoas-ano por ano em contornos (30% de 45 pessoas, autorrelato), lead time de semanas e EOL em 8 meses.
 - **Direções de ajuste (nesta ordem):** (1) fortalecer fronteiras internas em faturamento e estoque (E1), até +13; (2) definir donos e alinhar fronteiras aos times (E6), até +17; (3) criar independência de implantação onde os times colidem, depois de E1 (E2), até +17.
 
-**Veredito da intenção: Existe caminho melhor.** "O problema é real, mas a alternativa 'monólito modular com extração incremental de faturamento e catálogo, mantendo a linguagem e atualizando o framework' alcança mais ganho (IA projetado 86, entre 79 e 90, contra 74 da reescrita) e é mais reversível, sem troca de linguagem."
+**Veredito da intenção: Existe caminho melhor.** "O problema é real, mas a alternativa 'monólito modular com extração incremental de faturamento e catálogo, mantendo a linguagem e atualizando o framework' alcança mais ganho (Índice de Ajuste projetado 86, entre 79 e 90, contra 74 da reescrita) e é mais reversível, sem troca de linguagem."
 
 | Portão | Resultado | Motivo |
 | --- | --- | --- |
 | P1 Gatilho | Passa | Lentidão de entrega e EOL, com evidência |
 | P2 Meta | Passa | Lead time e independência de implantação mensuráveis |
-| P3 Direção | Passa, com alertas | IA projetado 74 (65–80); cria sobra em E3 e falta em E7 (a operação atual não sustenta 30 partes) |
+| P3 Direção | Passa, com alertas | Índice de Ajuste projetado 74 (65–80); cria sobra em E3 e falta em E7 (a operação atual não sustenta 30 partes) |
 | P4 Materialidade | Passa | Ganho de +14 no limite desfavorável |
 | P5 Alternativa | **Não passa** | Alternativa menos invasiva com mais ganho; alertas V-05 (reescrita) e V-06 (troca de linguagem sem propriedade verificável) |
 | P6 Retorno e prazos | Não passaria | A reescrita de 18 meses não termina antes do EOL, em 8 meses |
@@ -1275,7 +1392,7 @@ O resultado oferece "Avaliar a alternativa como intenção principal", que já m
 **Resultado.**
 
 - **Indefinido entre Ajustado e Subajustado.** "Com as respostas atuais, não dá para afirmar se o sistema está ajustado ou subajustado. A incerteza está concentrada em três respostas."
-- IA entre 58 e 88 · Subajuste entre 7 e 37 · Sobreajuste entre 0 e 5 · Confiança baixa.
+- Índice de Ajuste entre 58 e 88 · Subajuste entre 7 e 37 · Sobreajuste entre 0 e 5 · Confiança baixa.
 - **Perguntas de maior valor:**
   1. D-10 "Um time consegue implantar sem combinar com outros?" (inferida): estreitaria a faixa para cerca de ±8.
   2. E-05 "Com que frequência uma funcionalidade exige mais de um time?" (desconhecida).
@@ -1300,7 +1417,7 @@ Os **princípios da seção 6** (ônus da prova, "não fazer nada" como resultad
 | K-03 | Tolerância por eixo (sobra / falta) | 0,5 / 0,5; E7: 1,0 / 0,5 | 0 a 1,5 nível | Tolerância maior reduz alarmes por diferenças irrelevantes; tolerância demais esconde desajuste real | Global |
 | K-04 | Desvio de saturação (E_max) | 2 níveis | 1 a 4 | Evita que um único eixo extremo domine tudo | Global |
 | K-05 | Limiar de categoria (O e U) | 15 pontos | 5 a 30 | Limiar baixo multiplica vereditos de desajuste | Global |
-| K-06 | Limiar de materialidade | 10 pontos de IA | 3 a 25 | Principal alavanca contra "ganho irrisório" | Global; local com justificativa |
+| K-06 | Limiar de materialidade | 10 pontos no Índice de Ajuste | 3 a 25 | Principal alavanca contra "ganho irrisório" | Global; local com justificativa |
 | K-07 | Dominância da alternativa menos invasiva | 80% do ganho | 50% a 100% | Quanto mais baixo, mais vezes o StackSync aponta um caminho mais leve | Global |
 | K-08 | Margem de retorno | Retorno dentro de 70% do horizonte restante | 40% a 100% | Protege contra a falácia do planejamento | Global |
 | K-10 | Fatores de confiança por origem | Medida 1,0; estimativa 0,7; inferência 0,4; desconhecida 0 | — | Define a largura das faixas | Global |
@@ -1311,6 +1428,7 @@ Os **princípios da seção 6** (ônus da prova, "não fazer nada" como resultad
 | K-15 | Horizonte mínimo para direções de ajuste | 12 meses | 6 a 36 meses | Abaixo dele, o resultado é "conviver" | Global |
 | K-16 | Conversão de violação quantitativa em déficit (E3, E4) | 1 nível; 2 se a violação passa do dobro do tolerado | — | Garante que metas violadas apareçam como falta | Global |
 | K-17 | Regras de derivação (resposta → nível) e de combinação | Definidas por especialistas na primeira versão | — | Base da assertividade | Global |
+| K-18 | Limites das faixas de aderência | 30, 50, 70 e 85 | — | Mudam onde cada frase começa; não mudam o cálculo | Global |
 
 O limite desfavorável da faixa nos portões (PR-02, RN-74) **não é parâmetro**: é princípio fixo.
 
@@ -1341,6 +1459,8 @@ Toda mudança de rigidez é global, versionada e justificada. O arquiteto não a
 6. **Publicar** a versão com notas de mudança e resultados.
 
 **Metas iniciais (hipóteses a confirmar):** falso alarme até 5%; omissão até 10%; concordância de categoria de pelo menos 85%; "inconclusivo" apenas onde o gabarito também indica incerteza. A assimetria entre falso alarme e omissão reflete o ônus da prova na mudança.
+
+**Bateria de calibração em escala (RN-97).** Quando o motor existir, além dos casos-âncora com gabarito de especialistas, a calibração roda uma bateria massiva de cenários com solução conhecida, cobrindo os dois ramos, os seis subníveis e os três níveis, e compara distribuições de pesos e limiares pelos mesmos indicadores (falso alarme, omissão, concordância, robustez, uso de inconclusivo). Vence a distribuição que melhor acerta os grupos de casos sem piorar o falso alarme. Os cenários incluem, de propósito, muitos casos cuja resposta certa é não mudar.
 
 **Casos-âncora iniciais**
 
@@ -1380,7 +1500,7 @@ Toda mudança de rigidez é global, versionada e justificada. O arquiteto não a
 ### 12.1 Princípios de experiência
 
 1. **Primeiro a conclusão, depois o caminho.** Toda tela de resultado abre pelo veredito em uma frase; a profundidade vem por camadas.
-2. **Começar rápido, aprofundar onde importa.** O modo rápido entrega um veredito real; o StackSync diz onde vale aprofundar.
+2. **Três níveis, aprofundar onde importa.** O Rápido entrega um veredito real em cerca de 7 minutos; o Equilibrado é o recomendado; o StackSync diz onde vale aprofundar.
 3. **Respeitar o "não sei".** Não saber nunca é tratado como erro nem trava a análise.
 4. **Não induzir.** Sem veredito parcial durante o preenchimento; alternativas em ordem neutra.
 5. **"Ajustado" é sucesso.** A tela de sistema ajustado deve transmitir conclusão e tranquilidade, não vazio nem falha.
@@ -1389,14 +1509,16 @@ Toda mudança de rigidez é global, versionada e justificada. O arquiteto não a
 8. **Evidência a um passo.** "Por que perguntamos isso" em cada pergunta; "de onde veio isso" em cada número.
 9. **Discordar é permitido.** Contestar um nível é uma ação visível e simples, com justificativa.
 10. **Pensado para ser mostrado.** O resultado precisa ser apresentável para liderança e times sem retrabalho.
+11. **Parecer conhecer o usuário, sem decidir por ele.** O percurso se adapta e as respostas sugeridas adiantam a leitura, mas nenhuma vem marcada e "Não sei" está sempre lá.
+12. **Perguntar o necessário, em linguagem simples.** Cada pergunta muda o resultado, e nenhuma pede o que o usuário não quer contar.
 
 ### 12.2 Jornadas
 
 **J1 — Diagnóstico rápido, sistema ajustado (dono do sistema).**
-T-01 Painel → T-02 Enquadramento (objetivo "diagnosticar", modo rápido) → T-04/T-05 Questionário (blocos A a F, essenciais) → T-08 Revisão → T-09 Veredito "Ajustado e saudável" → T-18 Relatório para liderança → fim.
+T-01 Painel → T-02 Enquadramento (refatoração, sistema inteiro, nível Rápido, sem ideia prévia) → T-04/T-05 Questionário (percurso adaptativo com respostas sugeridas) → T-08 Revisão → T-09 Veredito "Ajustado e saudável", plano ideal "não mexa" → T-18 Relatório para liderança → fim.
 
 **J2 — Avaliação completa de uma intenção.**
-T-02 (objetivo "avaliar intenção", modo completo) → T-04/T-05 (A a F) → T-07 Intenção (bloco G) → T-08 → T-09 com o veredito da intenção → T-12 Esteira de portões → T-13 Comparador → T-14 Matriz → T-15 Checklist → T-16 ADR.
+T-02 (refatoração com ideia prévia, nível Avançado) → T-04/T-05 (A a F) → T-07 Intenção (bloco G) → T-08 → T-09 com o veredito da intenção → T-12 Esteira de portões → T-13 Comparador → T-14 Matriz → T-15 Checklist → T-16 ADR.
 
 **J3 — Recém-chegado com muitas lacunas.**
 T-02 (relação "acabei de chegar") → T-05/T-06 com uso frequente de "não sei" e perguntas-ponte → T-08 → T-09 "Indefinido" → T-17 Plano de descoberta, compartilhado com o time → o arquiteto volta com respostas → T-09 com faixa estreitada → T-19 mostra o que mudou entre as rodadas.
@@ -1413,9 +1535,13 @@ T-16 ADR aceito → T-20 Plano de execução e medição → métricas de uma fa
 **J7 — Da direção de ajuste à intenção.**
 T-09 Sobreajustado ou Subajustado → direção de ajuste → "Avaliar como intenção" → T-07 com o bloco G pré-preenchido → J2 a partir daí.
 
+**J8 — Planejamento de sistema novo.**
+T-23 (primeiro acesso) → T-02 (planejamento, sistema novo, ideia prévia, nível Equilibrado) → T-04/T-05 → T-08 → T-09 com a ideia prévia e o plano ideal lado a lado, cada um com a frase da faixa → T-18.
+
 ### 12.3 Mapa de navegação
 
 ```
+Conectar a inteligência artificial (T-23) — primeiro acesso
 Painel de análises (T-01)
 ├── Nova análise → Enquadramento (T-02)
 │   └── Questionário por blocos (T-04)
@@ -1447,7 +1573,7 @@ Cada tela traz objetivo, conteúdo em ordem de prioridade, ações, estados e re
 #### T-01 — Painel de análises
 
 - **Objetivo:** ver todas as análises e retomar ou iniciar uma.
-- **Conteúdo, por análise:** sistema; objetivo; estado (em preenchimento, veredito emitido, intenção em análise, aprovada, em execução, concluída, arquivada); último veredito de ajuste (categoria e faixa do IA); veredito da intenção, se houver; confiança; data; versão da calibração; aviso de "nova calibração disponível"; obrigação datada mais próxima, se houver.
+- **Conteúdo, por análise:** sistema; objetivo; estado (em preenchimento, veredito emitido, intenção em análise, aprovada, em execução, concluída, arquivada); último veredito de ajuste (categoria e faixa do Índice de Ajuste); veredito da intenção, se houver; confiança; data; versão da calibração; aviso de "nova calibração disponível"; obrigação datada mais próxima, se houver.
 - **Ações:** nova análise; abrir; duplicar como nova rodada; arquivar.
 - **Estados:** vazio (primeiro uso, com convite para a primeira análise e acesso a "Como o StackSync decide"); com análises; filtrado.
 - **Regras:** o painel não ordena nem destaca análises por "gravidade" de forma alarmista; a ordenação padrão é pela atividade mais recente.
@@ -1456,8 +1582,8 @@ Cada tela traz objetivo, conteúdo em ordem de prioridade, ações, estados e re
 #### T-02 — Nova análise: enquadramento
 
 - **Objetivo:** definir o que será analisado, por quê e com que profundidade.
-- **Conteúdo:** perguntas A-01 a A-05; descrição dos dois modos com tempo estimado; aviso curto de transparência: "Não fazer nada é um resultado válido e frequente. O StackSync só aponta mudanças quando o ganho é relevante."; acesso a "Como o StackSync decide".
-- **Ações:** começar; trocar de modo depois (sempre possível).
+- **Conteúdo:** perguntas A-01 a A-07, na ordem do enquadramento: ramo, subnível, ideia prévia (opcional) e os três níveis com tempo estimado e para quem é cada um, com o selo "Recomendado" no Equilibrado; aviso curto de transparência: "Não mudar nada é um resultado válido e frequente. O StackSync só propõe mudanças quando o ganho compensa."; acesso a "Como o StackSync decide".
+- **Ações:** começar; trocar de nível depois (sempre possível).
 - **Regras:** a resposta A-03 (relação com o sistema) só ajusta a experiência (destaca o "não sei" e o plano de descoberta para recém-chegados); não altera cálculo.
 - **Prioridade:** MVP.
 
@@ -1468,11 +1594,11 @@ Cada tela traz objetivo, conteúdo em ordem de prioridade, ações, estados e re
 - **Ações:** abrir a biblioteca de evidências; voltar.
 - **Prioridade:** MVP.
 
-#### T-04 — Questionário por blocos
+#### T-04 — Questionário adaptativo
 
-- **Objetivo:** responder às perguntas com liberdade de navegação.
-- **Conteúdo:** lista dos blocos com completude e confiança de cada um (sem direção de veredito); perguntas do bloco atual (T-05); painel lateral "Por que perguntamos isso" para a pergunta em foco; indicador geral de completude e de confiança estimada.
-- **Ações:** navegar entre blocos e perguntas; pular; aprofundar uma pergunta ou bloco para o modo completo; salvar e sair; ir para a revisão.
+- **Objetivo:** responder às perguntas do percurso adaptativo, com liberdade para voltar a qualquer resposta.
+- **Conteúdo:** a pergunta em foco (T-05) com as respostas sugeridas; as respostas anteriores resumidas e editáveis; progresso por tempo restante do nível e por âmbitos cobertos, sem direção de veredito; painel lateral "Por que perguntamos isso" para a pergunta em foco.
+- **Ações:** responder; voltar a uma resposta anterior; pular; aprofundar para o nível seguinte; salvar e sair; ir para a revisão.
 - **Estados:** bloco não iniciado, em andamento, completo; pergunta respondida, estimada, inferida, desconhecida, não se aplica; tensão detectada (aviso não bloqueante).
 - **Regras:** nenhum veredito parcial aparece aqui (RN-81). O progresso é salvo continuamente.
 - **Prioridade:** MVP.
@@ -1480,10 +1606,10 @@ Cada tela traz objetivo, conteúdo em ordem de prioridade, ações, estados e re
 #### T-05 — Cartão de pergunta (componente central)
 
 - **Objetivo:** responder a uma pergunta indicando de onde vem a resposta.
-- **Conteúdo:** pergunta; explicação curta de termos técnicos; campo de resposta adequado (opção, número, faixa, data, lista, texto); seletor de origem (Medida, Estimativa, Não sei, Não se aplica); para Medida: fonte e data; para Estimativa: mínimo e máximo; campo opcional de evidência; selo do que a pergunta alimenta ("alimenta um fator de peso 5", "alimenta o eixo Distribuição").
+- **Conteúdo:** pergunta em linguagem simples; explicação curta de termos técnicos; de 2 a 4 respostas sugeridas para o perfil, nenhuma marcada; campo livre "Outra resposta"; "Não sei"; nos níveis Equilibrado e Avançado, a opção "Tenho esse dado medido" (fonte e data); para estimativa numérica, mínimo e máximo; campo opcional de evidência; selo do que a pergunta alimenta ("alimenta um fator de peso 5", "alimenta o eixo Distribuição").
 - **Ações:** responder; trocar a origem; marcar "não sei" (abre T-06); marcar "não se aplica" (pede justificativa); ver "Por que perguntamos isso".
 - **Estados:** vazio; respondido; estimado; inferido (com marca e acesso à conversão); desconhecido; não se aplica; evidência antiga; em tensão com outra resposta.
-- **Regras:** "Não sei" tem o mesmo destaque visual que as outras origens: não é escondido nem tratado como falha.
+- **Regras:** "Não sei" tem o mesmo destaque visual que as respostas sugeridas: não é escondido nem tratado como falha. Nenhuma sugestão vem marcada (RN-92).
 - **Prioridade:** MVP.
 
 #### T-06 — Fluxo "não sei"
@@ -1498,10 +1624,10 @@ Cada tela traz objetivo, conteúdo em ordem de prioridade, ações, estados e re
 #### T-07 — Intenção de refatoração
 
 - **Objetivo:** descrever a mudança pretendida de forma avaliável.
-- **Conteúdo, em etapas:** (1) motivo e evidência (G-01, G-02), com a validação V-01 em linha; (2) de onde para onde (G-03); (3) estado pretendido por eixo (G-04): o StackSync propõe os níveis e o arquiteto ajusta, vendo os textos-âncora de cada nível; (4) meta mensurável (G-05), com V-02 e V-03 em linha; (5) alternativas (G-06): "não fazer nada" e "refatorar no lugar" já presentes, sugestões das regras (monólito modular, código novo com interoperabilidade, tipagem gradual...) e alternativas próprias, cada uma com escopo, reversibilidade e estado pretendido; (6) modo completo: esforço, desligamento, paralelismo, oportunidade, dados, fatias, irreversíveis, donos, tecnologia-alvo, IA e auditoria de vieses (G-07 a G-18).
+- **Conteúdo, em etapas:** (1) motivo e evidência (G-01, G-02), com a validação V-01 em linha; (2) de onde para onde (G-03); (3) estado pretendido por eixo (G-04): o StackSync propõe os níveis e o arquiteto ajusta, vendo os textos-âncora de cada nível; (4) meta mensurável (G-05), com V-02 e V-03 em linha; (5) alternativas (G-06): "não fazer nada" e "refatorar no lugar" já presentes, sugestões das regras (monólito modular, código novo com interoperabilidade, tipagem gradual...) e alternativas próprias, cada uma com escopo, reversibilidade e estado pretendido; (6) modo completo: esforço, desligamento, paralelismo, oportunidade, dados, fatias, irreversíveis, donos, tecnologia-alvo, Índice de Ajuste e auditoria de vieses (G-07 a G-18).
 - **Ações:** avançar e voltar entre etapas; adicionar alternativa; marcar preferência (habilitada só quando todas as alternativas estiverem descritas, V-11).
 - **Regras:** alternativas aparecem em ordem neutra (ordem de cadastro, com as duas obrigatórias primeiro como referência), sem destaque de "vencedora".
-- **Prioridade:** MVP (etapas 1 a 5); completo em MVP para o modo completo.
+- **Prioridade:** MVP no nível Avançado. Nos níveis Rápido e Equilibrado, a ideia prévia é o texto livre do enquadramento (A-07).
 
 #### T-08 — Revisão antes do veredito
 
@@ -1543,14 +1669,14 @@ Cada tela traz objetivo, conteúdo em ordem de prioridade, ações, estados e re
 #### T-12 — Avaliação da intenção
 
 - **Objetivo:** mostrar por que a intenção recebeu o seu veredito.
-- **Conteúdo:** veredito da intenção e frase; esteira dos 8 portões (passa, não passa, indeterminado, não avaliado), cada um com o motivo em uma linha; projeção antes e depois por eixo (a barra atual e a projetada); ganho de IA contra o limiar de materialidade; resumo das alternativas; economia (investimento, retorno contra horizonte, obrigações na mesma linha do tempo), no modo completo; prontidão (índice S em faixa, fatores em veto, progresso do checklist); vieses (sete itens com status).
+- **Conteúdo:** veredito da intenção e frase; esteira dos 8 portões (passa, não passa, indeterminado, não avaliado), cada um com o motivo em uma linha; projeção antes e depois por eixo (a barra atual e a projetada); ganho de Índice de Ajuste contra o limiar de materialidade; resumo das alternativas; economia (investimento, retorno contra horizonte, obrigações na mesma linha do tempo), no modo completo; prontidão (índice S em faixa, fatores em veto, progresso do checklist); vieses (sete itens com status).
 - **Ações:** comparar alternativas; abrir matriz; abrir checklist; avaliar uma alternativa como intenção principal; gerar ADR; voltar ao bloco G para fechar lacunas.
 - **Prioridade:** MVP.
 
 #### T-13 — Comparador de alternativas
 
 - **Objetivo:** comparar alternativas lado a lado sem induzir.
-- **Conteúdo, por alternativa:** IA projetado em faixa; ganho; eixos que melhoram e que pioram; obrigações atendidas; invasividade (escopo, reversibilidade, troca de tecnologia, movimentação de dados); custos de transição, paralelismo e oportunidade, e retorno contra horizonte (modo completo); prontidão e vetos; riscos principais.
+- **Conteúdo, por alternativa:** Índice de Ajuste projetado em faixa; ganho; eixos que melhoram e que pioram; obrigações atendidas; invasividade (escopo, reversibilidade, troca de tecnologia, movimentação de dados); custos de transição, paralelismo e oportunidade, e retorno contra horizonte (modo completo); prontidão e vetos; riscos principais.
 - **Ações:** marcar preferência (só com todas descritas); abrir detalhe; avaliar como intenção principal.
 - **Regras:** ordem neutra; o StackSync pode marcar uma alternativa como "dominada" (pior em todos os critérios), que é um fato objetivo, mas não elege vencedora.
 - **Prioridade:** Versão 2 (no MVP, o resumo em T-12 basta).
@@ -1560,14 +1686,14 @@ Cada tela traz objetivo, conteúdo em ordem de prioridade, ações, estados e re
 - **Objetivo:** pontuar os 16 fatores (UC-14).
 - **Conteúdo:** por fator: nível, peso, pergunta de verificação, nota sugerida e de onde veio, nota do arquiteto (0 a 4), justificativa, marca de veto; índice S em faixa; alerta da regra dos pesos baixos (RN-58); acesso à calibração local de pesos.
 - **Ações:** aceitar ou ajustar notas; justificar; calibrar pesos localmente (com justificativa).
-- **Prioridade:** MVP (modo completo).
+- **Prioridade:** MVP (nível Avançado).
 
 #### T-15 — Checklist go/no-go
 
 - **Objetivo:** decidir com critérios definidos antes (UC-15).
 - **Conteúdo:** os 13 itens, cada um com o caso de uso que o comprova e a evidência; as quatro condições da regra prática; vetos ativos.
 - **Ações:** aprovar (habilitado só com itens 1 a 12 e sem veto); não aprovar e abrir nova rodada; arquivar com motivo.
-- **Prioridade:** MVP (modo completo).
+- **Prioridade:** MVP (nível Avançado).
 
 #### T-16 — ADR
 
@@ -1618,16 +1744,25 @@ Cada tela traz objetivo, conteúdo em ordem de prioridade, ações, estados e re
 - **Ações:** editar a candidata; rodar nos casos-âncora; revisar casos alterados; publicar (bloqueado se houver regressão em falso alarme); registrar justificativa.
 - **Prioridade:** MVP interno (necessária durante o desenvolvimento).
 
+#### T-23 — Conectar a inteligência artificial (primeiro acesso)
+
+- **Objetivo:** conectar a inteligência artificial do próprio usuário, que conduz o percurso adaptativo e as respostas sugeridas.
+- **Conteúdo:** por que ela é necessária (escolhe as perguntas e sugere respostas; não decide o resultado); provedor, modelo e chave; o que é enviado em cada etapa e o que nunca é enviado (nome da organização; ideia prévia nas sugestões); que o uso é cobrado na conta do próprio usuário.
+- **Ações:** testar e conectar; trocar ou remover depois.
+- **Estados:** não conectada, testando, conectada, chave inválida, provedor fora do ar.
+- **Regras:** nesta fase não há análise sem inteligência artificial conectada (D-16). Falha do provedor no meio de uma análise não perde respostas, e o resultado oficial não depende dele.
+- **Prioridade:** MVP.
+
 ### 12.5 Componentes recorrentes
 
 | ID | Componente | Onde aparece | Função |
 | --- | --- | --- | --- |
 | C-01 | Cartão de pergunta | T-05, T-06, T-07 | Pergunta, resposta, origem, evidência |
-| C-02 | Seletor de origem | C-01 | Medida, Estimativa, Não sei, Não se aplica, com o mesmo destaque |
+| C-02 | Respostas sugeridas | C-01 | De 2 a 4 respostas sugeridas, campo livre e "Não sei", com o mesmo destaque e nenhuma marcada; origem "medida" opcional fora do Rápido |
 | C-03 | Entrada de faixa | C-01, T-06 | Mínimo e máximo |
 | C-04 | Selo de confiança | T-04, T-09, T-18 | Alta, média ou baixa, com a explicação |
 | C-05 | Barra bipolar de ajuste | T-09, T-10, T-12 | Falta ← ajustado → sobra, com tolerância, faixa e saturação |
-| C-06 | Medidor de índice com faixa | T-09, T-12, T-14 | IA ou S de 0 a 100, com a faixa visível |
+| C-06 | Medidor de índice com faixa | T-09, T-12, T-14 | Índice de Ajuste ou S de 0 a 100, com a faixa visível |
 | C-07 | Status de saúde | T-09, T-10 | Saudável, atenção, crítico, desconhecido |
 | C-08 | Citação de evidência | Todas as telas com regra | Autor, ano, tipo de evidência e achado; abre a biblioteca |
 | C-09 | Portão | T-12 | Passa, não passa, indeterminado, não avaliado, com motivo |
@@ -1637,6 +1772,8 @@ Cada tela traz objetivo, conteúdo em ordem de prioridade, ações, estados e re
 | C-13 | Aviso de validação | T-05, T-07 | Regra acionada (RN), em tom informativo |
 | C-14 | Aviso de tensão | T-04, T-08 | Duas respostas em aparente contradição |
 | C-15 | Lado a lado padrão × local | T-09, T-18 | Veredito com calibração padrão e com calibração local ou contestação |
+| C-16 | Plano ideal | T-09, T-18 | Camadas por nível (direções, forma, tecnologias comparadas, passos) ou "não mexa" |
+| C-17 | Frase da faixa | T-09, T-12, T-18 | Frase de aderência da faixa do Índice de Ajuste de uma proposta; duas frases quando a faixa cruza um limite |
 
 As categorias e status precisam ser identificáveis sem depender só de cor (texto ou ícone junto), porque o relatório também é impresso e lido por pessoas com diferentes condições de visão.
 
@@ -1644,7 +1781,7 @@ As categorias e status precisam ser identificáveis sem depender só de cor (tex
 
 | Situação | Texto |
 | --- | --- |
-| Aviso inicial (T-02) | "Não fazer nada é um resultado válido e frequente. O StackSync só aponta mudanças quando o ganho é relevante." |
+| Aviso inicial (T-02) | "Não mudar nada é um resultado válido e frequente. O StackSync só propõe mudanças quando o ganho compensa." |
 | Marcar "não sei" | "Sem problema. Responda uma pergunta mais fácil e estimamos uma faixa, com confiança baixa." |
 | Conversão de pergunta-ponte | "Você disse que uma correção de uma linha leva cerca de uma semana até a produção. Estimamos o lead time entre 2 dias e 3 semanas (inferido)." |
 | Lacuna em fator de peso 5 | "Esta lacuna não impede o diagnóstico. Mas, para aprovar a mudança, ela precisa ser respondida." |
@@ -1660,6 +1797,10 @@ As categorias e status precisam ser identificáveis sem depender só de cor (tex
 | Direção de ajuste | "Consolidar partes onde as forças de juntar predominam. Ganho potencial de ajuste: até +33. Custo e retorno ainda não avaliados." |
 | Alteração após o veredito | "Você alterou esta resposta depois de ver o veredito. A alteração fica registrada no histórico." |
 | Contestação | "Você contestou este nível. O resultado mostra os dois cálculos: o padrão e o seu." |
+| Plano "não mexa" | "Não mexa: nenhuma mudança se paga com a necessidade descrita." |
+| Solução mais simples | "A solução mais simples basta: [forma]. Ela deixaria de bastar se [condição]." |
+| Faixa entre frases | "Entre ‘atende na maior parte’ e ‘resolve parte do problema’. Duas respostas decidiriam." |
+| Sugestões indisponíveis | "Sugestões indisponíveis agora; o resultado não depende delas. Escolha uma opção ou escreva a sua." |
 
 ### 12.7 Estados especiais e casos-limite
 
@@ -1682,7 +1823,7 @@ As categorias e status precisam ser identificáveis sem depender só de cor (tex
 
 | Fase | Inclui |
 | --- | --- |
-| MVP | Diagnóstico de ajuste nos dois modos (UC-20); "não sei" com perguntas-ponte e campo livre (UC-21); intenção com os 8 portões; matriz e checklist no modo completo; resultado com todas as variantes; detalhe de eixo e contestação; trilha; lacunas e plano de descoberta; relatório para liderança; registro de alterações após o veredito. Telas T-01 a T-12, T-14, T-15, T-17 e T-18 |
+| MVP | Planejamento e refatoração com os subníveis (UC-20, UC-23); três níveis de profundidade com percurso adaptativo e respostas sugeridas; conexão da inteligência artificial (T-23); "não sei" com perguntas-ponte e campo livre (UC-21); avaliação da ideia prévia com frase da faixa e comparação contra não mudar; plano ideal nas camadas do nível; portões P1 a P5 em todos os níveis e os oito no Avançado; matriz e checklist no Avançado; resultado com todas as variantes; detalhe de eixo e contestação; trilha; lacunas e plano de descoberta; relatório para liderança compartilhável por link; registro de alterações após o veredito. Telas T-01 a T-12, T-14, T-15, T-17, T-18 e T-23 |
 | MVP interno | Bancada de calibração (T-22), casos-âncora iniciais e primeira versão publicada da calibração |
 | Versão 2 | Comparador completo (T-13), ADR (T-16), histórico com diferenças entre rodadas (T-19), biblioteca de evidências (T-21), calibração local pelo arquiteto |
 | Versão 3 | Execução e medição (T-20), reavaliação a partir de métricas de fatias |
@@ -1700,7 +1841,9 @@ As categorias e status precisam ser identificáveis sem depender só de cor (tex
 | Transparência | Uso de trilha, detalhe de eixo e contestação | Mostra se as pessoas verificam o raciocínio |
 | Incerteza | Composição das respostas e redução de lacunas entre rodadas | Mostra se o "não sei" leva à descoberta |
 | Incerteza | Proporção de vereditos Indefinidos resolvidos depois das perguntas de maior valor | Mede a utilidade do ranqueamento de lacunas |
-| Uso | Tempo até o primeiro veredito no modo rápido | Valida a hipótese de 15 a 25 minutos |
+| Uso | Tempo de preenchimento por nível | Valida as metas: Rápido cerca de 7 minutos, Equilibrado 15 a 20, Avançado 35 a 50 |
+| Uso | Análises por usuário por mês e retorno | O uso recorrente, tarefa a tarefa, é o sinal de valor |
+| Antiviés | Taxa de aceitação das respostas sugeridas | Perto de 100% indica ancoragem: a sugestão está decidindo pelo usuário |
 | Uso | Relatórios exportados e apresentados | O resultado é usado para decidir, não só para consulta |
 
 ## 15. Riscos e questões em aberto
@@ -1716,7 +1859,10 @@ As categorias e status precisam ser identificáveis sem depender só de cor (tex
 | Calibração local usada para forçar resultado | Escopo restrito, justificativa obrigatória, veredito padrão sempre ao lado |
 | O StackSync se esconde em "inconclusivo" | Métrica de uso indevido de inconclusivo na calibração; perguntas de maior valor em todo resultado indefinido |
 | Viés contra distribuição, por reação ao hype | Casos-âncora de arquiteturas distribuídas ajustadas (S-04); RN-87 |
-| Questionário longo demais | Modo rápido, "pode pular" e derivação de respostas a partir de outras (ex.: E-04 de D-01 e E-01) |
+| Questionário longo demais | Três níveis com orçamento de tempo, percurso adaptativo, "pode pular" e derivação de respostas a partir de outras (ex.: E-04 de D-01 e E-01) |
+| Respostas sugeridas ancoram o usuário | Nenhuma sugestão marcada, "Não sei" e campo livre sempre presentes, sugestões geradas sem ver a ideia prévia, taxa de aceitação acompanhada (seção 14) |
+| Inteligência artificial obrigatória afasta quem não quer configurar uma chave | Conexão guiada com teste em um passo; versão sem inteligência artificial fica como opção futura |
+| Tecnologia recomendada com informação errada ou vencida | Critérios explícitos e concorrentes visíveis (RN-95), fatos com fonte e data, base de referência revisada |
 
 **Questões em aberto (para as próximas etapas)**
 
@@ -1743,10 +1889,10 @@ As categorias e status precisam ser identificáveis sem depender só de cor (tex
 | Obrigação datada | Fato externo com prazo: EOL, mudança de licença, exigência regulatória |
 | Tolerância | Zona em torno do ajuste perfeito em que desvios não contam |
 | Saturação | Limite da contribuição de um eixo ao índice (E_max) |
-| Índice de Ajuste (IA) | 100 menos o grau de sobreajuste menos o grau de subajuste, de 0 a 100, em faixa |
+| Índice de Ajuste | 100 menos o grau de sobreajuste menos o grau de subajuste, de 0 a 100, em faixa |
 | Índice de prontidão (S) | Índice ponderado da Parte 1 que mede quão pronta está uma intenção, de 0 a 100 |
 | Faixa | Intervalo de valores plausíveis dados os níveis de incerteza das respostas |
-| Confiança | Firmeza do veredito, medida pela largura da faixa do IA |
+| Confiança | Firmeza do veredito, medida pela largura da faixa do Índice de Ajuste |
 | Origem da resposta | Medida, estimativa, inferência, desconhecida ou não se aplica |
 | Pergunta-ponte | Pergunta mais fácil, curada, que ajuda a estimar a resposta de uma pergunta que o arquiteto não sabe |
 | Lacuna | Pergunta sem resposta, com "como descobrir" e "quem pode saber" |
@@ -1754,7 +1900,13 @@ As categorias e status precisam ser identificáveis sem depender só de cor (tex
 | Materialidade | Tamanho mínimo de ganho para que uma mudança seja considerada relevante |
 | Portão | Etapa da avaliação da intenção, com resultado passa, não passa ou indeterminado |
 | Limite desfavorável | Lado pessimista da faixa, usado para aprovar mudanças |
-| Direção de ajuste | Movimento, sem custo nem tecnologia, que aproximaria a capacidade da necessidade em um eixo |
+| Direção de ajuste | Movimento, sem custo nem tecnologia, que aproximaria a capacidade da necessidade em um eixo; primeira camada do plano ideal |
+| Faixa de aderência | Intervalo do Índice de Ajuste de uma proposta com uma frase declarativa sobre o quanto ela atende à necessidade real |
+| Ideia prévia | O que o usuário já pensa em fazer, avaliado contra a necessidade e contra não mudar |
+| Nível de profundidade | Rápido, Equilibrado ou Avançado, cada um com seu orçamento de tempo |
+| Plano ideal | O que o StackSync faria, dado o que foi respondido: direções, forma, tecnologias e passos, conforme o nível, ou "não mexa" |
+| Ramo e subnível | Planejamento ou refatoração, e o recorte dentro de cada um (5.9) |
+| Resposta sugerida | Resposta comum para o perfil do sistema, proposta pela inteligência artificial; nunca vem marcada |
 | Conviver | Decisão racional de manter um desajuste cuja correção não se paga no horizonte |
 | Veto | Bloqueio da aprovação por fator de peso 5 com nota 0 ou 1, ou desconhecido |
 | Rigidez | Efeito de um critério: veto, bloqueio condicional, penalidade, informativo ou automático |
@@ -1774,7 +1926,7 @@ As categorias e status precisam ser identificáveis sem depender só de cor (tex
 | Tela | Casos de uso |
 | --- | --- |
 | T-01 Painel | Todos (estados da proposta e do diagnóstico) |
-| T-02 Enquadramento | UC-01, UC-20 |
+| T-02 Enquadramento | UC-01, UC-20, UC-23 |
 | T-03 Como o StackSync decide | Transversal (princípios da seção 6) |
 | T-04, T-05 Questionário e cartão | UC-01, UC-02, UC-03, UC-20 |
 | T-06 Fluxo "não sei" | UC-21 |
@@ -1794,6 +1946,7 @@ As categorias e status precisam ser identificáveis sem depender só de cor (tex
 | T-20 Execução e medição | UC-17, UC-18, UC-19 |
 | T-21 Biblioteca de evidências | Transversal |
 | T-22 Bancada de calibração | UC-22 |
+| T-23 Conectar a inteligência artificial | Transversal (D-16) |
 
 ### 17.2 Catálogo de regras e onde atuam na Parte 3
 
@@ -1881,12 +2034,21 @@ As categorias e status precisam ser identificáveis sem depender só de cor (tex
 | RN-80 | Um nível de perguntas-ponte; senão, lacuna | T-06; T-17 |
 | RN-81 | Sem veredito parcial; alterações após o veredito registradas | T-04; T-08; T-19; T-18 |
 | RN-82 | Versão da calibração sempre visível; local ao lado da padrão | T-09; T-18; C-15 |
-| RN-83 | Direções em atributos, nunca em produtos | 9.6; PR-07 |
+| RN-83 | Direções em atributos; tecnologias só no plano ideal | 9.6; 9.11; PR-07 |
 | RN-84 | Desajuste que não se paga vira "conviver" | 9.4; 9.6 |
 | RN-85 | Saúde e obrigações como fatos, sem plano automático | 5.6; 5.7; 6.3 |
 | RN-86 | Contestação com justificativa | T-10; C-15 |
 | RN-87 | Nenhum estilo é favorecido | Casos-âncora (S-04); PR-06 |
 | RN-88 | Calibração só é publicada sem piorar o falso alarme | UC-22; T-22 |
+| RN-89 | Ramo e subnível definem perguntas e lentes | 5.9; A-02; A-06 |
+| RN-90 | Três níveis com orçamento de tempo e peso 5 coberto em todos | 8.1; A-04 |
+| RN-91 | Próxima pergunta escolhida dentro de estrutura com pesos | 8.8 |
+| RN-92 | Respostas sugeridas, nenhuma marcada, sem ver a ideia prévia | 8.8; T-05; C-02 |
+| RN-93 | Frase por faixa; duas frases no limite; comparação contra não mudar | 9.12; C-17 |
+| RN-94 | Plano ideal em camadas por nível, ou "não mexa" | 9.11; C-16 |
+| RN-95 | Tecnologias comparadas por critérios, com fonte | 9.11; PR-07 |
+| RN-96 | Perguntas simples e não invasivas | 8.8; 3.4 |
+| RN-97 | Calibração por bateria massiva de cenários com solução conhecida | 11.3 |
 
 ## 18. Fontes
 
@@ -1934,7 +2096,7 @@ Fontes da Parte 1, que sustentam todas as regras deste documento.
 - Kim, Zimmermann & Nagappan (2014). [An Empirical Study of Refactoring Challenges and Benefits at Microsoft](https://www.microsoft.com/en-us/research/?p=167039). *IEEE TSE* 40(7).
 - Silva, Tsantalis & Valente (2016). [Why We Refactor? Confessions of GitHub Contributors](https://arxiv.org/abs/1607.02459). FSE.
 
-### Decisão, vieses e IA
+### Decisão, vieses e inteligência artificial
 
 - Fritzsch, Wyrich, Bogner & Wagner (2021). [Résumé-Driven Development: A Definition and Empirical Characterization](https://arxiv.org/abs/2101.12703). ICSE-SEIS.
 - Mohanani, Salman, Turhan, Rodríguez & Ralph (2020). [Cognitive Biases in Software Engineering: A Systematic Mapping Study](https://arxiv.org/pdf/1707.03869). *IEEE TSE* 46(12).
