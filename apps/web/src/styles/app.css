@@ -1,0 +1,646 @@
+/* Tema do Tailwind apontando só para os tokens do DESIGN.md v2.0 "Concreto Aparente" (tokens.css). Os temas
+   padrão de cor, tipo, raio, sombra, curva e quebra são apagados: o que não for token não existe (FD-01). Os dois
+   temas trocam os valores das variáveis; as classes são as mesmas (DV-22). Raio zero em tudo (FD-15). */
+@import 'tailwindcss';
+@import './tokens.css';
+
+/* Archivo variável em peso e largura, redonda e itálica; Courier Prime para dado e código (DV-31, FD-09). */
+@font-face {
+  font-family: 'Archivo';
+  font-style: normal;
+  font-weight: 100 900;
+  font-stretch: 62% 125%;
+  font-display: swap;
+  src: url('/fontes/archivo.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Archivo';
+  font-style: italic;
+  font-weight: 100 900;
+  font-stretch: 62% 125%;
+  font-display: swap;
+  src: url('/fontes/archivo-italico.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Courier Prime';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fontes/courier-prime-400.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Courier Prime';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/fontes/courier-prime-700.woff2') format('woff2');
+}
+
+@theme inline {
+  --color-*: initial;
+  --color-mesa: var(--cor-mesa);
+  --color-folha: var(--cor-folha);
+  --color-campo: var(--cor-campo);
+  --color-realce: var(--cor-realce);
+  --color-nanquim: var(--cor-nanquim);
+  --color-nanquim-hover: var(--cor-nanquim-hover);
+  --color-grafite: var(--cor-grafite);
+  --color-grafite-claro: var(--cor-grafite-claro);
+  --color-traco-controle: var(--cor-traco-controle);
+  --color-inativo: var(--cor-inativo);
+  --color-traco: var(--cor-traco);
+  --color-textura: var(--cor-textura);
+  --color-marca: var(--cor-marca);
+  --color-marca-hover: var(--cor-marca-hover);
+  --color-sobre-marca: var(--cor-sobre-marca);
+  --color-sinal: var(--cor-sinal);
+  --color-sobre-sinal: var(--cor-sobre-sinal);
+  --color-cabecalho: var(--cor-cabecalho);
+  --color-sobre-cabecalho: var(--cor-sobre-cabecalho);
+  --color-sobra: var(--cor-sobra);
+  --color-sobra-veu: var(--cor-sobra-veu);
+  --color-falta: var(--cor-falta);
+  --color-falta-veu: var(--cor-falta-veu);
+  --color-saudavel: var(--cor-saudavel);
+  --color-atencao: var(--cor-atencao);
+  --color-critico: var(--cor-critico);
+  --color-madeira: var(--cor-madeira);
+  --color-concreto-escuro: var(--cor-concreto-escuro);
+  --color-transparent: transparent;
+  --color-current: currentColor;
+
+  --font-*: initial;
+  --font-sans: var(--fonte);
+  --font-mono: var(--fonte-mono);
+
+  /* Os estilos de texto são utilitários próprios, abaixo: cada um troca família, largura e caixa. */
+  --text-*: initial;
+
+  --radius-*: initial;
+  --radius-reto: var(--raio-reto);
+  --radius-caixa: var(--raio-caixa);
+  --radius-controle: var(--raio-controle);
+  --radius-folha: var(--raio-folha);
+  --radius-pilula: var(--raio-pilula);
+
+  --shadow-*: initial;
+  --shadow-aperta: var(--sombra-aperta);
+  --shadow-flutua: var(--sombra-flutua);
+  --shadow-folha: var(--sombra-folha);
+  --shadow-sobreposicao: var(--sombra-flutua);
+  --shadow-dialogo: var(--sombra-flutua);
+
+  --ease-*: initial;
+  --ease-saida: var(--curva-saida);
+
+  --breakpoint-*: initial;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+  --breakpoint-2xl: 1440px;
+
+  /* Espaços e medidas nomeados (DESIGN.md, Layout e Components). */
+  --spacing-micro: var(--esp-micro);
+  --spacing-compacto: var(--esp-compacto);
+  --spacing-curto: var(--esp-curto);
+  --spacing-base: var(--esp-base);
+  --spacing-medio: var(--esp-medio);
+  --spacing-amplo: var(--esp-amplo);
+  --spacing-secao: var(--esp-secao);
+  --spacing-maior: var(--esp-maior);
+  --spacing-faixa: var(--esp-faixa);
+  --spacing-botao: var(--altura-botao);
+  --spacing-campo: var(--altura-campo);
+  --spacing-opcao: var(--altura-opcao);
+  --spacing-linha: var(--altura-linha-tabela);
+  --spacing-barra: var(--altura-barra);
+  --spacing-trilho: var(--largura-trilho);
+  --spacing-contexto: var(--largura-contexto);
+  --spacing-icone: var(--icone);
+  --spacing-icone-grande: var(--icone-grande);
+  --spacing-selo: var(--selo-atalho);
+  --spacing-simbolo: var(--simbolo);
+  --spacing-regua: var(--altura-regua);
+  --spacing-zebrado: var(--zebrado);
+  --spacing-borda: var(--borda);
+  --spacing-borda-fina: var(--borda-fina);
+  --spacing-regua-grossa: var(--regua-grossa);
+  --container-*: initial;
+  --container-leitura: var(--largura-leitura);
+  --container-laudo: var(--largura-laudo);
+  --container-tabela: var(--largura-tabela);
+  --container-pagina: var(--largura-pagina);
+  --container-texto: var(--largura-texto);
+  --container-contexto: var(--largura-contexto);
+}
+
+/* Estilos de texto (DESIGN.md, Typography): família, tamanho, entrelinha, peso, espacejamento, largura e caixa. */
+@utility text-gigante {
+  font-family: var(--tipo-gigante-familia);
+  font-size: var(--tipo-gigante-tamanho);
+  line-height: var(--tipo-gigante-altura);
+  font-weight: var(--tipo-gigante-peso);
+  letter-spacing: var(--tipo-gigante-espacamento);
+  font-stretch: var(--tipo-gigante-largura);
+  text-transform: var(--tipo-gigante-caixa);
+}
+@utility text-display {
+  font-family: var(--tipo-display-familia);
+  font-size: var(--tipo-display-tamanho);
+  line-height: var(--tipo-display-altura);
+  font-weight: var(--tipo-display-peso);
+  letter-spacing: var(--tipo-display-espacamento);
+  font-stretch: var(--tipo-display-largura);
+  text-transform: var(--tipo-display-caixa);
+}
+@utility text-titulo {
+  font-family: var(--tipo-titulo-pagina-familia);
+  font-size: var(--tipo-titulo-pagina-tamanho);
+  line-height: var(--tipo-titulo-pagina-altura);
+  font-weight: var(--tipo-titulo-pagina-peso);
+  letter-spacing: var(--tipo-titulo-pagina-espacamento);
+  font-stretch: var(--tipo-titulo-pagina-largura);
+  text-transform: var(--tipo-titulo-pagina-caixa);
+}
+@utility text-veredito {
+  font-family: var(--tipo-veredito-familia);
+  font-size: var(--tipo-veredito-tamanho);
+  line-height: var(--tipo-veredito-altura);
+  font-weight: var(--tipo-veredito-peso);
+  letter-spacing: var(--tipo-veredito-espacamento);
+  font-stretch: var(--tipo-veredito-largura);
+  text-transform: var(--tipo-veredito-caixa);
+}
+@utility text-pergunta {
+  font-family: var(--tipo-pergunta-familia);
+  font-size: var(--tipo-pergunta-tamanho);
+  line-height: var(--tipo-pergunta-altura);
+  font-weight: var(--tipo-pergunta-peso);
+  letter-spacing: var(--tipo-pergunta-espacamento);
+  font-stretch: var(--tipo-pergunta-largura);
+  text-transform: var(--tipo-pergunta-caixa);
+}
+@utility text-secao {
+  font-family: var(--tipo-secao-familia);
+  font-size: var(--tipo-secao-tamanho);
+  line-height: var(--tipo-secao-altura);
+  font-weight: var(--tipo-secao-peso);
+  letter-spacing: var(--tipo-secao-espacamento);
+  font-stretch: var(--tipo-secao-largura);
+  text-transform: var(--tipo-secao-caixa);
+}
+@utility text-subtitulo {
+  font-family: var(--tipo-subtitulo-familia);
+  font-size: var(--tipo-subtitulo-tamanho);
+  line-height: var(--tipo-subtitulo-altura);
+  font-weight: var(--tipo-subtitulo-peso);
+  letter-spacing: var(--tipo-subtitulo-espacamento);
+  font-stretch: var(--tipo-subtitulo-largura);
+  text-transform: var(--tipo-subtitulo-caixa);
+}
+@utility text-numero {
+  font-family: var(--tipo-numero-familia);
+  font-size: var(--tipo-numero-tamanho);
+  line-height: var(--tipo-numero-altura);
+  font-weight: var(--tipo-numero-peso);
+  letter-spacing: var(--tipo-numero-espacamento);
+  font-stretch: var(--tipo-numero-largura);
+  text-transform: var(--tipo-numero-caixa);
+  font-variant-numeric: tabular-nums;
+}
+@utility text-corpo {
+  font-family: var(--tipo-corpo-familia);
+  font-size: var(--tipo-corpo-tamanho);
+  line-height: var(--tipo-corpo-altura);
+  font-weight: var(--tipo-corpo-peso);
+}
+@utility text-compacto {
+  font-family: var(--tipo-compacto-familia);
+  font-size: var(--tipo-compacto-tamanho);
+  line-height: var(--tipo-compacto-altura);
+  font-weight: var(--tipo-compacto-peso);
+}
+@utility text-acao {
+  font-family: var(--tipo-acao-familia);
+  font-size: var(--tipo-acao-tamanho);
+  line-height: var(--tipo-acao-altura);
+  font-weight: var(--tipo-acao-peso);
+  letter-spacing: var(--tipo-acao-espacamento);
+  font-stretch: var(--tipo-acao-largura);
+  text-transform: var(--tipo-acao-caixa);
+}
+@utility text-rotulo {
+  font-family: var(--tipo-rotulo-familia);
+  font-size: var(--tipo-rotulo-tamanho);
+  line-height: var(--tipo-rotulo-altura);
+  font-weight: var(--tipo-rotulo-peso);
+  letter-spacing: var(--tipo-rotulo-espacamento);
+  font-stretch: var(--tipo-rotulo-largura);
+  text-transform: var(--tipo-rotulo-caixa);
+}
+@utility text-legenda {
+  font-family: var(--tipo-legenda-familia);
+  font-size: var(--tipo-legenda-tamanho);
+  line-height: var(--tipo-legenda-altura);
+  font-weight: var(--tipo-legenda-peso);
+}
+@utility text-dado {
+  font-family: var(--tipo-dado-familia);
+  font-size: var(--tipo-dado-tamanho);
+  line-height: var(--tipo-dado-altura);
+  font-weight: var(--tipo-dado-peso);
+  font-variant-numeric: tabular-nums;
+}
+@utility text-codigo {
+  font-family: var(--tipo-codigo-familia);
+  font-size: var(--tipo-codigo-tamanho);
+  line-height: var(--tipo-codigo-altura);
+  font-weight: var(--tipo-codigo-peso);
+}
+/* Display vazado: o contorno da letra em tinta, sem preenchimento (textura de âmbito). */
+@utility vazado {
+  color: transparent;
+  -webkit-text-stroke: var(--borda-fina) var(--cor-textura);
+}
+
+/* Estrutura aparente (DESIGN.md, Layout > Réguas; Shapes). */
+@utility borda {
+  border: var(--borda) solid var(--cor-nanquim);
+}
+@utility borda-fina {
+  border: var(--borda-fina) solid var(--cor-nanquim);
+}
+@utility borda-tracejada {
+  border: var(--borda) dashed var(--cor-nanquim);
+}
+@utility regua-topo {
+  border-top: var(--borda) solid var(--cor-nanquim);
+}
+@utility regua-base {
+  border-bottom: var(--borda) solid var(--cor-nanquim);
+}
+@utility regua-grossa {
+  border-top: var(--regua-grossa) solid var(--cor-nanquim);
+}
+@utility traco-topo {
+  border-top: var(--borda-fina) solid var(--cor-nanquim);
+}
+@utility traco-base {
+  border-bottom: var(--borda-fina) solid var(--cor-nanquim);
+}
+@utility traco-direita {
+  border-right: var(--borda) solid var(--cor-nanquim);
+}
+
+/* A sombra que aperta (DV-33): só no que é clicável; sobe no hover, afunda e perde a sombra ao pressionar. */
+@utility aperta {
+  box-shadow: var(--sombra-aperta);
+  transition-property: transform, box-shadow, background-color, color;
+  transition-duration: 80ms;
+  transition-timing-function: var(--curva-saida);
+  &:hover:not(:disabled):not([aria-disabled='true']) {
+    transform: translate(-2px, -2px);
+    box-shadow: var(--sombra-aperta-alta);
+  }
+  &:active:not(:disabled):not([aria-disabled='true']) {
+    transform: translate(4px, 4px);
+    box-shadow: none;
+  }
+  &:disabled,
+  &[aria-disabled='true'] {
+    box-shadow: none;
+  }
+}
+@utility flutua {
+  box-shadow: var(--sombra-flutua);
+}
+/* Pressão sem sombra (links discretos e itens de lista). */
+@utility pressionavel {
+  transition-property: transform, background-color, color;
+  transition-duration: 80ms;
+  transition-timing-function: var(--curva-saida);
+  &:active:not(:disabled) {
+    transform: translate(2px, 2px);
+  }
+}
+
+/* Faixa de obra (DV-37): zebrado amarelo e preto a 45°, só no que está em obra. */
+@utility zebrado {
+  background-image: repeating-linear-gradient(-45deg, var(--cor-sinal) 0 var(--zebrado), var(--cor-cabecalho) var(--zebrado) calc(var(--zebrado) * 2));
+  print-color-adjust: exact;
+}
+
+/* Esqueleto de carregamento (DV-52): o contorno da fôrma, em concreto escuro, e a faixa de obra andando. O passo da
+   animação é um período inteiro das listras a 45° (2 × 12px × √2), então a volta não salta. */
+@utility forma {
+  border: var(--borda) solid var(--cor-concreto-escuro);
+}
+@utility obra-andando {
+  background-size: calc(var(--zebrado) * 2.8284) calc(var(--zebrado) * 2.8284);
+  animation: obra-andar 900ms linear infinite;
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
+}
+@keyframes obra-andar {
+  to {
+    background-position: calc(var(--zebrado) * 2.8284) 0;
+  }
+}
+
+/* Zebrado branco (DV-50): só na projeção dos botões do cabeçalho preto, listras de papel sobre o preto do cabeçalho. */
+@utility zebrado-claro {
+  background-image: repeating-linear-gradient(-45deg, var(--cor-folha) 0 calc(var(--zebrado) / 4), transparent calc(var(--zebrado) / 4) calc(var(--zebrado) / 2));
+}
+
+/* Botão sobre uma projeção (DV-50): sobe 2px no hover e, ao apertar, desce para dentro da projeção. */
+@utility aperta-projecao {
+  transition-property: transform, background-color, color;
+  transition-duration: 80ms;
+  transition-timing-function: var(--curva-saida);
+  &:hover:not(:disabled) {
+    transform: translate(-2px, -2px);
+  }
+  &:active:not(:disabled) {
+    transform: translate(var(--esp-micro), var(--esp-micro));
+  }
+}
+
+/* Cabeçalho em três colunas (DV-50): análise atual à esquerda, assinatura no centro, ações à direita. */
+@utility grade-barra {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: center;
+  column-gap: var(--esp-base);
+}
+
+/* Camadas fixas (FD-12). */
+@utility z-base {
+  z-index: 0;
+}
+@utility z-trilho {
+  z-index: 10;
+}
+@utility z-sobreposicao {
+  z-index: 30;
+}
+@utility z-dialogo {
+  z-index: 40;
+}
+@utility z-aviso {
+  z-index: 50;
+}
+@utility caixa-dialogo {
+  width: min(var(--largura-leitura), calc(100vw - var(--esp-amplo)));
+  max-height: calc(100dvh - var(--esp-amplo));
+}
+@utility caixa-confirmacao {
+  width: min(var(--largura-contexto), calc(100vw - var(--esp-amplo)));
+}
+@utility altura-folha-modal {
+  max-height: 85dvh;
+}
+/* Mapa de ajuste (C-05): rótulo, diagrama e leitura lado a lado; abaixo de 768px, rótulo e leitura acima. */
+@utility grade-mapa {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-areas: 'rotulo leitura' 'diagrama diagrama';
+  column-gap: var(--esp-curto);
+  row-gap: var(--esp-micro);
+  @media (width >= 768px) {
+    grid-template-columns: var(--largura-rotulo-eixo) minmax(0, 1fr) var(--largura-leitura-eixo);
+    grid-template-areas: 'rotulo diagrama leitura';
+  }
+}
+/* O mesmo mapa em escala de cartaz, na página de entrada. */
+@utility grade-cartaz {
+  display: grid;
+  /* No celular, o nome do eixo ocupa a linha inteira: nada de "disponibilida-de" espremido pela leitura. */
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-areas: 'rotulo' 'leitura' 'diagrama';
+  column-gap: var(--esp-base);
+  row-gap: var(--esp-micro);
+  @media (width >= 768px) {
+    grid-template-columns: var(--largura-trilho) minmax(0, 1fr) var(--largura-leitura-eixo);
+    grid-template-areas: 'rotulo diagrama leitura';
+    column-gap: var(--esp-medio);
+  }
+}
+@utility area-rotulo {
+  grid-area: rotulo;
+}
+@utility area-diagrama {
+  grid-area: diagrama;
+}
+@utility area-leitura {
+  grid-area: leitura;
+}
+@utility grade-numerada {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+}
+@utility grade-definicao {
+  display: grid;
+  @media (width >= 768px) {
+    grid-template-columns: var(--largura-rotulo-eixo) minmax(0, 1fr);
+  }
+}
+/* Folha de trabalho e do laudo: bloco rente, com contorno e sem sombra (Regra da Sombra que Aperta). */
+@utility folha {
+  background-color: var(--cor-folha);
+  border: var(--borda) solid var(--cor-nanquim);
+  padding: var(--esp-medio) var(--esp-base);
+  @media (width >= 768px) {
+    padding: var(--folha-padding);
+  }
+}
+/* Casca da análise: trilho e conteúdo a partir de 1024px. */
+@utility grade-analise {
+  @media (width >= 1024px) {
+    display: grid;
+    grid-template-columns: var(--largura-trilho) minmax(0, 1fr);
+  }
+}
+/* Tarefa com contexto vivo ao lado a partir de 1280px (Regra do Preenchimento). */
+@utility grade-tarefa {
+  display: grid;
+  gap: var(--esp-medio);
+  @media (width >= 1280px) {
+    grid-template-columns: minmax(0, 1fr) var(--largura-contexto);
+    gap: var(--esp-amplo);
+    align-items: start;
+  }
+}
+/* Questionário com o painel "não sei" lateral, não modal, a partir de 1024px (T-06). */
+@utility grade-com-painel {
+  display: grid;
+  gap: var(--esp-medio);
+  @media (width >= 1024px) {
+    grid-template-columns: minmax(0, 1fr) var(--largura-contexto);
+    align-items: start;
+  }
+}
+/* Pergunta em foco com o painel de contexto à direita a partir de 1280px. */
+@utility grade-pergunta {
+  display: grid;
+  gap: var(--esp-medio);
+  @media (width >= 1280px) {
+    grid-template-columns: minmax(0, var(--largura-leitura)) var(--largura-contexto);
+    gap: var(--esp-amplo);
+  }
+}
+@utility fixo-ao-rolar {
+  @media (width >= 1280px) {
+    position: sticky;
+    top: calc(var(--altura-barra) + var(--esp-medio));
+  }
+}
+@utility altura-trilho {
+  max-height: calc(100dvh - var(--altura-barra));
+  scrollbar-width: thin;
+}
+@utility numeros {
+  font-variant-numeric: tabular-nums;
+}
+@utility surge {
+  animation: surgir 150ms var(--curva-saida) both;
+}
+
+@keyframes surgir {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@layer base {
+  /* Raio zero em tudo, inclusive nos controles nativos que o navegador arredonda (DV-30, FD-15). */
+  *,
+  ::before,
+  ::after {
+    border-radius: 0;
+  }
+  /* Ícones com traço grosso, do peso da tipografia (DV-50): vale para todo ícone do Lucide, qualquer que seja o
+     strokeWidth passado no componente. */
+  svg.lucide {
+    stroke-width: 3;
+  }
+  /* O rádio e a caixa nativos (escondidos atrás dos controles do Radix) também ficam quadrados. */
+  input[type='radio'],
+  input[type='checkbox'] {
+    appearance: none;
+    border-radius: 0;
+  }
+  html {
+    font-family: var(--fonte);
+    color: var(--cor-nanquim);
+    background-color: var(--cor-mesa);
+    /* Concreto aparente: a forma de madeira marcada no fundo (DV-42). */
+    background-image: var(--textura-forma);
+    /* Fixa na tela, como o resto do fundo: só as seções rolam por cima dela (DV-54). */
+    background-attachment: fixed;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    accent-color: var(--cor-sinal);
+    caret-color: var(--cor-marca);
+    scrollbar-color: var(--cor-nanquim) var(--cor-mesa);
+  }
+  body {
+    font-size: var(--tipo-corpo-tamanho);
+    line-height: var(--tipo-corpo-altura);
+    min-height: 100dvh;
+  }
+  h1,
+  h2,
+  h3,
+  h4 {
+    text-wrap: balance;
+  }
+  /* Palavras longas em escala grotesca quebram com hífen no celular, em vez de estourar a coluna (DG-07). */
+  .text-display,
+  .text-titulo,
+  .text-secao,
+  .text-subtitulo,
+  .text-pergunta,
+  .text-veredito {
+    overflow-wrap: anywhere;
+    hyphens: auto;
+  }
+  p,
+  li,
+  dd {
+    text-wrap: pretty;
+  }
+  a {
+    text-underline-offset: 4px;
+    text-decoration-thickness: 2px;
+  }
+  :focus-visible {
+    outline: var(--borda) solid var(--cor-marca);
+    outline-offset: 3px;
+  }
+  ::selection {
+    background-color: var(--cor-sinal);
+    color: var(--cor-sobre-sinal);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      transition-property: opacity !important;
+      animation-name: surgir !important;
+    }
+  }
+}
+
+/* Impressão do relatório (T-18; DG-13): A4, tema claro, contornos mantidos, sombras e interativos fora. */
+@media print {
+  @page {
+    size: A4;
+    margin: 18mm 18mm 22mm;
+    @bottom-left {
+      content: var(--rodape-relatorio, 'StackSync');
+      font-family: var(--fonte);
+      font-size: 9pt;
+      color: var(--cor-grafite);
+    }
+    @bottom-right {
+      content: counter(page) ' de ' counter(pages);
+      font-family: var(--fonte);
+      font-size: 9pt;
+      color: var(--cor-grafite);
+    }
+  }
+  html,
+  body {
+    background-color: var(--cor-folha);
+  }
+  * {
+    box-shadow: none !important;
+  }
+  .nao-imprimir {
+    display: none !important;
+  }
+  .so-impressao {
+    display: block !important;
+  }
+  .grade-analise {
+    display: block !important;
+  }
+  .quebra-antes {
+    break-before: page;
+  }
+  .sem-quebra {
+    break-inside: avoid;
+  }
+  svg,
+  .cor-exata {
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+}
+.so-impressao {
+  display: none;
+}

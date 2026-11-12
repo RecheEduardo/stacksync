@@ -1,0 +1,447 @@
+# Catálogo de movimentos (DC-19). O plano ideal combina movimentos compatíveis e escolhe a
+# combinação de maior Índice de Ajuste projetado no limite desfavorável, desempatando pela menor
+# invasividade. A ideia prévia é interpretada pela IA como um conjunto destes movimentos e só vale
+# depois de confirmada pelo usuário (RN-79).
+grupos:
+  arq: &arq [refatoracao.sistema, refatoracao.modulo, planejamento.sistema, planejamento.modulo]
+  ref: &ref [refatoracao.sistema, refatoracao.modulo, planejamento.modulo]
+
+movimentos:
+  - id: arq.consolidar_uma
+    modelo: arquitetura
+    nome: Consolidar numa parte única
+    descricao: Juntar as partes numa única parte publicável, com fronteiras internas claras.
+    eixos: [E2, E6, E3]
+    lado: sobra
+    efeitos:
+      - { eixo: E2, lado: C, tipo: alvo, valor: [0, 0.5] }
+      - { eixo: E6, lado: C, tipo: teto, valor: [1, 1] }
+      - { eixo: E3, lado: C, tipo: alvo, valor: [0, 1] }
+      - { eixo: E1, lado: C, tipo: piso, valor: [2, 2.5] }
+    invasividade: { escopo: parcial, reversivel: true, trocaTecnologia: false, movimentaDados: true }
+    incompativel: [arq.consolidar_poucas, arq.separar_poucas, arq.separar_varias, arq.separar_muitas]
+    passos:
+      - { titulo: "Escolher primeiro as partes que escrevem nos mesmos dados e chamam umas às outras em sequência", tecnica: Monólito modular, pontoDeVolta: "As partes antigas continuam publicáveis até a parte consolidada passar nos testes de contrato." }
+      - { titulo: Trazer os dados dessas partes para um mesmo banco, tecnica: Expand and contract, pontoDeVolta: "O esquema expandido aceita as duas formas até a contração." }
+      - { titulo: Trocar chamadas de rede internas por chamadas no mesmo processo, tecnica: Branch by abstraction, pontoDeVolta: "A abstração permite voltar à chamada de rede numa troca de configuração." }
+      - { titulo: Desligar as partes antigas com data marcada, tecnica: Parallel run, pontoDeVolta: "Até o desligamento, as duas versões recebem o mesmo tráfego e as saídas são comparadas." }
+    custoTransicao: { nivel: medio, motivos: [Movimenta dados entre bancos, Exige operar as duas versões em paralelo por um período] }
+    subniveis: *ref
+    evidencias: [primevideo-2023, su-2024, fowler-monolithfirst-2015]
+    regras: [RN-17, RN-21, RN-25]
+
+  - id: arq.consolidar_poucas
+    modelo: arquitetura
+    nome: Consolidar em poucas partes
+    descricao: Consolidar em poucas partes (2 a 5) alinhadas às áreas de negócio, juntando onde as forças de juntar predominam.
+    eixos: [E2, E6, E3]
+    lado: sobra
+    efeitos:
+      - { eixo: E2, lado: C, tipo: alvo, valor: [1.5, 2.5] }
+      - { eixo: E6, lado: C, tipo: teto, valor: [2, 2.5] }
+      - { eixo: E3, lado: C, tipo: teto, valor: [1.5, 2.5] }
+    invasividade: { escopo: parcial, reversivel: true, trocaTecnologia: false, movimentaDados: true }
+    incompativel: [arq.consolidar_uma, arq.separar_poucas, arq.separar_varias, arq.separar_muitas]
+    passos:
+      - { titulo: Agrupar as partes por área de negócio e escolher o primeiro grupo a juntar, tecnica: Monólito modular, pontoDeVolta: "As partes antigas continuam publicáveis até a parte nova passar nos testes de contrato." }
+      - { titulo: Unificar os dados de cada grupo, tecnica: Expand and contract, pontoDeVolta: "O esquema expandido aceita as duas formas até a contração." }
+      - { titulo: Trocar chamadas de rede dentro do grupo por chamadas no mesmo processo, tecnica: Branch by abstraction, pontoDeVolta: "A abstração permite voltar à chamada de rede." }
+    custoTransicao: { nivel: medio, motivos: [Movimenta dados entre bancos, Exige operar as duas versões em paralelo por um período] }
+    subniveis: *ref
+    evidencias: [primevideo-2023, su-2024, ford-2021]
+    regras: [RN-17, RN-19, RN-25]
+
+  - id: arq.separar_poucas
+    modelo: arquitetura
+    nome: Separar poucas partes
+    descricao: "Separar poucas partes (2 a 5) onde os times colidem, uma área de cada vez, depois de fortalecer as fronteiras internas."
+    eixos: [E2, E6, E3]
+    lado: falta
+    efeitos:
+      - { eixo: E2, lado: C, tipo: alvo, valor: [1.5, 2.5] }
+      - { eixo: E6, lado: C, tipo: alinhar }
+      - { eixo: E3, lado: C, tipo: piso, valor: [1.5, 2] }
+    invasividade: { escopo: parcial, reversivel: true, trocaTecnologia: false, movimentaDados: true }
+    prerequisitos: [arq.modularizar]
+    incompativel: [arq.consolidar_uma, arq.consolidar_poucas, arq.separar_varias, arq.separar_muitas]
+    passos:
+      - { titulo: Escolher a área com mais mudanças e defeitos e menos dados compartilhados, tecnica: Strangler fig, pontoDeVolta: "O roteamento volta para a parte antiga com uma troca de configuração." }
+      - { titulo: Dar a essa área dados próprios, tecnica: Expand and contract, pontoDeVolta: "Os dados ficam sincronizados nos dois lugares até a contração." }
+      - { titulo: Publicar a parte nova com o mesmo tráfego da antiga e comparar as saídas, tecnica: Parallel run, pontoDeVolta: "Enquanto as saídas divergirem, o tráfego real continua na parte antiga." }
+      - { titulo: Definir o time dono da parte nova antes de virar a chave, tecnica: Manobra inversa de Conway, pontoDeVolta: "A propriedade é organizacional e pode ser revista sem mudar código." }
+    custoTransicao: { nivel: alto, motivos: [Movimenta dados entre bancos, Cria fronteiras de rede que viram contratos públicos, Exige operar as duas versões em paralelo] }
+    subniveis: *arq
+    evidencias: [fowler-strangler-2004, dora-acoplamento, taibi-2017]
+    regras: [RN-20, RN-21, RN-26, RN-47]
+
+  - id: arq.separar_varias
+    modelo: arquitetura
+    nome: Separar em várias partes
+    descricao: "Separar em várias partes (6 a 20) com dados próprios, cada uma com um time dono, onde muitos times precisam publicar sozinhos."
+    eixos: [E2, E6, E3]
+    lado: falta
+    efeitos:
+      - { eixo: E2, lado: C, tipo: alvo, valor: [2.5, 3.5] }
+      - { eixo: E6, lado: C, tipo: alinhar }
+      - { eixo: E3, lado: C, tipo: piso, valor: [2, 2.5] }
+    invasividade: { escopo: parcial, reversivel: true, trocaTecnologia: false, movimentaDados: true }
+    prerequisitos: [arq.modularizar]
+    incompativel: [arq.consolidar_uma, arq.consolidar_poucas, arq.separar_poucas, arq.separar_muitas]
+    passos:
+      - { titulo: Separar primeiro a área com mais juros de dívida e menos acoplamento de dados, tecnica: Strangler fig, pontoDeVolta: "O roteamento volta para a parte antiga com uma troca de configuração." }
+      - { titulo: Mover os dados de cada área para a parte dona, tecnica: Expand and contract, pontoDeVolta: "Os dados ficam sincronizados nos dois lugares até a contração." }
+      - { titulo: Comparar as saídas da parte nova com as da antiga antes de cada virada, tecnica: Parallel run, pontoDeVolta: "O tráfego real só migra quando as saídas coincidem." }
+      - { titulo: Marcar a data de desligamento de cada parte antiga, tecnica: Feature toggles, pontoDeVolta: "A chave de funcionalidade devolve o tráfego à parte antiga." }
+    custoTransicao: { nivel: alto, motivos: [Movimenta dados entre bancos, Cria várias fronteiras de rede e contratos públicos, Exige operar as duas versões em paralelo por meses] }
+    subniveis: *arq
+    evidencias: [fowler-strangler-2004, taibi-2017, team-topologies-2019]
+    regras: [RN-20, RN-26, RN-39, RN-47]
+
+  - id: arq.separar_muitas
+    modelo: arquitetura
+    nome: Dividir em muitas partes
+    descricao: Dividir em muitas partes pequenas (mais de 20), com dados próprios.
+    eixos: [E2, E6, E3]
+    lado: falta
+    efeitos:
+      - { eixo: E2, lado: C, tipo: alvo, valor: [3.5, 4] }
+      - { eixo: E6, lado: C, tipo: piso, valor: [3.5, 4] }
+      - { eixo: E3, lado: C, tipo: piso, valor: [2.5, 3] }
+    invasividade: { escopo: total, reversivel: false, trocaTecnologia: false, movimentaDados: true }
+    incompativel: [arq.consolidar_uma, arq.consolidar_poucas, arq.separar_poucas, arq.separar_varias]
+    passos:
+      - { titulo: Separar uma área de cada vez, tecnica: Strangler fig, pontoDeVolta: "O roteamento volta para a parte antiga com uma troca de configuração." }
+    custoTransicao: { nivel: alto, motivos: [Movimenta dados entre muitos bancos, Cria muitas fronteiras de rede, Exige operação madura antes de começar] }
+    subniveis: *arq
+    evidencias: [taibi-2017, su-2024]
+    regras: [RN-20, RN-43]
+
+  - id: arq.modularizar
+    modelo: arquitetura
+    nome: Fortalecer fronteiras internas
+    descricao: Fortalecer as fronteiras internas nas áreas que mais mudam, com verificações automáticas, sem distribuir.
+    eixos: [E1]
+    lado: falta
+    efeitos:
+      - { eixo: E1, lado: C, tipo: alinhar }
+    invasividade: { escopo: parcial, reversivel: true, trocaTecnologia: false, movimentaDados: false }
+    passos:
+      - { titulo: Escrever testes que fixam o comportamento atual das áreas que mais mudam, tecnica: Testes de caracterização, pontoDeVolta: "Testes não mudam comportamento; podem ser removidos sem efeito." }
+      - { titulo: Definir a interface pública de cada área e proibir acessos por dentro, tecnica: Fitness functions, pontoDeVolta: "A verificação automática pode ser desligada sem mudar o código." }
+      - { titulo: "Mover o código para trás das interfaces, uma área de cada vez", tecnica: Branch by abstraction, pontoDeVolta: "A abstração permite voltar à implementação anterior." }
+    custoTransicao: { nivel: baixo, motivos: [Não movimenta dados nem troca tecnologia] }
+    subniveis: *arq
+    evidencias: [fowler-monolithfirst-2015, tornhill-borg-2022, feathers-2004]
+    regras: [RN-09, RN-17, RN-21]
+
+  - id: arq.simplificar_camadas
+    modelo: arquitetura
+    nome: Simplificar camadas
+    descricao: Simplificar camadas e intermediários nas áreas de pouca mudança.
+    eixos: [E1]
+    lado: sobra
+    efeitos:
+      - { eixo: E1, lado: C, tipo: alinhar }
+    invasividade: { escopo: parcial, reversivel: true, trocaTecnologia: false, movimentaDados: false }
+    passos:
+      - { titulo: Começar pelas áreas que menos mudam e têm mais camadas, tecnica: Testes de caracterização, pontoDeVolta: "A camada removida pode voltar a partir do histórico, com os testes garantindo o comportamento." }
+    custoTransicao: { nivel: baixo, motivos: [Não movimenta dados nem troca tecnologia] }
+    subniveis: *ref
+    evidencias: [verdecchia-2020]
+    regras: [RN-11]
+
+  - id: arq.donos
+    modelo: arquitetura
+    nome: Definir donos
+    descricao: "Definir donos e alinhar as fronteiras aos times (manobra inversa de Conway), ou ajustar as fronteiras à estrutura atual."
+    eixos: [E6]
+    lado: falta
+    efeitos:
+      - { eixo: E6, lado: C, tipo: alinhar }
+    invasividade: { escopo: parcial, reversivel: true, trocaTecnologia: false, movimentaDados: false }
+    passos:
+      - { titulo: Atribuir um time dono a cada área e a cada parte publicável, tecnica: Manobra inversa de Conway, pontoDeVolta: "A propriedade é organizacional e pode ser revista sem mudar código." }
+      - { titulo: Reorganizar os times por área de negócio onde hoje se dividem por camada técnica, tecnica: Team Topologies, pontoDeVolta: "A reorganização pode ser desfeita no próximo ciclo de planejamento." }
+    custoTransicao: { nivel: baixo, motivos: [Mudança organizacional; não mexe em código nem em dados] }
+    subniveis: *ref
+    evidencias: [conway-1968, team-topologies-2019, bird-2011]
+    regras: [RN-38, RN-39, RN-41]
+
+  - id: arq.automatizar_ops
+    modelo: arquitetura
+    nome: Automatizar a operação
+    descricao: Automatizar publicação, monitoramento com alertas e criação de ambientes antes de qualquer distribuição adicional.
+    eixos: [E7]
+    lado: falta
+    efeitos:
+      - { eixo: E7, lado: C, tipo: alinhar }
+    invasividade: { escopo: parcial, reversivel: true, trocaTecnologia: false, movimentaDados: false }
+    decisoes: [iac]
+    passos:
+      - { titulo: Automatizar a publicação do fluxo principal, tecnica: Pipeline de publicação, pontoDeVolta: "A publicação manual continua possível até a automática se provar." }
+      - { titulo: Criar alertas para o fluxo principal antes que o cliente perceba, tecnica: Monitoramento, pontoDeVolta: "Alertas não mudam o sistema; podem ser ajustados a qualquer momento." }
+      - { titulo: Descrever ambientes e servidores como código, tecnica: Infraestrutura como código, pontoDeVolta: "O estado anterior fica versionado e pode ser reaplicado." }
+    custoTransicao: { nivel: baixo, motivos: [Não movimenta dados; acrescenta ferramentas sem trocar o sistema] }
+    subniveis: *arq
+    evidencias: [fowler-prerequisitos-2014, dora-2024]
+    regras: [RN-43, RN-45]
+
+  - id: arq.simplificar_ops
+    modelo: arquitetura
+    nome: Simplificar a operação
+    descricao: Simplificar a operação ao que a arquitetura exige.
+    eixos: [E7]
+    lado: sobra
+    efeitos:
+      - { eixo: E7, lado: C, tipo: alinhar }
+    invasividade: { escopo: parcial, reversivel: true, trocaTecnologia: false, movimentaDados: false }
+    passos:
+      - { titulo: Desligar a infraestrutura de operação que nenhuma parte usa, tecnica: Feature toggles, pontoDeVolta: "O que foi desligado pode ser religado a partir da configuração versionada." }
+    custoTransicao: { nivel: baixo, motivos: [Não movimenta dados nem troca o sistema] }
+    subniveis: *ref
+    evidencias: [fowler-prerequisitos-2014]
+    regras: [RN-43]
+
+  - id: arq.assincrono
+    modelo: arquitetura
+    nome: Desacoplar no tempo
+    descricao: Desacoplar no tempo, com filas, as interações que violam as metas ou dependem de serviços instáveis.
+    eixos: [E3]
+    lado: falta
+    efeitos:
+      - { eixo: E3, lado: C, tipo: alinhar }
+    invasividade: { escopo: parcial, reversivel: true, trocaTecnologia: true, movimentaDados: false }
+    decisoes: [mensageria]
+    passos:
+      - { titulo: Colocar uma fila na frente da dependência mais instável do fluxo principal, tecnica: Branch by abstraction, pontoDeVolta: "A abstração permite voltar à chamada direta." }
+      - { titulo: Tornar o processamento idempotente e capaz de reprocessar, tecnica: Testes de contrato, pontoDeVolta: "Idempotência não muda o resultado; pode ficar mesmo se a fila sair." }
+    custoTransicao: { nivel: medio, motivos: [Acrescenta um componente que precisa de operação, Troca consistência imediata por consistência eventual nesse fluxo] }
+    subniveis: *arq
+    evidencias: [dean-barroso-2013, garcia-molina-1987]
+    regras: [RN-22, RN-24, RN-26]
+
+  - id: arq.simplificar_comunicacao
+    modelo: arquitetura
+    nome: Simplificar a comunicação
+    descricao: Simplificar a comunicação onde os fluxos não pedem desacoplamento nem consistência eventual.
+    eixos: [E3]
+    lado: sobra
+    efeitos:
+      - { eixo: E3, lado: C, tipo: alinhar }
+    invasividade: { escopo: parcial, reversivel: true, trocaTecnologia: false, movimentaDados: false }
+    passos:
+      - { titulo: Trocar compensações e eventos por transações locais onde os dados estão na mesma parte, tecnica: Branch by abstraction, pontoDeVolta: "A abstração permite voltar ao mecanismo anterior." }
+    custoTransicao: { nivel: medio, motivos: [Muda contratos entre partes] }
+    subniveis: *ref
+    evidencias: [garcia-molina-1987, abadi-2012]
+    regras: [RN-26]
+
+  - id: arq.escalar
+    modelo: arquitetura
+    nome: Absorver mais carga
+    descricao: Aumentar a capacidade de absorver carga na parte que atinge o limite.
+    eixos: [E4]
+    lado: falta
+    efeitos:
+      - { eixo: E4, lado: C, tipo: alinhar }
+    invasividade: { escopo: parcial, reversivel: true, trocaTecnologia: false, movimentaDados: false }
+    passos:
+      - { titulo: Medir onde o tempo de resposta estoura no pico e escalar só essa parte, tecnica: Fitness functions, pontoDeVolta: "A escala pode ser reduzida de volta pela configuração." }
+    custoTransicao: { nivel: medio, motivos: [Custo de infraestrutura maior enquanto durar o pico] }
+    subniveis: *ref
+    evidencias: [iso-25010, dean-barroso-2013]
+    regras: [RN-08, RN-24]
+
+  - id: arq.reduzir_escala
+    modelo: arquitetura
+    nome: Reduzir a escala
+    descricao: Reduzir mecanismos de escala sem carga que os justifique.
+    eixos: [E4]
+    lado: sobra
+    efeitos:
+      - { eixo: E4, lado: C, tipo: alinhar }
+    invasividade: { escopo: parcial, reversivel: true, trocaTecnologia: false, movimentaDados: false }
+    passos:
+      - { titulo: Reduzir réplicas e particionamento onde a carga medida não os usa, tecnica: Feature toggles, pontoDeVolta: "A escala anterior volta pela configuração." }
+    custoTransicao: { nivel: baixo, motivos: [Não movimenta dados] }
+    subniveis: *ref
+    evidencias: [iso-25010]
+    regras: [RN-08]
+
+  - id: arq.resiliencia
+    modelo: arquitetura
+    nome: Eliminar pontos únicos de falha
+    descricao: Eliminar pontos únicos de falha no fluxo crítico e acelerar a restauração.
+    eixos: [E5]
+    lado: falta
+    efeitos:
+      - { eixo: E5, lado: C, tipo: alinhar }
+    invasividade: { escopo: parcial, reversivel: true, trocaTecnologia: false, movimentaDados: false }
+    passos:
+      - { titulo: Duplicar o componente do fluxo crítico que hoje para tudo quando cai, tecnica: Redundância, pontoDeVolta: "A cópia pode ser desligada sem afetar a original." }
+      - { titulo: Ensaiar a restauração e medir o tempo, tecnica: Ensaio de falha, pontoDeVolta: "O ensaio roda em ambiente separado." }
+    custoTransicao: { nivel: medio, motivos: [Custo de infraestrutura maior] }
+    subniveis: *arq
+    evidencias: [iso-25010, dora-2024]
+    regras: [RN-08]
+
+  - id: arq.reduzir_redundancia
+    modelo: arquitetura
+    nome: Reduzir redundância
+    descricao: Reduzir redundância acima da criticidade.
+    eixos: [E5]
+    lado: sobra
+    efeitos:
+      - { eixo: E5, lado: C, tipo: alinhar }
+    invasividade: { escopo: parcial, reversivel: true, trocaTecnologia: false, movimentaDados: false }
+    passos:
+      - { titulo: Desligar a redundância que excede o impacto real de ficar fora do ar, tecnica: Feature toggles, pontoDeVolta: "A redundância volta pela configuração." }
+    custoTransicao: { nivel: baixo, motivos: [Não movimenta dados] }
+    subniveis: *ref
+    evidencias: [iso-25010]
+    regras: [RN-08]
+
+  - id: arq.extensao
+    modelo: arquitetura
+    nome: Criar pontos de extensão
+    descricao: Criar pontos de extensão nas áreas que mais variam.
+    eixos: [E8]
+    lado: falta
+    efeitos:
+      - { eixo: E8, lado: C, tipo: alinhar }
+    invasividade: { escopo: parcial, reversivel: true, trocaTecnologia: false, movimentaDados: false }
+    passos:
+      - { titulo: Criar o ponto de extensão na área com mais variações, tecnica: Branch by abstraction, pontoDeVolta: "A implementação anterior continua atrás da abstração." }
+    custoTransicao: { nivel: baixo, motivos: [Não movimenta dados] }
+    subniveis: *arq
+    evidencias: [baldwin-clark-2000, sullivan-2001]
+    regras: [RN-50]
+
+  - id: arq.remover_extensao
+    modelo: arquitetura
+    nome: Remover extensões sem uso
+    descricao: Remover pontos de extensão e configurações que ninguém usa.
+    eixos: [E8]
+    lado: sobra
+    efeitos:
+      - { eixo: E8, lado: C, tipo: alinhar }
+    invasividade: { escopo: parcial, reversivel: true, trocaTecnologia: false, movimentaDados: false }
+    passos:
+      - { titulo: "Remover as opções sem uso medido, uma de cada vez", tecnica: Feature toggles, pontoDeVolta: "A opção removida volta a partir do histórico." }
+    custoTransicao: { nivel: baixo, motivos: [Não movimenta dados] }
+    subniveis: *ref
+    evidencias: [baldwin-clark-2000]
+    regras: [RN-50]
+
+  # Movimentos usados só para interpretar a ideia prévia.
+  - id: arq.eventos
+    modelo: arquitetura
+    nome: Adotar arquitetura orientada a eventos
+    descricao: Trocar a comunicação entre partes por eventos, com consistência eventual e compensações.
+    eixos: [E3]
+    lado: falta
+    efeitos:
+      - { eixo: E3, lado: C, tipo: alvo, valor: [3.5, 4] }
+    invasividade: { escopo: total, reversivel: false, trocaTecnologia: true, movimentaDados: true }
+    passos: []
+    custoTransicao: { nivel: alto, motivos: [Muda todos os contratos entre partes, Acrescenta componentes que precisam de operação] }
+    subniveis: *arq
+    evidencias: [garcia-molina-1987, abadi-2012]
+    regras: [RN-26]
+    apenasIdeia: true
+
+  - id: arq.trocar_tecnologia
+    modelo: arquitetura
+    nome: Trocar tecnologia sem mudar a estrutura
+    descricao: Trocar linguagem, framework ou banco mantendo a mesma estrutura.
+    eixos: []
+    lado: falta
+    efeitos: []
+    invasividade: { escopo: total, reversivel: false, trocaTecnologia: true, movimentaDados: true }
+    passos: []
+    custoTransicao: { nivel: alto, motivos: [Reescreve código sem mudar o ajuste da arquitetura] }
+    subniveis: *arq
+    evidencias: [berger-2019, google-android-2024]
+    regras: [RN-15, RN-16, RN-30]
+    apenasIdeia: true
+
+  - id: arq.reescrever
+    modelo: arquitetura
+    nome: Reescrever do zero
+    descricao: Reescrever o sistema do zero.
+    eixos: []
+    lado: falta
+    efeitos: []
+    invasividade: { escopo: total, reversivel: false, trocaTecnologia: true, movimentaDados: true }
+    passos: []
+    custoTransicao: { nivel: alto, motivos: [Descarta o conhecimento acumulado no código, "Tende a crescer além do escopo (efeito do segundo sistema)"] }
+    subniveis: *arq
+    evidencias: [xia-2018, brooks-1975, google-android-2024]
+    regras: [RN-15, RN-42]
+    apenasIdeia: true
+
+  # Movimentos de ferramenta técnica. O efeito vem do perfil da tecnologia na base (DT-31);
+  # a invasividade de "trocar" vem da categoria (tecnologias/base.yaml).
+  - id: fer.atualizar
+    modelo: ferramenta
+    nome: Atualizar a versão
+    descricao: Atualizar para uma versão com suporte, sem trocar de ferramenta.
+    eixos: [T3]
+    lado: falta
+    efeitos: []
+    invasividade: { escopo: parcial, reversivel: true, trocaTecnologia: false, movimentaDados: false }
+    passos:
+      - { titulo: Atualizar primeiro num ambiente de teste e rodar os testes que fixam o comportamento atual, tecnica: Testes de caracterização, pontoDeVolta: "A versão anterior continua instalada até a nova passar nos testes." }
+      - { titulo: Publicar a versão nova com o mesmo tráfego e comparar, tecnica: Parallel run, pontoDeVolta: "O tráfego volta para a versão anterior com uma troca de configuração." }
+    custoTransicao: { nivel: baixo, motivos: [Não troca de ferramenta nem movimenta dados entre tecnologias] }
+    subniveis: [refatoracao.ferramenta]
+    evidencias: [eol-praticas, kula-2018]
+    regras: [RN-02, RN-35]
+
+  - id: fer.trocar
+    modelo: ferramenta
+    nome: Trocar de ferramenta
+    descricao: Trocar a ferramenta atual por outra da mesma categoria.
+    eixos: [T1, T2, T3, T4, T5, T6]
+    lado: falta
+    efeitos: []
+    invasividade: { escopo: total, reversivel: false, trocaTecnologia: true, movimentaDados: true }
+    passos:
+      - { titulo: "Colocar a ferramenta nova atrás de uma abstração, ao lado da atual", tecnica: Branch by abstraction, pontoDeVolta: "A abstração permite voltar à ferramenta atual." }
+      - { titulo: Migrar uma parte do uso por vez e comparar os resultados, tecnica: Parallel run, pontoDeVolta: "Enquanto os resultados divergirem, o uso real continua na ferramenta atual." }
+      - { titulo: Marcar a data de desligamento da ferramenta atual, tecnica: Feature toggles, pontoDeVolta: "Até a data, a chave devolve o uso à ferramenta atual." }
+    custoTransicao: { nivel: alto, motivos: [Troca de tecnologia, Exige operar as duas ferramentas em paralelo por um período] }
+    subniveis: [refatoracao.ferramenta, planejamento.ferramenta]
+    evidencias: [he-2021, meyerovich-rabkin-2013]
+    regras: [RN-30, RN-32, RN-33]
+
+  - id: fer.codigo_novo
+    modelo: ferramenta
+    nome: Código novo na outra linguagem
+    descricao: Escrever só o código novo na outra linguagem, com interoperabilidade, sem reescrever o código antigo e estável.
+    eixos: [T1, T5]
+    lado: falta
+    efeitos: []
+    invasividade: { escopo: parcial, reversivel: true, trocaTecnologia: true, movimentaDados: false }
+    passos:
+      - { titulo: Definir a fronteira de interoperabilidade entre o código antigo e o novo, tecnica: Branch by abstraction, pontoDeVolta: "O código novo pode voltar a ser escrito na linguagem atual." }
+      - { titulo: Escrever as funcionalidades novas na outra linguagem, tecnica: Strangler fig, pontoDeVolta: "Cada funcionalidade nova é independente; desligar uma não afeta o legado." }
+    custoTransicao: { nivel: medio, motivos: [Duas linguagens convivendo, Interoperabilidade a manter] }
+    subniveis: [refatoracao.ferramenta]
+    evidencias: [google-android-2024]
+    regras: [RN-15, RN-31]
+
+  - id: fer.adotar_pratica
+    modelo: ferramenta
+    nome: Adotar práticas sem trocar
+    descricao: Adotar tipagem gradual, testes e revisão sem trocar de linguagem.
+    eixos: [T5]
+    lado: falta
+    efeitos: []
+    invasividade: { escopo: parcial, reversivel: true, trocaTecnologia: false, movimentaDados: false }
+    passos:
+      - { titulo: Ligar a verificação de tipos gradual nos módulos que mais mudam, tecnica: Fitness functions, pontoDeVolta: "A verificação pode ser desligada sem mudar o código." }
+    custoTransicao: { nivel: baixo, motivos: [Não troca de tecnologia nem movimenta dados] }
+    subniveis: [refatoracao.ferramenta]
+    evidencias: [gao-2017, berger-2019]
+    regras: [RN-16, RN-30]

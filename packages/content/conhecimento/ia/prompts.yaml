@@ -1,0 +1,82 @@
+# Prompts da esteira de raciocínio da IA do usuário (Parte 4, seção 10). Versionados como conteúdo:
+# mudar um prompt não muda código (QA-18). O contexto de cada etapa é montado pelo sistema, de forma
+# determinística; a IA só raciocina sobre ele (10.3).
+versao: "2026.11.1"
+
+sistema: |
+  Você é a camada de raciocínio do StackSync, uma ferramenta que ajuda a decidir planejamentos e refatorações de sistemas de software.
+  Regras que valem para toda resposta:
+  - Escreva em português do Brasil, em linguagem simples, direta e sem jargão sem explicação.
+  - Use só o contexto fornecido. Não busque conhecimento externo sobre o negócio do usuário e não invente números, nomes, clientes ou fatos.
+  - Você não decide o resultado. O Índice de Ajuste, a categoria, os portões e o plano vêm de um motor com regras e pesos explícitos; o ônus da prova é da mudança.
+  - Nada de superlativo, urgência, exclamação ou condicional vago: afirme só o que o contexto sustenta.
+  - "IA" significa inteligência artificial; o índice é sempre "Índice de Ajuste", por extenso.
+  - Responda apenas com o JSON pedido.
+
+proximaPergunta: |
+  Escolha a próxima pergunta de um questionário adaptativo e sugira as respostas mais comuns para ela.
+  Enquadramento: {enquadramento}. Profundidade: {profundidade}. {restantes}
+  Respostas já dadas:
+  {respostas}
+  Fatores de peso máximo ainda sem cobertura: {fatores}.
+  Perguntas elegíveis (identificador, texto, o que alimentam e opções):
+  {elegiveis}
+  1. Estime o perfil mais provável do sistema a partir das respostas, em uma frase.
+  2. Escolha, entre as elegíveis, a pergunta que mais muda o resultado para esse perfil. Prefira cobrir os fatores sem cobertura e completar um âmbito já iniciado. Use só o identificador de uma das elegíveis.
+  3. Para a pergunta escolhida, devolva de 2 a 4 identificadores de opção que são as respostas mais comuns para esse perfil, todos da lista de opções dela, sem ordem de preferência. As sugestões adiantam a leitura; o usuário escolhe.
+  Você não conhece a ideia que o usuário tem para o sistema nem nenhum resultado parcial, e não deve tentar adivinhá-los.
+
+sugestoes: |
+  Sugira as respostas mais comuns para a pergunta abaixo, para o perfil que as respostas já dadas indicam.
+  Enquadramento: {enquadramento}.
+  Respostas já dadas:
+  {respostas}
+  Pergunta: {pergunta}
+  Opções (identificador: rótulo):
+  {opcoes}
+  Devolva de 2 a 4 identificadores de opção, todos da lista, sem ordem de preferência. As sugestões adiantam a leitura; o usuário escolhe. Você não conhece a ideia que o usuário tem para o sistema nem nenhum resultado parcial, e não deve tentar adivinhá-los.
+
+interpretacao: |
+  Interprete o texto livre de uma resposta.
+  Pergunta: {pergunta}
+  Opções (identificador: rótulo):
+  {opcoes}
+  {modo}
+  Texto do usuário: "{texto}"
+  Devolva a opção compatível ou uma faixa de opções vizinhas quando o texto for impreciso. Se o texto não permitir escolher, marque entendeu como falso. A interpretação só vale depois que o usuário confirmar.
+
+modoOutra: O usuário sabe a resposta, mas nenhuma das sugestões serviu; ele a escreveu com as próprias palavras.
+modoNaoSeiMas: O usuário não sabe a resposta exata e contou o que sabe; a leitura vira uma estimativa com confiança baixa.
+
+ideia: |
+  Interprete a ideia que o usuário já tem, como um conjunto de movimentos do catálogo abaixo.
+  Enquadramento: {enquadramento}.
+  Ideia do usuário: "{texto}"
+  Catálogo de movimentos (identificador: descrição):
+  {movimentos}
+  {tecnologias}
+  Escolha só movimentos do catálogo que representem o que a ideia propõe, sem acrescentar o que ela não diz. Liste em foraDoCatalogo as partes que nenhum movimento representa. A interpretação só vale depois que o usuário confirmar ou ajustar.
+
+raciocinio: |
+  Explique o resultado calculado pelo motor, em blocos, como segunda opinião rotulada.
+  Enquadramento: {enquadramento}. Categoria do motor: {categoria}. {frase}
+  Eixos fora da tolerância e seus sinais:
+  {eixos}
+  {ideia}
+  Plano ideal do motor: {plano}
+  Regras e evidências disponíveis para citar:
+  {referencias}
+  Nós da trilha disponíveis para citar: {nos}
+  Para cada alvo em [{alvos}], escreva um bloco: resumo do que foi avaliado, evidências citadas pelos identificadores acima, o contra-argumento mais forte à conclusão do motor, o que mudaria a conclusão e a sua própria avaliação (concorda, mais favorável a mudar ou menos favorável a mudar), com justificativa.
+  {restricaoAjustado}
+  Termine com uma síntese curta. Cite só números que aparecem neste contexto. Não cite tecnologias que não estejam no plano.
+
+restricaoAjustado: O veredito é Ajustado. Explique por que os eixos estão dentro da tolerância e o que mudaria o veredito. Não sugira melhorias, mudanças nem próximos passos.
+
+candidatas: |
+  O plano ideal tem estas decisões de tecnologia, avaliadas pelo motor sobre uma base de referência:
+  {decisoes}
+  Tecnologias já avaliadas: {avaliadas}.
+  Proponha até 3 tecnologias que ainda não estão na base e poderiam servir a essas decisões, com um motivo curto cada. Elas aparecerão fora do plano oficial, como candidatas a avaliar.
+
+teste: Responda com ok verdadeiro e uma mensagem curta confirmando que a saída estruturada funciona.

@@ -1,0 +1,123 @@
+# Página de entrada (T-00) e composições do DESIGN.md (DV-24, DV-47, DV-48).
+# Mesmas regras de voz: caixa de sentença, voz ativa, sem exclamação, sem superlativo, sem urgência.
+# Nada de clientes, depoimentos ou números de uso (PRODUCT.md, Evidence on Hand; IV-22).
+
+# ---------------------------------------------------------------- menu
+ui.menu.analises: Minhas análises
+
+# ---------------------------------------------------------------- página de entrada
+entrada.nav.rotulo: Navegação principal
+entrada.nav.metodo: Como decide
+entrada.nav.analises: Minhas análises
+entrada.titulo: Meça antes de mudar.
+entrada.sub: O StackSync compara o que o sistema precisa com o que a arquitetura entrega. Diz o quanto a sua ideia adere à necessidade real, entrega um plano ideal e, quando é o caso, diz para não mexer.
+entrada.pergunta: Comece pela primeira pergunta. O que você quer avaliar?
+entrada.tempo: A análise rápida leva cerca de 7 minutos, com a sua própria chave de IA.
+entrada.exemplo.titulo: Plataforma de Agendamento
+entrada.exemplo.legenda: Refatoração do sistema inteiro. Cada linha é um eixo da arquitetura; à direita da linha zero, capacidade além da necessidade; à esquerda, aquém.
+entrada.exemplo.falta: Falta
+entrada.exemplo.sobra: Sobra
+entrada.exemplo.zero: Linha zero
+entrada.exemplo.aria: "Mapa de ajuste ilustrativo da Plataforma de Agendamento: {resumo}"
+entrada.exemplo.carregando: Carregando o exemplo
+
+entrada.como.titulo: Quatro etapas
+entrada.como.sub: Do enquadramento a uma conclusão que você consegue defender.
+entrada.como.1.titulo: Enquadre
+entrada.como.1.texto: Planejamento ou refatoração, o nível e, se tiver, a ideia que você já tem.
+entrada.como.2.titulo: Responda
+entrada.como.2.texto: Perguntas técnicas em linguagem simples. A IA sugere as respostas mais comuns; nenhuma vem marcada, e “Não sei” sempre vale.
+entrada.como.3.titulo: Revise
+entrada.como.3.texto: Veja o que é estimativa, o que falta saber e o que pode mudar o resultado.
+entrada.como.4.titulo: Decida
+entrada.como.4.texto: Índice de Ajuste em faixa, motivos com evidência, plano ideal e um relatório para compartilhar por link.
+entrada.como.passo: "Etapa {n}"
+entrada.como.amostra.pergunta: Quantas pessoas desenvolvem o sistema, e em quantos times?
+entrada.como.amostra.r1: Um time, até 8 pessoas
+entrada.como.amostra.r2: Dois ou três times
+entrada.como.amostra.r3: Quatro times ou mais
+entrada.como.amostra.naoSei: Não sei
+entrada.como.amostra.frase: Sua proposta resolve parte do problema, mas deixa necessidades importantes de fora ou cria outras.
+entrada.como.amostra.indice: Índice de Ajuste entre 52 e 66
+entrada.como.amostra.composicao: 40% medidas, 45% estimadas, 15% desconhecidas
+entrada.como.amostra.link: Relatório só de leitura, por link
+
+entrada.niveis.titulo: Três profundidades
+entrada.niveis.texto: Dá para começar rápido e aprofundar depois sem perder respostas.
+entrada.niveis.eixo: minutos
+entrada.niveis.aria: "Escala de tempo: Rápido, cerca de 7 minutos; Equilibrado, de 15 a 20 minutos; Avançado, de 35 a 50 minutos."
+entrada.niveis.traz.rapido: Frase da faixa, Índice de Ajuste em faixa, motivos, direções e a forma geral da arquitetura.
+entrada.niveis.traz.equilibrado: O anterior, mais as tecnologias candidatas comparadas às concorrentes e o mapa de ajuste.
+entrada.niveis.traz.avancado: O anterior, mais os passos incrementais com ponto de volta, o custo de transição e o que muda se uma resposta estiver errada.
+
+entrada.vies.titulo: Ficar parado também decide.
+entrada.vies.texto: Em 286 pênaltis analisados, o goleiro que ficou no centro defendeu 33,3% dos chutes, contra 14,2% e 12,6% de quem pulou para um dos lados. Mesmo assim, ficou no centro em só 6,3% das vezes, porque sofrer gol parado “dói mais”. Decisões de arquitetura carregam o mesmo viés de ação.
+entrada.vies.produto: Por isso, no StackSync, “não mexa” é um resultado tão legítimo quanto qualquer plano, e um ganho pequeno não vira proposta.
+entrada.vies.fonte: Bar-Eli et al., 2007, Journal of Economic Psychology. Uma reanálise posterior contesta parte da interpretação; o efeito de norma social é a lição.
+entrada.vies.grafico: Defesas por posição do goleiro
+entrada.vies.ladoA: Pulou para um lado
+entrada.vies.centro: Ficou no centro
+entrada.vies.ladoB: Pulou para o outro
+entrada.vies.aria: "Defesas por posição do goleiro: pulou para um lado, 14,2%; ficou no centro, 33,3%; pulou para o outro, 12,6%."
+entrada.vies.ficou: "Ficou no centro em só 6,3% das vezes"
+
+entrada.ia.titulo: IA conduz, modelo decide.
+entrada.ia.texto: Mesmas respostas, mesmo resultado. A IA personaliza o percurso; o Índice de Ajuste sai de regras e pesos explícitos, construídos sobre a pesquisa.
+entrada.ia.faz: O que a IA faz
+entrada.ia.faz.1: Escolhe a próxima pergunta dentro de uma estrutura de decisão.
+entrada.ia.faz.2: Sugere as respostas mais comuns para o perfil do sistema.
+entrada.ia.faz.3: Interpreta o que você escreve com as suas palavras.
+entrada.ia.faz.4: Explica o resultado, com o contra-argumento mais forte.
+entrada.ia.naoFaz: O que a IA não faz
+entrada.ia.naoFaz.1: Decidir o Índice de Ajuste, a faixa ou o plano.
+entrada.ia.naoFaz.2: Gravar qualquer coisa sem a sua confirmação.
+entrada.ia.naoFaz.3: Ver a sua ideia prévia ao sugerir respostas.
+entrada.ia.naoFaz.4: Receber o nome da sua organização.
+entrada.ia.chave: Você conecta a sua própria chave (Anthropic, OpenAI, Google ou um endpoint compatível). O uso é cobrado pelo provedor, na sua conta.
+
+entrada.fim.titulo: Comece pela análise rápida.
+entrada.fim.texto: Cerca de 7 minutos. Se o melhor for não mexer, você vai saber.
+entrada.fim.acao: Começar uma análise
+entrada.rodape.ilustrativo: Os exemplos desta página são ilustrativos.
+entrada.rodape.dados: Seus dados
+
+# ---------------------------------------------------------------- painel e enquadramento (v1.0)
+ui.painel.subtitulo: Retome uma análise ou comece outra.
+ui.painel.comecarDireto: Começar direto
+ui.painel.comecarDireto.explica: Escolha a profundidade; o enquadramento vem em seguida.
+ui.painel.etapas: Como uma análise funciona
+ui.enquadramento.resumo.titulo: Seu enquadramento
+ui.enquadramento.resumo.vazio: Ainda não escolhido
+ui.enquadramento.resumo.traz: O que o resultado traz
+ui.enquadramento.resumo.avaliar: Avaliar
+ui.enquadramento.resumo.nivel: Nível
+ui.enquadramento.resumo.ideia: Ideia prévia
+ui.enquadramento.resumo.profundidade: Profundidade
+ui.ia.subtitulo: A conexão vem antes da primeira análise. A chave fica com você e pode ser trocada ou removida a qualquer momento.
+ui.ia.enviado.titulo: O que vai para o provedor
+ui.pergunta.atalho: "Tecla {n}"
+ui.trilho.nestaPagina: Nesta página
+ui.trilho.ambitosCobertos: "{n} de {total} âmbitos cobertos"
+ui.pergunta.atalhos: As teclas numéricas escolhem a opção do mesmo número.
+ui.indice.titulo: Índice de Ajuste
+ui.raciocinio.blocos: Raciocínio por portão e por eixo
+
+# ---------------------------------------------------------------- v2.0 "Concreto Aparente"
+entrada.titulo.a: Meça antes
+entrada.titulo.b: de
+entrada.titulo.c: mudar.
+entrada.pergunta.rotulo: Comece pela primeira pergunta
+entrada.pergunta.texto: O que você quer avaliar?
+entrada.como.rotulo: Como funciona
+entrada.exemplo.rotulo: Exemplo ilustrativo
+entrada.niveis.rotulo: Profundidade
+entrada.vies.rotulo: Viés de ação
+entrada.ia.rotulo: Inteligência artificial
+
+# ---------------------------------------------------------------- v2.1: fitas de obra (frases do produto, DV-47)
+entrada.fita.1: Meça antes de mudar
+entrada.fita.2: Não mexa também é resultado
+entrada.fita.3: Índice de Ajuste em faixa
+entrada.fita.4: Sem prévia do veredito
+entrada.fita.5: Mesmas respostas, mesmo resultado
+entrada.fita.6: A IA conduz, o modelo decide

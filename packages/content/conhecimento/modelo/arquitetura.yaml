@@ -1,0 +1,641 @@
+# Modelo dos 8 eixos de ajuste (P3 5.3 e 5.4), com regras de derivação v0 (K-17).
+# Os números são da calibração v0.1 e devem ser revistos por especialistas (P3 11.3; Q-01).
+id: arquitetura
+nome: Arquitetura
+
+sinais:
+  pessoas:
+    pergunta: E-01
+    rotulo: Tamanho da equipe
+    mapa: { dupla: [0.5, 1], time: [1, 1.5], time_grande: [1.75, 2.25], times_2_3: [2.25, 2.75], times_4_8: [2.75, 3.25], times_mais_8: [3.5, 4] }
+    dominio: [0, 4]
+    efeito: eleva
+    regras: [RN-38]
+    evidencias: [conway-1968]
+  times_necessidade:
+    pergunta: E-01
+    rotulo: Estrutura de times
+    mapa: { dupla: [0.5, 1], time: [1, 1], time_grande: [1, 1.5], times_2_3: [2, 2], times_4_8: [3, 3], times_mais_8: [4, 4] }
+    dominio: [0, 4]
+    efeito: eleva
+    regras: [RN-38, RN-39]
+    evidencias: [conway-1968, maccormack-2012]
+  times_independentes:
+    pergunta: E-01
+    rotulo: Times que precisam publicar sozinhos
+    mapa: { dupla: [0, 0.5], time: [0, 0.5], time_grande: [0.5, 1], times_2_3: [1.75, 2.25], times_4_8: [2.75, 3.25], times_mais_8: [3.5, 4] }
+    dominio: [0, 4]
+    efeito: eleva
+    regras: [RN-20]
+    evidencias: [dora-acoplamento]
+  areas:
+    pergunta: B-10
+    rotulo: Áreas distintas atendidas
+    mapa: { 1_2: [0.25, 0.75], 3_5: [1.5, 2], 6_10: [2.5, 3], mais_10: [3.25, 3.75] }
+    dominio: [0, 4]
+    efeito: eleva
+    regras: [RN-19]
+    evidencias: [ford-2021]
+  volatilidade:
+    pergunta: B-03
+    rotulo: Ritmo de mudança das regras
+    mapa: { raramente: [0, 0.5], ano: [1, 1.5], mes: [2, 2.5], semana: [3, 3.5] }
+    dominio: [0, 4]
+    efeito: eleva
+    regras: [RN-09]
+    evidencias: [tornhill-borg-2022]
+  volatilidade_diferente:
+    pergunta: B-03b
+    rotulo: Volatilidade diferente entre áreas
+    mapa: { poucas_areas: [1.75, 2.25], espalhadas: [0.75, 1.25], tudo_junto: [0, 0.5] }
+    dominio: [0, 4]
+    efeito: eleva
+    regras: [RN-19]
+    evidencias: [ford-2021]
+  perfis_carga:
+    pergunta: C-04
+    rotulo: Perfis de carga distintos
+    mapa: { nao: [0, 0.5], algumas: [1.75, 2.25], muitas: [3.25, 3.75] }
+    dominio: [0, 4]
+    efeito: eleva
+    regras: [RN-19]
+    evidencias: [ford-2021]
+  consistencia_imediata:
+    pergunta: C-07
+    rotulo: Operações que exigem dados sempre atualizados
+    mapa: { nenhuma: [0, 0.25], algumas: [0.5, 1], quase_todas: [1, 1.5] }
+    dominio: [0, 1.5]
+    efeito: reduz
+    regras: [RN-19, RN-23]
+    evidencias: [ford-2021, abadi-2012]
+  escrita_compartilhada:
+    pergunta: D-08
+    rotulo: Partes escrevendo nos mesmos dados
+    mapa: { uma: [0, 0], duas: [0.3, 0.7], tres_mais: [0.9, 1.4] }
+    dominio: [0, 1.5]
+    efeito: reduz
+    regras: [RN-19, RN-28]
+    evidencias: [ford-2021, taibi-2017]
+  partes:
+    pergunta: D-01
+    rotulo: Partes publicadas separadamente
+    mapa: { "1": [0, 0.5], 2_5: [1.75, 2.25], 6_20: [2.75, 3.25], 21_100: [3.5, 4], mais_100: [4, 4] }
+    dominio: [0, 4]
+    efeito: eleva
+    regras: [RN-20, RN-25]
+    evidencias: [taibi-2017, su-2024, primevideo-2023]
+  fronteiras:
+    pergunta: D-02
+    rotulo: Clareza das fronteiras internas
+    mapa: { sem: [0, 0.5], fracas: [1, 1.5], claras: [2, 2.5], automaticas: [3, 3.5] }
+    dominio: [0, 4]
+    efeito: eleva
+    regras: [RN-21, RN-11]
+    evidencias: [fowler-monolithfirst-2015, verdecchia-2020]
+  camadas:
+    pergunta: D-03
+    rotulo: Camadas por mudança simples
+    mapa: { 1_2: [0.75, 1.25], 3_5: [1.75, 2.25], 6_10: [2.75, 3.25], mais_10: [3.5, 4] }
+    dominio: [0, 4]
+    efeito: eleva
+    regras: [RN-11]
+    evidencias: [verdecchia-2020]
+  dependencias_externas:
+    pergunta: B-11
+    rotulo: Dependências externas instáveis
+    mapa: { nao: [0, 0.5], poucos: [1.5, 2], varios: [2.75, 3.25] }
+    dominio: [0, 4]
+    efeito: eleva
+    regras: [RN-22]
+    evidencias: [falacias-distribuicao]
+  picos:
+    pergunta: C-02b
+    rotulo: Força dos picos de uso
+    mapa: { ate_2x: [0.25, 0.75], 2_5x: [1.25, 1.75], 5_10x: [2.25, 2.75], mais_10x: [3.25, 3.75] }
+    dominio: [0, 4]
+    efeito: eleva
+    regras: [RN-24]
+    evidencias: [dean-barroso-2013]
+  tolerancia_atraso:
+    pergunta: C-07
+    rotulo: Tolerância a dados atualizados com atraso
+    mapa: { nenhuma: [2.25, 2.75], algumas: [1.25, 1.75], quase_todas: [0.25, 0.75] }
+    dominio: [0, 4]
+    efeito: eleva
+    regras: [RN-23]
+    evidencias: [abadi-2012]
+  comunicacao:
+    pergunta: D-04
+    rotulo: Forma de comunicação entre partes
+    mapa: { mesmo_processo: [0, 0.5], sincrono: [1.75, 2.25], assincrono: [3.25, 3.75], mistura: [2.75, 3.25] }
+    dominio: [0, 4]
+    efeito: eleva
+    regras: [RN-22, RN-26]
+    evidencias: [falacias-distribuicao, garcia-molina-1987]
+  mecanismos:
+    pergunta: D-06
+    rotulo: Mecanismos de consistência entre partes
+    mapaMultipla: { pesos: { transacoes: 0.5, compensacoes: 1.5, eventos: 1.25, outbox: 1.25, nenhum: 0.25 }, teto: 4 }
+    dominio: [0, 4]
+    efeito: eleva
+    regras: [RN-26]
+    evidencias: [garcia-molina-1987]
+  volume:
+    pergunta: C-02
+    rotulo: Volume de uso
+    mapa: { baixo: [0.25, 0.75], moderado: [1.25, 1.75], alto: [2.25, 2.75], muito_alto: [3.25, 3.75] }
+    dominio: [0, 4]
+    efeito: eleva
+    regras: [RN-08]
+    evidencias: [iso-25010]
+  crescimento:
+    pergunta: C-03
+    rotulo: Crescimento esperado
+    mapa: { estavel: [0.25, 0.75], ate_2x: [1.25, 1.75], 2_10x: [2.75, 3.25], mais_10x: [3.5, 4] }
+    dominio: [0, 4]
+    efeito: eleva
+    regras: [RN-08]
+    evidencias: [iso-25010]
+  escala:
+    pergunta: D-11
+    rotulo: Forma de escalar
+    mapa: { nao_aguenta: [0, 0.5], manual: [1, 1.5], automatica: [1.63, 2.13], por_parte: [3, 3.5], regioes: [4, 4] }
+    dominio: [0, 4]
+    efeito: eleva
+    regras: [RN-08]
+    evidencias: [iso-25010]
+  deficit_latencia:
+    pergunta: C-05
+    rotulo: Lentidão acima do aceitável
+    mapa: { folga: [0, 0], limite: [0, 0.5], estoura_pico: [1, 1], estoura: [2, 2] }
+    dominio: [0, 2]
+    efeito: reduz
+    regras: [RN-24]
+    evidencias: [dean-barroso-2013]
+  impacto:
+    pergunta: B-02
+    rotulo: Impacto de ficar fora do ar
+    mapa: { nada: [0, 0.5], incomodo: [1, 1.5], receita: [2, 2.5], contrato: [3, 3.5], pessoas: [4, 4] }
+    dominio: [0, 4]
+    efeito: eleva
+    regras: [RN-08]
+    evidencias: [iso-25010]
+  redundancia:
+    pergunta: D-12
+    rotulo: Redundância e isolamento de falhas
+    mapa: { para_tudo: [0, 0.5], basica: [1, 1.5], automatica: [2, 2.5], isolada: [3, 3.5], regioes: [4, 4] }
+    dominio: [0, 4]
+    efeito: eleva
+    regras: [RN-08]
+    evidencias: [iso-25010]
+  restauracao:
+    pergunta: F-04
+    rotulo: Tempo de restauração
+    mapa: { menos_1h: [2.75, 3.25], horas: [1.75, 2.25], dia: [0.75, 1.25], mais: [0, 0.5] }
+    dominio: [0, 4]
+    efeito: eleva
+    regras: [RN-07]
+    evidencias: [dora-2024]
+  fronteiras_propriedade:
+    pergunta: D-01
+    rotulo: Fronteiras de propriedade
+    mapa: { "1": [1, 1], 2_5: [2, 2.5], 6_20: [3, 3.5], 21_100: [3.5, 4], mais_100: [4, 4] }
+    dominio: [0, 4]
+    efeito: eleva
+    regras: [RN-39, RN-41]
+    evidencias: [team-topologies-2019, bird-2011]
+  deficit_donos:
+    pergunta: E-03
+    rotulo: Partes sem dono claro
+    mapa: { todas: [0, 0], maioria: [0.25, 0.5], poucas: [1, 1.5], nenhuma: [2, 2.5] }
+    dominio: [0, 2.5]
+    efeito: reduz
+    regras: [RN-41]
+    evidencias: [bird-2011]
+  deficit_coordenacao:
+    pergunta: E-05
+    rotulo: Coordenação constante entre times
+    mapa: { raramente: [0, 0], as_vezes: [0.5, 1], quase_sempre: [1.25, 1.75] }
+    dominio: [0, 1.75]
+    efeito: reduz
+    regras: [RN-38, RN-40]
+    evidencias: [nagappan-2008, conway-1968]
+  deficit_publicacao:
+    pergunta: D-10
+    rotulo: Times que não publicam sozinhos
+    mapa: { sempre: [0, 0], geralmente: [0.25, 0.5], raramente: [0.75, 1.25], nunca: [1.25, 1.75] }
+    dominio: [0, 1.75]
+    efeito: reduz
+    regras: [RN-20]
+    evidencias: [dora-acoplamento]
+  deficit_divisao:
+    pergunta: E-02
+    rotulo: Times divididos por camada técnica
+    mapa: { camada: [0.5, 1], area: [0, 0], misto: [0.25, 0.5] }
+    dominio: [0, 1]
+    efeito: reduz
+    regras: [RN-38]
+    evidencias: [conway-1968]
+  automacao:
+    pergunta: F-10
+    rotulo: Automação de publicação, alertas e ambientes
+    mapaMultipla: { pesos: { publicacao: 0.5, alertas: 0.5, provisionamento: 0.5, rastreamento: 0.75, nenhuma: 0 }, teto: 2.25 }
+    dominio: [0, 2.25]
+    efeito: eleva
+    regras: [RN-43]
+    evidencias: [fowler-prerequisitos-2014]
+  plantao:
+    pergunta: E-09
+    rotulo: Plantão fora do horário
+    mapa: { ninguem: [0, 0], informal: [0.25, 0.25], escala: [0.5, 0.75], time_dedicado: [1, 1.25] }
+    dominio: [0, 1.25]
+    efeito: eleva
+    regras: [RN-44]
+    evidencias: [fowler-prerequisitos-2014]
+  variacoes:
+    pergunta: B-05
+    rotulo: Variações atendidas
+    mapa: { uma: [0, 0.5], poucas: [1, 1.5], varias: [2, 2.5], muitas: [3, 3.5], plataforma: [4, 4] }
+    dominio: [0, 4]
+    efeito: eleva
+    regras: [RN-50]
+    evidencias: [baldwin-clark-2000]
+  incerteza:
+    pergunta: B-04
+    rotulo: Incerteza sobre o futuro do produto
+    mapa: { estavel: [0, 0.5], previsivel: [1, 1.5], pivos: [2.25, 2.75], incerto: [3.25, 3.75] }
+    dominio: [0, 4]
+    efeito: eleva
+    regras: [RN-50]
+    evidencias: [baldwin-clark-2000, sullivan-2001]
+  configurabilidade:
+    pergunta: D-13
+    rotulo: Pontos de extensão e configuração
+    mapa: { quase_nada: [0, 0.5], condicionais: [1, 1.5], pontos: [2, 2.5], amplo: [3, 3.5], quase_tudo: [4, 4] }
+    dominio: [0, 4]
+    efeito: eleva
+    regras: [RN-50]
+    evidencias: [baldwin-clark-2000]
+
+eixos:
+  - id: E1
+    nome: Modularidade interna
+    perguntaGuia: As fronteiras dentro de cada parte correspondem à complexidade e ao ritmo de mudança do domínio?
+    mecanismos: camadas e fronteiras internas
+    direcaoSobra: Simplificar camadas e intermediários nas áreas de pouca mudança.
+    direcaoFalta: Fortalecer as fronteiras internas nas áreas que mais mudam.
+    sinaisSobra: Camadas e intermediários demais para mudanças simples.
+    sinaisFalta: Mudanças simples tocam muitas áreas; defeitos voltam nas mesmas áreas.
+    evidencias: [tornhill-borg-2022, besker-2019, fowler-monolithfirst-2015, verdecchia-2020]
+    regras: [RN-09, RN-11, RN-21]
+    necessidade:
+      expr:
+        limita:
+          faixa: [0, 4]
+          valor:
+            media:
+              - { peso: 3, expr: { sinal: areas } }
+              - { peso: 2, expr: { sinal: volatilidade } }
+              - { peso: 2, expr: { sinal: pessoas } }
+      ancoras:
+        - Domínio pequeno e estável, 1 a 3 pessoas, mudanças raras.
+        - Domínio pequeno, um time, mudanças concentradas em poucas áreas.
+        - Vários subdomínios, um ou dois times, ritmo de mudança diferente entre áreas.
+        - Muitos subdomínios com regras próprias, vários times, mudanças frequentes em áreas distintas.
+        - Domínio amplo e muito volátil, muitos times em paralelo no mesmo código.
+    capacidade:
+      # Fronteiras claras são higiene: a clareza sozinha leva a capacidade até um nível acima da
+      # necessidade, nunca além (o sobreajuste interno está nas camadas e indireções; RN-11).
+      expr:
+        limita:
+          faixa: [0, 4]
+          valor:
+            max:
+              - min:
+                  - { sinal: fronteiras }
+                  - soma:
+                      - { ref: E1.N }
+                      - { constante: 1 }
+              - { sinal: camadas }
+      ancoras:
+        - "Sem fronteiras: qualquer parte usa qualquer outra."
+        - Fronteiras só no nome (pastas, pacotes), desrespeitadas com frequência.
+        - Módulos com interfaces claras, respeitadas na maior parte do tempo.
+        - Módulos com interfaces claras, violações impedidas por verificações automáticas, testáveis isoladamente.
+        - "Estrutura máxima: módulos finos, muitas camadas e contratos internos para tudo."
+
+  - id: E2
+    nome: Distribuição
+    perguntaGuia: O número de partes publicadas separadamente corresponde às forças que pedem separar, descontadas as que pedem juntar?
+    mecanismos: distribuição
+    direcaoSobra: Consolidar partes onde as forças de juntar predominam (transações, dados relacionados, fluxos com muitas chamadas).
+    direcaoFalta: "Criar independência de publicação onde os times colidem: primeiro fronteiras internas, depois separar só onde as forças de separar vencem."
+    sinaisSobra: Muitas partes com forças de juntar fortes; custo de comunicação alto.
+    sinaisFalta: Times esperando uns pelos outros para publicar; impossível escalar ou isolar a parte crítica.
+    evidencias: [ford-2021, taibi-2017, su-2024, dora-acoplamento, primevideo-2023]
+    regras: [RN-19, RN-20, RN-21, RN-25]
+    necessidade:
+      expr:
+        limita:
+          faixa: [0, 4]
+          valor:
+            subtrai:
+              - media:
+                  - { peso: 4, expr: { sinal: times_independentes } }
+                  - { peso: 2, expr: { sinal: perfis_carga } }
+                  - { peso: 1, expr: { sinal: volatilidade_diferente } }
+                  - { peso: 1, expr: { sinal: areas } }
+              - media:
+                  - { peso: 2, expr: { sinal: consistencia_imediata } }
+                  - { peso: 2, expr: { sinal: escrita_compartilhada } }
+      guardas:
+        - quando: { pergunta: E-01, em: [dupla, time, time_grande] }
+          teto: 1.5
+          motivo: Com um único time, a necessidade de distribuir raramente passa de 1,5.
+          regras: [RN-20, RN-38]
+      ancoras:
+        - "Nenhum motivo forte para separar; forças de juntar fortes (transações atômicas, dados muito relacionados)."
+        - Motivos fracos para separar; um time; publicar tudo junto não atrapalha.
+        - Uma ou duas áreas com escala, segurança ou ritmo de mudança claramente distintos.
+        - Vários times precisam publicar sozinhos; áreas com perfis distintos; forças de juntar fracas entre elas.
+        - Muitos times autônomos; isolamento de falhas e escala independente críticos.
+    capacidade:
+      expr: { sinal: partes }
+      ancoras:
+        - Uma única parte publicável.
+        - Uma parte principal e poucos satélites, como rotinas em lote.
+        - Poucas partes (2 a 5) alinhadas a áreas de negócio.
+        - Várias partes (6 a 20), com dados próprios.
+        - Muitas partes pequenas (mais de 20).
+
+  - id: E3
+    nome: Comunicação e consistência
+    perguntaGuia: O desacoplamento e os mecanismos de consistência correspondem ao que os fluxos exigem?
+    mecanismos: mecanismos de comunicação e consistência
+    direcaoSobra: Simplificar a comunicação onde os fluxos não pedem desacoplamento nem consistência eventual.
+    direcaoFalta: Reduzir as chamadas em sequência no fluxo crítico ou desacoplar no tempo as interações que violam as metas.
+    sinaisSobra: Compensações, eventos e consistência eventual onde chamadas simples bastariam.
+    sinaisFalta: Cadeias de chamadas que violam as metas de latência ou de disponibilidade.
+    evidencias: [dean-barroso-2013, abadi-2012, garcia-molina-1987, falacias-distribuicao]
+    regras: [RN-22, RN-23, RN-24, RN-26]
+    necessidade:
+      expr:
+        limita:
+          faixa: [0, 4]
+          valor:
+            media:
+              - { peso: 2, expr: { ref: E2.N } }
+              - { peso: 2, expr: { sinal: dependencias_externas } }
+              - { peso: 1, expr: { sinal: picos } }
+              - { peso: 1, expr: { sinal: tolerancia_atraso } }
+      ancoras:
+        - Tudo se resolve em um processo; consistência imediata simples.
+        - Integrações pontuais; poucas chamadas externas.
+        - Algumas interações se beneficiam de desacoplamento no tempo; consistência imediata nas operações críticas.
+        - Muitos fluxos entre partes independentes; consistência eventual aceitável em boa parte.
+        - Alto volume entre muitas partes; desacoplamento no tempo essencial.
+    capacidade:
+      expr:
+        limita:
+          faixa: [0, 4]
+          valor:
+            media:
+              - { peso: 3, expr: { sinal: comunicacao } }
+              - { peso: 1, expr: { sinal: mecanismos } }
+      guardas:
+        - quando: { pergunta: D-01, em: ["1"] }
+          valor: [0.25, 0.75]
+          motivo: Uma única parte publicável comunica dentro do mesmo processo.
+          regras: [RN-22]
+      ancoras:
+        - Comunicação dentro do mesmo processo; transações locais.
+        - Poucas chamadas de rede, sem cadeias longas.
+        - Comunicação de rede frequente, quase toda esperando resposta, com tempo-limite e novas tentativas.
+        - Mistura de chamadas e mensagens; idempotência e reprocessamento tratados.
+        - Predominantemente por mensagens; compensações, registro de mensagens e contratos versionados.
+
+  - id: E4
+    nome: Escalabilidade e desempenho
+    perguntaGuia: A capacidade de absorver carga corresponde à carga atual, aos picos e ao crescimento?
+    mecanismos: mecanismos de escala
+    direcaoSobra: Reduzir mecanismos de escala sem carga que os justifique.
+    direcaoFalta: Aumentar a capacidade de absorver carga na parte que atinge o limite.
+    sinaisSobra: Escala global ou particionamento extenso para carga pequena e estável.
+    sinaisFalta: A carga atual ou prevista passa da folga; lentidão acima do aceitável no pico.
+    evidencias: [iso-25010, dean-barroso-2013]
+    regras: [RN-08, RN-24]
+    necessidade:
+      expr:
+        limita:
+          faixa: [0, 4]
+          valor:
+            media:
+              - { peso: 2, expr: { sinal: volume } }
+              - { peso: 2, expr: { sinal: crescimento } }
+              - { peso: 1, expr: { sinal: picos } }
+              - { peso: 1, expr: { sinal: perfis_carga } }
+      ancoras:
+        - Carga baixa e estável; sem meta de tempo de resposta rígida.
+        - Carga moderada; picos pequenos e previsíveis.
+        - Picos relevantes (2 a 5 vezes) ou crescimento até 2 vezes; meta de tempo de resposta definida.
+        - Crescimento de 2 a 10 vezes ou picos fortes; partes com perfis distintos.
+        - Escala muito alta ou crescimento acima de 10 vezes; usuários espalhados pelo mundo.
+    capacidade:
+      expr:
+        limita:
+          faixa: [0, 4]
+          valor:
+            subtrai:
+              - { sinal: escala }
+              - { sinal: deficit_latencia }
+      ancoras:
+        - "Sem folga: já opera no limite."
+        - Folga pequena; escala manual do todo.
+        - Escala do todo com folga razoável, automática ou rápida.
+        - Partes escalam de forma independente; cache e particionamento onde necessário.
+        - Escala global, em várias regiões.
+
+  - id: E5
+    nome: Resiliência e disponibilidade
+    perguntaGuia: Redundância e isolamento correspondem à criticidade?
+    mecanismos: redundância
+    direcaoSobra: Reduzir redundância acima da criticidade.
+    direcaoFalta: Eliminar pontos únicos de falha no fluxo crítico e acelerar a restauração.
+    sinaisSobra: Redundância em várias regiões para um sistema de baixa criticidade.
+    sinaisFalta: Pontos únicos de falha em sistema crítico; restauração lenta.
+    evidencias: [iso-25010, dora-2024]
+    regras: [RN-08]
+    necessidade:
+      expr: { sinal: impacto }
+      guardas:
+        - quando: { pergunta: B-08, em: [regulado] }
+          piso: 2.5
+          motivo: Setor regulado eleva a necessidade de resiliência.
+          regras: [RN-35]
+      ancoras:
+        - Ficar fora do ar não causa dano relevante.
+        - Incômodo interno; tolera horas fora do ar.
+        - Perda de receita moderada; meta de disponibilidade definida.
+        - Perda relevante ou contratual; isolamento de falhas importante.
+        - Risco regulatório ou a pessoas; alta disponibilidade crítica.
+    capacidade:
+      expr:
+        limita:
+          faixa: [0, 4]
+          valor:
+            media:
+              - { peso: 3, expr: { sinal: redundancia } }
+              - { peso: 1, expr: { sinal: restauracao } }
+      ancoras:
+        - Pontos únicos de falha; recuperação manual e lenta.
+        - Redundância básica; recuperação manual.
+        - Redundância e recuperação parcialmente automáticas.
+        - Isolamento de falhas entre partes; recuperação automática; falhas ensaiadas.
+        - Redundância ativa em várias regiões; tolera a perda de uma região.
+
+  - id: E6
+    nome: Alinhamento sociotécnico
+    perguntaGuia: As fronteiras de propriedade correspondem à estrutura dos times?
+    mecanismos: fronteiras por time
+    direcaoSobra: Reduzir o número de partes por time, juntando as que um mesmo time sustenta.
+    direcaoFalta: Definir donos e alinhar as fronteiras aos times, ou ajustar as fronteiras à estrutura atual.
+    sinaisSobra: Mais partes por time do que a carga cognitiva permite.
+    sinaisFalta: Muitos times numa fronteira sem dono; coordenação constante.
+    evidencias: [conway-1968, maccormack-2012, nagappan-2008, bird-2011, team-topologies-2019]
+    regras: [RN-38, RN-39, RN-40, RN-41]
+    necessidade:
+      expr: { sinal: times_necessidade }
+      ancoras:
+        - Uma pessoa ou dupla.
+        - Um time.
+        - Dois ou três times.
+        - Quatro a oito times.
+        - Mais de oito times ou organização distribuída.
+    capacidade:
+      expr:
+        limita:
+          faixa: [0, 4]
+          valor:
+            subtrai:
+              - { sinal: fronteiras_propriedade }
+              - soma:
+                  - { sinal: deficit_donos }
+                  - { sinal: deficit_coordenacao }
+                  - { sinal: deficit_publicacao }
+                  - { sinal: deficit_divisao }
+      guardas:
+        - quando:
+            todas:
+              - { pergunta: D-01, em: [6_20, 21_100, mais_100] }
+              - { pergunta: E-01, em: [dupla, time] }
+          piso: 3.5
+          motivo: Muitas partes para um time pequeno passam da carga cognitiva viável.
+          regras: [RN-39]
+        - quando:
+            todas:
+              - { pergunta: D-01, em: [21_100, mais_100] }
+              - { pergunta: E-01, em: [time_grande, times_2_3] }
+          piso: 3.5
+          motivo: Mais de 20 partes para até três times passam da carga cognitiva viável.
+          regras: [RN-39]
+      ancoras:
+        - "Propriedade não formalizada: todos mexem em tudo."
+        - "Uma fronteira: o sistema inteiro tem um time dono."
+        - Poucas fronteiras, cada uma com dono claro.
+        - Fronteiras por domínio, cada uma com um time dono.
+        - Muitas fronteiras por time (cada time cuida de várias partes).
+
+  - id: E7
+    nome: Sofisticação operacional
+    perguntaGuia: Automação, monitoramento e plantão correspondem ao que a arquitetura exige?
+    mecanismos: automação e plataforma de operação
+    direcaoSobra: Simplificar a operação ao que a arquitetura exige.
+    direcaoFalta: Automatizar publicação, monitoramento e criação de ambientes antes de qualquer distribuição adicional.
+    sinaisSobra: Plataforma pesada para uma única parte de baixa criticidade.
+    sinaisFalta: Sistema distribuído sem os pré-requisitos; falhas descobertas pelo cliente.
+    evidencias: [fowler-prerequisitos-2014, dora-2024]
+    regras: [RN-43, RN-44, RN-45]
+    necessidade:
+      expr:
+        limita:
+          faixa: [0, 4]
+          valor:
+            max:
+              - media:
+                  - { peso: 2, expr: { ref: E2.C } }
+                  - { peso: 1, expr: { ref: E3.C } }
+              - soma:
+                  - { ref: E5.N }
+                  - { constante: -0.5 }
+      ancoras:
+        - Uma parte, baixa criticidade.
+        - Uma parte, criticidade moderada.
+        - Poucas partes ou criticidade alta.
+        - Várias partes conversando pela rede.
+        - Muitas partes, comunicação por mensagens, alta criticidade.
+    capacidade:
+      expr:
+        limita:
+          faixa: [0, 4]
+          valor:
+            soma:
+              - { sinal: automacao }
+              - { sinal: plantao }
+      ancoras:
+        - Publicação e ambientes manuais; falhas descobertas pelo cliente.
+        - Alguma automação de publicação; monitoramento básico.
+        - Publicação e ambientes automáticos; monitoramento com alertas.
+        - O anterior mais rastreamento entre partes, plantão estruturado e resposta a incidentes.
+        - Plataforma interna de autosserviço e time dedicado à confiabilidade.
+
+  - id: E8
+    nome: Flexibilidade e extensibilidade
+    perguntaGuia: Os pontos de variação correspondem à incerteza e às variações reais do negócio?
+    mecanismos: pontos de extensão e configuração
+    direcaoSobra: Remover pontos de extensão sem uso.
+    direcaoFalta: Criar pontos de extensão nas áreas que mais variam.
+    sinaisSobra: "Generalidade especulativa: configurações e extensões que ninguém usa."
+    sinaisFalta: Toda variação exige alteração invasiva numa área de muita mudança.
+    evidencias: [baldwin-clark-2000, sullivan-2001]
+    regras: [RN-50]
+    necessidade:
+      expr:
+        limita:
+          faixa: [0, 4]
+          valor:
+            media:
+              - { peso: 2, expr: { sinal: variacoes } }
+              - { peso: 2, expr: { sinal: incerteza } }
+              - { peso: 1, expr: { sinal: volatilidade } }
+      ancoras:
+        - Requisitos estáveis; uma única variação.
+        - Variações raras e previsíveis.
+        - Algumas variações e evolução moderada.
+        - Muitas variações ou alta incerteza sobre o futuro.
+        - "Produto plataforma: terceiros estendem; a variação é o negócio."
+    capacidade:
+      expr: { sinal: configurabilidade }
+      ancoras:
+        - "Rígido: toda variação exige alteração invasiva."
+        - Variações tratadas com condições espalhadas.
+        - Pontos de extensão nos lugares que mais variam.
+        - Configuração ampla; extensões por módulos.
+        - "Generalidade máxima: quase tudo é configurável."
+
+# "A solução mais simples" do planejamento de sistema novo (P3 5.9): um artefato, módulos internos,
+# banco único, comunicação no processo. A operação (E7) vem do que a organização já automatiza.
+formaMaisSimples:
+  E1: [2, 2.5]
+  E2: [0, 0.5]
+  E3: [0, 0.5]
+  E4: [1, 1.5]
+  E5: [1, 1.5]
+  E6: [1, 1]
+  E8: [1, 1.5]
+
+# Verificação quantitativa de E3 (K-16, DC-08): disponibilidade composta da cadeia em sequência.
+quantitativo:
+  eixo: E3
+  saltos: { pergunta: D-05, valores: { "1": [1, 1], 2_3: [2, 3], 4_6: [4, 6], 7_mais: [7, 9] } }
+  disponibilidadeParte: { pergunta: D-05b, valores: { "99_5": 0.995, "99_9": 0.999, "99_95": 0.9995, "99_99": 0.9999 } }
+  meta: { pergunta: C-06, valores: { "99": 0.99, "99_5": 0.995, "99_9": 0.999, "99_95": 0.9995, "99_99": 0.9999 } }

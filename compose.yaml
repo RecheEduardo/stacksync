@@ -1,0 +1,31 @@
+# docker compose up  →  http://localhost:8080
+#
+# Um comando só, na raiz do repositório, sobe a aplicação inteira: compila o conteúdo, a interface e a API numa
+# imagem e serve tudo na mesma porta, com o banco (PostgreSQL embutido, PGlite) gravado num volume. Não precisa de
+# --build: `pull_policy: build` recompila a imagem a cada `up` (o cache do Docker reaproveita o que não mudou), então o
+# contêiner sempre roda o código atual. Ctrl+C para parar; `docker compose down -v` apaga também os dados.
+#
+# O provedor de IA "Simulado" vem ligado, para testar o fluxo inteiro sem chave real. Para usar uma IA de verdade,
+# escolha Anthropic, OpenAI, Google ou um endpoint compatível na tela "Conectar a IA" e informe a sua chave.
+#
+# Para um PostgreSQL externo, defina DATABASE_URL (por exemplo, postgres://usuario:senha@host:5432/stacksync).
+# Para produção, defina NODE_ENV=production e STACKSYNC_CHAVE_MESTRA (32 bytes em base64) e sirva por HTTPS:
+# em produção o provedor simulado deixa de existir e o cookie de sessão passa a exigir conexão segura.
+name: stacksync
+
+services:
+  stacksync:
+    build: .
+    image: stacksync:local
+    pull_policy: build
+    ports:
+      - "8080:8787"
+    environment:
+      STACKSYNC_PERMITIR_SIMULADO: "1"
+      STACKSYNC_ORIGENS: "http://localhost:8080,http://127.0.0.1:8080"
+    volumes:
+      - stacksync-dados:/dados
+    restart: unless-stopped
+
+volumes:
+  stacksync-dados:

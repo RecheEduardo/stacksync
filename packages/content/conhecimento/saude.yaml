@@ -1,0 +1,56 @@
+# Indicadores de saúde (P3 5.6). Unipolares; sem resposta, "Desconhecido" (nunca saudável por omissão).
+indicadores:
+  - id: H1
+    nome: Juros da dívida
+    pergunta: F-06
+    criterio: { menos_10: "Perda abaixo de 10% do tempo (autorrelato)", 10_25: "Perda entre 10% e 25% do tempo (autorrelato)", mais_25: "Perda acima de 25% do tempo (autorrelato)" }
+    status: { menos_10: saudavel, 10_25: atencao, mais_25: critico }
+    evidencias: [besker-2019, tornhill-borg-2022]
+  - id: H2
+    nome: Rede de segurança
+    pergunta: F-08
+    criterio: { nenhum: Nenhuma proteção nas áreas críticas, poucos: Cobertura parcial nas áreas críticas, criticas: Caracterização nas áreas críticas, contratos: Caracterização e contratos nas fronteiras }
+    status: { nenhum: critico, poucos: atencao, criticas: saudavel, contratos: saudavel }
+    evidencias: [feathers-2004]
+  - id: H3
+    nome: Dependências e cadeia de suprimentos
+    pergunta: F-11
+    criterio: { menos_6m: Atualizadas nos últimos 6 meses, 6_12m: Atualizadas há 6 a 12 meses, mais_1a: Desatualizadas há mais de 1 ano, vulneravel: Vulnerabilidade conhecida sem correção }
+    status: { menos_6m: saudavel, 6_12m: saudavel, mais_1a: atencao, vulneravel: critico }
+    evidencias: [kula-2018, zimmermann-2019]
+  - id: H4
+    nome: Ciclo de vida e licença
+    pergunta: F-12
+    criterio: { ja_perdeu: Fim de suporte vencido, menos_6m: Fim de suporte em menos de 6 meses, 6_18m: Fim de suporte entre 6 e 18 meses, mais_18m: Sem fim de suporte nos próximos 18 meses }
+    status: { ja_perdeu: critico, menos_6m: critico, 6_18m: atencao, mais_18m: saudavel }
+    evidencias: [eol-praticas]
+  - id: H5
+    nome: Conhecimento e propriedade
+    pergunta: E-06
+    criterio: { uma: Partes críticas conhecidas por uma pessoa ou ninguém, duas: Partes críticas conhecidas por duas pessoas, tres_mais: Partes críticas conhecidas por três ou mais pessoas }
+    status: { uma: critico, duas: atencao, tres_mais: saudavel }
+    evidencias: [xia-2018, bird-2011]
+  - id: H6
+    nome: Desempenho de entrega
+    pergunta: F-02
+    criterio: { horas: Correções chegam à produção em horas, dias: Correções chegam à produção em dias, semanas: Correções levam semanas, mes: Correções levam mais de um mês }
+    status: { horas: saudavel, dias: saudavel, semanas: atencao, mes: critico }
+    evidencias: [dora-2024]
+
+vocabularioProibido:
+  - { termo: "!", motivo: Sem exclamação (P3 10.4). }
+  - { termo: incrível, motivo: Superlativo. }
+  - { termo: incrivel, motivo: Superlativo. }
+  - { termo: excelente, motivo: Superlativo. }
+  - { termo: perfeito, motivo: Superlativo. }
+  - { termo: melhor do mercado, motivo: Superlativo. }
+  - { termo: urgente, motivo: Urgência artificial. }
+  - { termo: imediatamente, motivo: Urgência artificial. }
+  - { termo: não perca, motivo: Urgência artificial. }
+  - { termo: você poderia considerar, motivo: Condicional vago. }
+  - { termo: talvez valha, motivo: Condicional vago. }
+  - { termo: parabéns, motivo: Sem celebração. }
+  - { termo: ops, motivo: Sem tom informal de erro. }
+  - { termo: revolucion, motivo: Linguagem de marketing. }
+  - { termo: mágic, motivo: Linguagem de marketing. }
+  - { termo: poderoso, motivo: Linguagem de marketing. }

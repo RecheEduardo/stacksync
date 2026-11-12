@@ -1,0 +1,2574 @@
+{
+ "fonte": "https://endoflife.date/api/v1/products",
+ "consultadoEm": "2026-11-10",
+ "produtos": {
+  "apache-kafka": {
+   "rotulo": "Apache Kafka",
+   "pagina": "https://endoflife.date/apache-kafka",
+   "politica": null,
+   "ciclos": [
+    {
+     "ciclo": "4.4",
+     "lancamento": "2026-10-13",
+     "lts": false,
+     "fimSuporte": null,
+     "fimSuporteAtivo": null,
+     "mantido": true,
+     "ultima": "4.4.0"
+    },
+    {
+     "ciclo": "4.3",
+     "lancamento": "2026-05-20",
+     "lts": false,
+     "fimSuporte": null,
+     "fimSuporteAtivo": null,
+     "mantido": true,
+     "ultima": "4.3.2"
+    },
+    {
+     "ciclo": "4.2",
+     "lancamento": "2026-02-17",
+     "lts": false,
+     "fimSuporte": null,
+     "fimSuporteAtivo": null,
+     "mantido": true,
+     "ultima": "4.2.2"
+    },
+    {
+     "ciclo": "4.1",
+     "lancamento": "2025-09-02",
+     "lts": false,
+     "fimSuporte": null,
+     "fimSuporteAtivo": null,
+     "mantido": true,
+     "ultima": "4.1.2"
+    },
+    {
+     "ciclo": "4.0",
+     "lancamento": "2025-03-18",
+     "lts": false,
+     "fimSuporte": "2026-07-03",
+     "fimSuporteAtivo": null,
+     "mantido": true,
+     "ultima": "4.0.2"
+    },
+    {
+     "ciclo": "3.9",
+     "lancamento": "2024-11-06",
+     "lts": false,
+     "fimSuporte": "2026-07-03",
+     "fimSuporteAtivo": null,
+     "mantido": true,
+     "ultima": "3.9.2"
+    },
+    {
+     "ciclo": "3.8",
+     "lancamento": "2024-07-26",
+     "lts": false,
+     "fimSuporte": "2024-11-06",
+     "fimSuporteAtivo": null,
+     "mantido": true,
+     "ultima": "3.8.1"
+    },
+    {
+     "ciclo": "3.7",
+     "lancamento": "2024-02-26",
+     "lts": false,
+     "fimSuporte": "2024-07-26",
+     "fimSuporteAtivo": null,
+     "mantido": false,
+     "ultima": "3.7.2"
+    },
+    {
+     "ciclo": "3.6",
+     "lancamento": "2023-10-03",
+     "lts": false,
+     "fimSuporte": "2024-02-27",
+     "fimSuporteAtivo": null,
+     "mantido": false,
+     "ultima": "3.6.2"
+    },
+    {
+     "ciclo": "3.5",
+     "lancamento": "2023-06-13",
+     "lts": false,
+     "fimSuporte": "2023-10-03",
+     "fimSuporteAtivo": null,
+     "mantido": false,
+     "ultima": "3.5.2"
+    }
+   ]
+  },
+  "django": {
+   "rotulo": "Django",
+   "pagina": "https://endoflife.date/django",
+   "politica": "https://www.djangoproject.com/download/#supported-versions",
+   "ciclos": [
+    {
+     "ciclo": "6.1",
+     "lancamento": "2026-08-05",
+     "lts": false,
+     "fimSuporte": "2027-12-31",
+     "fimSuporteAtivo": "2027-04-30",
+     "mantido": true,
+     "ultima": "6.1.3"
+    },
+    {
+     "ciclo": "6.0",
+     "lancamento": "2025-12-03",
+     "lts": false,
+     "fimSuporte": "2027-04-30",
+     "fimSuporteAtivo": "2026-08-04",
+     "mantido": true,
+     "ultima": "6.0.10"
+    },
+    {
+     "ciclo": "5.2",
+     "lancamento": "2025-04-02",
+     "lts": true,
+     "fimSuporte": "2028-04-30",
+     "fimSuporteAtivo": "2025-12-03",
+     "mantido": true,
+     "ultima": "5.2.19"
+    },
+    {
+     "ciclo": "5.1",
+     "lancamento": "2024-08-07",
+     "lts": false,
+     "fimSuporte": "2025-12-03",
+     "fimSuporteAtivo": "2025-04-02",
+     "mantido": false,
+     "ultima": "5.1.15"
+    },
+    {
+     "ciclo": "5.0",
+     "lancamento": "2023-12-04",
+     "lts": false,
+     "fimSuporte": "2025-04-02",
+     "fimSuporteAtivo": "2024-08-07",
+     "mantido": false,
+     "ultima": "5.0.14"
+    },
+    {
+     "ciclo": "4.2",
+     "lancamento": "2023-04-03",
+     "lts": true,
+     "fimSuporte": "2026-04-07",
+     "fimSuporteAtivo": "2023-12-04",
+     "mantido": false,
+     "ultima": "4.2.30"
+    },
+    {
+     "ciclo": "4.1",
+     "lancamento": "2022-08-03",
+     "lts": false,
+     "fimSuporte": "2023-12-01",
+     "fimSuporteAtivo": "2023-04-05",
+     "mantido": false,
+     "ultima": "4.1.13"
+    },
+    {
+     "ciclo": "4.0",
+     "lancamento": "2021-12-07",
+     "lts": false,
+     "fimSuporte": "2023-04-01",
+     "fimSuporteAtivo": "2022-08-03",
+     "mantido": false,
+     "ultima": "4.0.10"
+    },
+    {
+     "ciclo": "3.2",
+     "lancamento": "2021-04-06",
+     "lts": true,
+     "fimSuporte": "2024-04-01",
+     "fimSuporteAtivo": "2021-12-07",
+     "mantido": false,
+     "ultima": "3.2.25"
+    },
+    {
+     "ciclo": "3.1",
+     "lancamento": "2020-08-04",
+     "lts": false,
+     "fimSuporte": "2021-12-07",
+     "fimSuporteAtivo": "2021-04-06",
+     "mantido": false,
+     "ultima": "3.1.14"
+    }
+   ]
+  },
+  "dotnet": {
+   "rotulo": "Microsoft .NET",
+   "pagina": "https://endoflife.date/dotnet",
+   "politica": "https://dotnet.microsoft.com/platform/support/policy/dotnet-core",
+   "ciclos": [
+    {
+     "ciclo": "11",
+     "lancamento": "2026-11-10",
+     "lts": false,
+     "fimSuporte": "2028-11-14",
+     "fimSuporteAtivo": null,
+     "mantido": true,
+     "ultima": "11.0.0"
+    },
+    {
+     "ciclo": "10",
+     "lancamento": "2025-11-11",
+     "lts": true,
+     "fimSuporte": "2028-11-14",
+     "fimSuporteAtivo": null,
+     "mantido": true,
+     "ultima": "10.0.15"
+    },
+    {
+     "ciclo": "9",
+     "lancamento": "2024-11-12",
+     "lts": false,
+     "fimSuporte": "2026-11-10",
+     "fimSuporteAtivo": null,
+     "mantido": false,
+     "ultima": "9.0.23"
+    },
+    {
+     "ciclo": "8",
+     "lancamento": "2023-11-14",
+     "lts": true,
+     "fimSuporte": "2026-11-10",
+     "fimSuporteAtivo": null,
+     "mantido": false,
+     "ultima": "8.0.34"
+    },
+    {
+     "ciclo": "7",
+     "lancamento": "2022-11-08",
+     "lts": false,
+     "fimSuporte": "2024-05-14",
+     "fimSuporteAtivo": null,
+     "mantido": false,
+     "ultima": "7.0.20"
+    },
+    {
+     "ciclo": "6",
+     "lancamento": "2021-11-08",
+     "lts": true,
+     "fimSuporte": "2024-11-12",
+     "fimSuporteAtivo": null,
+     "mantido": false,
+     "ultima": "6.0.36"
+    },
+    {
+     "ciclo": "5",
+     "lancamento": "2020-11-10",
+     "lts": false,
+     "fimSuporte": "2022-05-10",
+     "fimSuporteAtivo": null,
+     "mantido": false,
+     "ultima": "5.0.17"
+    },
+    {
+     "ciclo": "3.1",
+     "lancamento": "2019-12-03",
+     "lts": true,
+     "fimSuporte": "2022-12-13",
+     "fimSuporteAtivo": null,
+     "mantido": false,
+     "ultima": "3.1.32"
+    },
+    {
+     "ciclo": "3.0",
+     "lancamento": "2019-09-23",
+     "lts": false,
+     "fimSuporte": "2020-03-03",
+     "fimSuporteAtivo": null,
+     "mantido": false,
+     "ultima": "3.0.3"
+    },
+    {
+     "ciclo": "2.2",
+     "lancamento": "2018-12-04",
+     "lts": false,
+     "fimSuporte": "2019-12-23",
+     "fimSuporteAtivo": null,
+     "mantido": false,
+     "ultima": "2.2.8"
+    }
+   ]
+  },
+  "eclipse-temurin": {
+   "rotulo": "Eclipse Temurin",
+   "pagina": "https://endoflife.date/eclipse-temurin",
+   "politica": "https://adoptium.net/support/",
+   "ciclos": [
+    {
+     "ciclo": "27",
+     "lancamento": "2026-09-22",
+     "lts": false,
+     "fimSuporte": "2027-03-23",
+     "fimSuporteAtivo": null,
+     "mantido": true,
+     "ultima": "27.0.1.0.2+1"
+    },
+    {
+     "ciclo": "26",
+     "lancamento": "2026-03-23",
+     "lts": false,
+     "fimSuporte": "2026-09-22",
+     "fimSuporteAtivo": null,
+     "mantido": false,
+     "ultima": "26.0.2.1+1"
+    },
+    {
+     "ciclo": "25",
+     "lancamento": "2025-09-22",
+     "lts": true,
+     "fimSuporte": "2031-09-30",
+     "fimSuporteAtivo": null,
+     "mantido": true,
+     "ultima": "25.0.5+8"
+    },
+    {
+     "ciclo": "24",
+     "lancamento": "2025-03-20",
+     "lts": false,
+     "fimSuporte": "2025-09-22",
+     "fimSuporteAtivo": null,
+     "mantido": false,
+     "ultima": "24.0.2+12"
+    },
+    {
+     "ciclo": "23",
+     "lancamento": "2024-09-17",
+     "lts": false,
+     "fimSuporte": "2025-03-18",
+     "fimSuporteAtivo": null,
+     "mantido": false,
+     "ultima": "23.0.2+7"
+    },
+    {
+     "ciclo": "22",
+     "lancamento": "2024-03-20",
+     "lts": false,
+     "fimSuporte": "2024-09-17",
+     "fimSuporteAtivo": null,
+     "mantido": false,
+     "ultima": "22.0.2+9"
+    },
+    {
+     "ciclo": "21",
+     "lancamento": "2023-10-10",
+     "lts": true,
+     "fimSuporte": "2029-12-31",
+     "fimSuporteAtivo": null,
+     "mantido": true,
+     "ultima": "21.0.13+9"
+    },
+    {
+     "ciclo": "20",
+     "lancamento": "2023-03-23",
+     "lts": false,
+     "fimSuporte": "2023-09-19",
+     "fimSuporteAtivo": null,
+     "mantido": false,
+     "ultima": "20.0.2+9"
+    },
+    {
+     "ciclo": "19",
+     "lancamento": "2022-09-26",
+     "lts": false,
+     "fimSuporte": "2023-03-31",
+     "fimSuporteAtivo": null,
+     "mantido": false,
+     "ultima": "19.0.2+7"
+    },
+    {
+     "ciclo": "18",
+     "lancamento": "2022-03-24",
+     "lts": false,
+     "fimSuporte": "2022-09-30",
+     "fimSuporteAtivo": null,
+     "mantido": false,
+     "ultima": "18.0.2.1+1"
+    }
+   ]
+  },
+  "go": {
+   "rotulo": "Go",
+   "pagina": "https://endoflife.date/go",
+   "politica": "https://go.dev/doc/devel/release#policy",
+   "ciclos": [
+    {
+     "ciclo": "1.27",
+     "lancamento": "2026-08-19",
+     "lts": false,
+     "fimSuporte": null,
+     "fimSuporteAtivo": null,
+     "mantido": true,
+     "ultima": "1.27.4"
+    },
+    {
+     "ciclo": "1.26",
+     "lancamento": "2026-02-10",
+     "lts": false,
+     "fimSuporte": null,
+     "fimSuporteAtivo": null,
+     "mantido": true,
+     "ultima": "1.26.11"
+    },
+    {
+     "ciclo": "1.25",
+     "lancamento": "2025-08-12",
+     "lts": false,
+     "fimSuporte": "2026-08-19",
+     "fimSuporteAtivo": null,
+     "mantido": false,
+     "ultima": "1.25.14"
+    },
+    {
+     "ciclo": "1.24",
+     "lancamento": "2025-02-11",
+     "lts": false,
+     "fimSuporte": "2026-02-10",
+     "fimSuporteAtivo": null,
+     "mantido": false,
+     "ultima": "1.24.13"
+    },
+    {
+     "ciclo": "1.23",
+     "lancamento": "2024-08-13",
+     "lts": false,
+     "fimSuporte": "2025-08-12",
+     "fimSuporteAtivo": null,
+     "mantido": false,
+     "ultima": "1.23.12"
+    },
+    {
+     "ciclo": "1.22",
+     "lancamento": "2024-02-06",
+     "lts": false,
+     "fimSuporte": "2025-02-11",
+     "fimSuporteAtivo": null,
+     "mantido": false,
+     "ultima": "1.22.12"
+    },
+    {
+     "ciclo": "1.21",
+     "lancamento": "2023-08-08",
+     "lts": false,
+     "fimSuporte": "2024-08-13",
+     "fimSuporteAtivo": null,
+     "mantido": false,
+     "ultima": "1.21.13"
+    },
+    {
+     "ciclo": "1.20",
+     "lancamento": "2023-02-01",
+     "lts": false,
+     "fimSuporte": "2024-02-06",
+     "fimSuporteAtivo": null,
+     "mantido": false,
+     "ultima": "1.20.14"
+    },
+    {
+     "ciclo": "1.19",
+     "lancamento": "2022-08-02",
+     "lts": false,
+     "fimSuporte": "2023-09-06",
+     "fimSuporteAtivo": null,
+     "mantido": false,
+     "ultima": "1.19.13"
+    },
+    {
+     "ciclo": "1.18",
+     "lancamento": "2022-03-15",
+     "lts": false,
+     "fimSuporte": "2023-02-01",
+     "fimSuporteAtivo": null,
+     "mantido": false,
+     "ultima": "1.18.10"
+    }
+   ]
+  },
+  "grafana": {
+   "rotulo": "Grafana",
+   "pagina": "https://endoflife.date/grafana",
+   "politica": null,
+   "ciclos": [
+    {
+     "ciclo": "13.3",
+     "lancamento": "2026-10-20",
+     "lts": false,
+     "fimSuporte": "2027-07-20",
+     "fimSuporteAtivo": null,
+     "mantido": true,
+     "ultima": "13.3.0"
+    },
+    {
+     "ciclo": "13.2",
+     "lancamento": "2026-08-18",
+     "lts": false,
+     "fimSuporte": "2027-05-18",
+     "fimSuporteAtivo": "2026-10-20",
+     "mantido": true,
+     "ultima": "13.2.5"
+    },
+    {
+     "ciclo": "13.1",
+     "lancamento": "2026-06-23",
+     "lts": false,
+     "fimSuporte": "2027-03-20",
+     "fimSuporteAtivo": "2026-08-18",
+     "mantido": true,
+     "ultima": "13.1.9"
+    },
+    {
+     "ciclo": "13.0",
+     "lancamento": "2026-04-14",
+     "lts": false,
+     "fimSuporte": "2027-01-09",
+     "fimSuporteAtivo": "2026-06-22",
+     "mantido": true,
+     "ultima": "13.0.12"
+    },
+    {
+     "ciclo": "12.4",
+     "lancamento": "2026-02-24",
+     "lts": false,
+     "fimSuporte": "2027-05-24",
+     "fimSuporteAtivo": "2026-04-17",
+     "mantido": true,
+     "ultima": "12.4.14"
+    },
+    {
+     "ciclo": "12.3",
+     "lancamento": "2025-11-19",
+     "lts": false,
+     "fimSuporte": "2026-08-19",
+     "fimSuporteAtivo": "2026-02-24",
+     "mantido": false,
+     "ultima": "12.3.11"
+    },
+    {
+     "ciclo": "12.2",
+     "lancamento": "2025-09-23",
+     "lts": false,
+     "fimSuporte": "2026-06-23",
+     "fimSuporteAtivo": "2025-11-19",
+     "mantido": false,
+     "ultima": "12.2.10"
+    },
+    {
+     "ciclo": "12.1",
+     "lancamento": "2025-07-22",
+     "lts": false,
+     "fimSuporte": "2026-04-22",
+     "fimSuporteAtivo": "2025-09-23",
+     "mantido": false,
+     "ultima": "12.1.10+security-01"
+    },
+    {
+     "ciclo": "12.0",
+     "lancamento": "2025-05-05",
+     "lts": false,
+     "fimSuporte": "2026-02-05",
+     "fimSuporteAtivo": "2025-07-22",
+     "mantido": false,
+     "ultima": "12.0.10"
+    },
+    {
+     "ciclo": "11.6",
+     "lancamento": "2025-03-25",
+     "lts": false,
+     "fimSuporte": "2026-06-25",
+     "fimSuporteAtivo": "2025-05-05",
+     "mantido": false,
+     "ultima": "11.6.16"
+    }
+   ]
+  },
+  "jaeger": {
+   "rotulo": "Jaeger",
+   "pagina": "https://endoflife.date/jaeger",
+   "politica": null,
+   "ciclos": [
+    {
+     "ciclo": "2",
+     "lancamento": "2024-11-04",
+     "lts": false,
+     "fimSuporte": null,
+     "fimSuporteAtivo": null,
+     "mantido": true,
+     "ultima": "2.23.0"
+    },
+    {
+     "ciclo": "1",
+     "lancamento": "2017-12-06",
+     "lts": false,
+     "fimSuporte": "2025-12-31",
+     "fimSuporteAtivo": null,
+     "mantido": false,
+     "ultima": "1.76.0"
+    }
+   ]
+  },
+  "kotlin": {
+   "rotulo": "Kotlin",
+   "pagina": "https://endoflife.date/kotlin",
+   "politica": "https://kotlinlang.org/docs/security.html",
+   "ciclos": [
+    {
+     "ciclo": "2.4",
+     "lancamento": "2026-06-03",
+     "lts": false,
+     "fimSuporte": null,
+     "fimSuporteAtivo": null,
+     "mantido": true,
+     "ultima": "2.4.21"
+    },
+    {
+     "ciclo": "2.3",
+     "lancamento": "2025-12-16",
+     "lts": false,
+     "fimSuporte": "2026-06-03",
+     "fimSuporteAtivo": null,
+     "mantido": false,
+     "ultima": "2.3.21"
+    },
+    {
+     "ciclo": "2.2",
+     "lancamento": "2025-06-23",
+     "lts": false,
+     "fimSuporte": "2025-12-16",
+     "fimSuporteAtivo": null,
+     "mantido": false,
+     "ultima": "2.2.21"
+    },
+    {
+     "ciclo": "2.1",
+     "lancamento": "2024-11-27",
+     "lts": false,
+     "fimSuporte": "2025-06-23",
+     "fimSuporteAtivo": null,
+     "mantido": false,
+     "ultima": "2.1.21"
+    },
+    {
+     "ciclo": "2.0",
+     "lancamento": "2024-05-21",
+     "lts": false,
+     "fimSuporte": "2024-11-27",
+     "fimSuporteAtivo": null,
+     "mantido": false,
+     "ultima": "2.0.21"
+    },
+    {
+     "ciclo": "1.9",
+     "lancamento": "2023-07-06",
+     "lts": false,
+     "fimSuporte": "2024-05-21",
+     "fimSuporteAtivo": null,
+     "mantido": false,
+     "ultima": "1.9.25"
+    },
+    {
+     "ciclo": "1.8",
+     "lancamento": "2022-12-28",
+     "lts": false,
+     "fimSuporte": "2023-07-06",
+     "fimSuporteAtivo": null,
+     "mantido": false,
+     "ultima": "1.8.22"
+    },
+    {
+     "ciclo": "1.7",
+     "lancamento": "2022-06-09",
+     "lts": false,
+     "fimSuporte": "2022-12-28",
+     "fimSuporteAtivo": null,
+     "mantido": false,
+     "ultima": "1.7.22"
+    },
+    {
+     "ciclo": "1.6",
+     "lancamento": "2021-11-15",
+     "lts": false,
+     "fimSuporte": "2022-06-09",
+     "fimSuporteAtivo": null,
+     "mantido": false,
+     "ultima": "1.6.21"
+    },
+    {
+     "ciclo": "1.5",
+     "lancamento": "2021-04-26",
+     "lts": false,
+     "fimSuporte": "2021-11-29",
+     "fimSuporteAtivo": null,
+     "mantido": false,
+     "ultima": "1.5.32"
+    }
+   ]
+  },
+  "laravel": {
+   "rotulo": "Laravel",
+   "pagina": "https://endoflife.date/laravel",
+   "politica": "https://laravel.com/framework/docs/releases#support-policy",
+   "ciclos": [
+    {
+     "ciclo": "13",
+     "lancamento": "2026-03-17",
+     "lts": false,
+     "fimSuporte": "2028-03-17",
+     "fimSuporteAtivo": "2027-09-30",
+     "mantido": true,
+     "ultima": "13.42.0"
+    },
+    {
+     "ciclo": "12",
+     "lancamento": "2025-02-24",
+     "lts": false,
+     "fimSuporte": "2027-02-24",
+     "fimSuporteAtivo": "2026-08-13",
+     "mantido": true,
+     "ultima": "12.72.0"
+    },
+    {
+     "ciclo": "11",
+     "lancamento": "2024-03-12",
+     "lts": false,
+     "fimSuporte": "2026-03-12",
+     "fimSuporteAtivo": "2025-09-03",
+     "mantido": false,
+     "ultima": "11.57.1"
+    },
+    {
+     "ciclo": "10",
+     "lancamento": "2023-02-14",
+     "lts": false,
+     "fimSuporte": "2025-02-04",
+     "fimSuporteAtivo": "2024-08-06",
+     "mantido": false,
+     "ultima": "10.50.4"
+    },
+    {
+     "ciclo": "9",
+     "lancamento": "2022-02-08",
+     "lts": false,
+     "fimSuporte": "2024-02-06",
+     "fimSuporteAtivo": "2023-08-08",
+     "mantido": false,
+     "ultima": "9.52.23"
+    },
+    {
+     "ciclo": "8",
+     "lancamento": "2020-09-08",
+     "lts": false,
+     "fimSuporte": "2023-01-24",
+     "fimSuporteAtivo": "2022-07-26",
+     "mantido": false,
+     "ultima": "8.83.29"
+    },
+    {
+     "ciclo": "7",
+     "lancamento": "2020-03-03",
+     "lts": false,
+     "fimSuporte": "2021-03-03",
+     "fimSuporteAtivo": "2020-10-06",
+     "mantido": false,
+     "ultima": "7.30.7"
+    },
+    {
+     "ciclo": "6",
+     "lancamento": "2019-09-03",
+     "lts": true,
+     "fimSuporte": "2022-09-06",
+     "fimSuporteAtivo": "2022-01-25",
+     "mantido": false,
+     "ultima": "6.20.45"
+    },
+    {
+     "ciclo": "5.8",
+     "lancamento": "2019-02-26",
+     "lts": false,
+     "fimSuporte": "2020-02-26",
+     "fimSuporteAtivo": "2019-08-26",
+     "mantido": false,
+     "ultima": "5.8.38"
+    },
+    {
+     "ciclo": "5.5",
+     "lancamento": "2017-08-30",
+     "lts": true,
+     "fimSuporte": "2020-08-30",
+     "fimSuporteAtivo": "2019-08-30",
+     "mantido": false,
+     "ultima": "5.5.50"
+    }
+   ]
+  },
+  "mariadb": {
+   "rotulo": "MariaDB",
+   "pagina": "https://endoflife.date/mariadb",
+   "politica": "https://mariadb.org/about/#maintenance-policy",
+   "ciclos": [
+    {
+     "ciclo": "13.0",
+     "lancamento": "2026-09-15",
+     "lts": false,
+     "fimSuporte": "2026-12-31",
+     "fimSuporteAtivo": null,
+     "mantido": true,
+     "ultima": "13.0.2"
+    },
+    {
+     "ciclo": "12.3",
+     "lancamento": "2026-05-28",
+     "lts": true,
+     "fimSuporte": "2029-06-12",
+     "fimSuporteAtivo": null,
+     "mantido": true,
+     "ultima": "12.3.3"
+    },
+    {
+     "ciclo": "12.2",
+     "lancamento": "2026-02-13",
+     "lts": false,
+     "fimSuporte": "2026-05-28",
+     "fimSuporteAtivo": null,
+     "mantido": false,
+     "ultima": "12.2.2"
+    },
+    {
+     "ciclo": "12.1",
+     "lancamento": "2025-11-18",
+     "lts": false,
+     "fimSuporte": "2026-02-13",
+     "fimSuporteAtivo": null,
+     "mantido": false,
+     "ultima": "12.1.2"
+    },
+    {
+     "ciclo": "12.0",
+     "lancamento": "2025-08-07",
+     "lts": false,
+     "fimSuporte": "2025-11-18",
+     "fimSuporteAtivo": null,
+     "mantido": false,
+     "ultima": "12.0.2"
+    },
+    {
+     "ciclo": "11.8",
+     "lancamento": "2025-06-04",
+     "lts": true,
+     "fimSuporte": "2028-06-04",
+     "fimSuporteAtivo": null,
+     "mantido": true,
+     "ultima": "11.8.9"
+    },
+    {
+     "ciclo": "11.7",
+     "lancamento": "2025-02-12",
+     "lts": false,
+     "fimSuporte": "2025-05-12",
+     "fimSuporteAtivo": null,
+     "mantido": false,
+     "ultima": "11.7.2"
+    },
+    {
+     "ciclo": "11.6",
+     "lancamento": "2024-11-13",
+     "lts": false,
+     "fimSuporte": "2025-02-13",
+     "fimSuporteAtivo": null,
+     "mantido": false,
+     "ultima": "11.6.2"
+    },
+    {
+     "ciclo": "11.5",
+     "lancamento": "2024-08-14",
+     "lts": false,
+     "fimSuporte": "2024-11-21",
+     "fimSuporteAtivo": null,
+     "mantido": false,
+     "ultima": "11.5.2"
+    },
+    {
+     "ciclo": "11.4",
+     "lancamento": "2024-05-29",
+     "lts": true,
+     "fimSuporte": "2029-05-29",
+     "fimSuporteAtivo": null,
+     "mantido": true,
+     "ultima": "11.4.13"
+    }
+   ]
+  },
+  "memcached": {
+   "rotulo": "Memcached",
+   "pagina": "https://endoflife.date/memcached",
+   "politica": null,
+   "ciclos": [
+    {
+     "ciclo": "1.6",
+     "lancamento": "2020-03-08",
+     "lts": false,
+     "fimSuporte": null,
+     "fimSuporteAtivo": null,
+     "mantido": true,
+     "ultima": "1.6.45"
+    },
+    {
+     "ciclo": "1.5",
+     "lancamento": "2017-07-21",
+     "lts": false,
+     "fimSuporte": "2020-03-09",
+     "fimSuporteAtivo": null,
+     "mantido": false,
+     "ultima": "1.5.22"
+    },
+    {
+     "ciclo": "1.4",
+     "lancamento": "2009-07-09",
+     "lts": false,
+     "fimSuporte": "2017-07-21",
+     "fimSuporteAtivo": null,
+     "mantido": false,
+     "ultima": "1.4.39"
+    }
+   ]
+  },
+  "mongodb": {
+   "rotulo": "MongoDB Server",
+   "pagina": "https://endoflife.date/mongodb",
+   "politica": "https://www.mongodb.com/legal/support-policy",
+   "ciclos": [
+    {
+     "ciclo": "9.0",
+     "lancamento": "2026-09-30",
+     "lts": false,
+     "fimSuporte": "2031-10-31",
+     "fimSuporteAtivo": null,
+     "mantido": true,
+     "ultima": "9.0.4"
+    },
+    {
+     "ciclo": "8.3",
+     "lancamento": "2026-05-31",
+     "lts": false,
+     "fimSuporte": "2029-10-31",
+     "fimSuporteAtivo": null,
+     "mantido": true,
+     "ultima": "8.3.13"
+    },
+    {
+     "ciclo": "8.2",
+     "lancamento": "2025-09-30",
+     "lts": false,
+     "fimSuporte": "2026-07-31",
+     "fimSuporteAtivo": null,
+     "mantido": false,
+     "ultima": "8.2.12"
+    },
+    {
+     "ciclo": "8.1",
+     "lancamento": "2025-06-30",
+     "lts": false,
+     "fimSuporte": "2025-09-30",
+     "fimSuporteAtivo": null,
+     "mantido": false,
+     "ultima": "8.1.3"
+    },
+    {
+     "ciclo": "8.0",
+     "lancamento": "2024-10-31",
+     "lts": false,
+     "fimSuporte": "2029-10-31",
+     "fimSuporteAtivo": null,
+     "mantido": true,
+     "ultima": "8.0.34"
+    },
+    {
+     "ciclo": "7.3",
+     "lancamento": "2024-03-31",
+     "lts": false,
+     "fimSuporte": "2024-10-02",
+     "fimSuporteAtivo": null,
+     "mantido": false,
+     "ultima": "7.3.4"
+    },
+    {
+     "ciclo": "7.2",
+     "lancamento": "2024-01-31",
+     "lts": false,
+     "fimSuporte": "2024-03-27",
+     "fimSuporteAtivo": null,
+     "mantido": false,
+     "ultima": "7.2.2"
+    },
+    {
+     "ciclo": "7.1",
+     "lancamento": "2023-10-31",
+     "lts": false,
+     "fimSuporte": "2024-01-23",
+     "fimSuporteAtivo": null,
+     "mantido": false,
+     "ultima": "7.1.1"
+    },
+    {
+     "ciclo": "7.0",
+     "lancamento": "2023-08-31",
+     "lts": false,
+     "fimSuporte": "2027-08-31",
+     "fimSuporteAtivo": null,
+     "mantido": true,
+     "ultima": "7.0.45"
+    },
+    {
+     "ciclo": "6.3",
+     "lancamento": "2023-04-30",
+     "lts": false,
+     "fimSuporte": "2023-08-31",
+     "fimSuporteAtivo": null,
+     "mantido": false,
+     "ultima": "6.3.2"
+    }
+   ]
+  },
+  "mysql": {
+   "rotulo": "MySQL",
+   "pagina": "https://endoflife.date/mysql",
+   "politica": "https://www.oracle.com/us/support/library/lifetime-support-technology-069183.pdf",
+   "ciclos": [
+    {
+     "ciclo": "26.10",
+     "lancamento": "2026-10-20",
+     "lts": false,
+     "fimSuporte": null,
+     "fimSuporteAtivo": null,
+     "mantido": true,
+     "ultima": "26.10.0"
+    },
+    {
+     "ciclo": "26.7",
+     "lancamento": "2026-07-28",
+     "lts": false,
+     "fimSuporte": "2026-10-20",
+     "fimSuporteAtivo": "2026-10-20",
+     "mantido": false,
+     "ultima": "26.7.1"
+    },
+    {
+     "ciclo": "9.7",
+     "lancamento": "2026-04-21",
+     "lts": true,
+     "fimSuporte": "2034-04-30",
+     "fimSuporteAtivo": "2031-04-30",
+     "mantido": true,
+     "ultima": "9.7.4"
+    },
+    {
+     "ciclo": "9.6",
+     "lancamento": "2026-01-20",
+     "lts": false,
+     "fimSuporte": "2026-04-21",
+     "fimSuporteAtivo": "2026-04-21",
+     "mantido": false,
+     "ultima": "9.6.1"
+    },
+    {
+     "ciclo": "9.5",
+     "lancamento": "2025-10-21",
+     "lts": false,
+     "fimSuporte": "2026-01-20",
+     "fimSuporteAtivo": "2026-01-20",
+     "mantido": false,
+     "ultima": "9.5.2"
+    },
+    {
+     "ciclo": "9.4",
+     "lancamento": "2025-07-22",
+     "lts": false,
+     "fimSuporte": "2025-10-21",
+     "fimSuporteAtivo": "2025-10-21",
+     "mantido": false,
+     "ultima": "9.4.2"
+    },
+    {
+     "ciclo": "9.3",
+     "lancamento": "2025-04-15",
+     "lts": false,
+     "fimSuporte": "2025-07-22",
+     "fimSuporteAtivo": "2025-07-22",
+     "mantido": false,
+     "ultima": "9.3.2"
+    },
+    {
+     "ciclo": "9.2",
+     "lancamento": "2025-01-21",
+     "lts": false,
+     "fimSuporte": "2025-04-15",
+     "fimSuporteAtivo": "2025-04-15",
+     "mantido": false,
+     "ultima": "9.2.2"
+    },
+    {
+     "ciclo": "9.1",
+     "lancamento": "2024-10-15",
+     "lts": false,
+     "fimSuporte": "2025-01-21",
+     "fimSuporteAtivo": "2025-01-21",
+     "mantido": false,
+     "ultima": "9.1.2"
+    },
+    {
+     "ciclo": "9.0",
+     "lancamento": "2024-07-01",
+     "lts": false,
+     "fimSuporte": "2024-10-15",
+     "fimSuporteAtivo": "2024-10-15",
+     "mantido": false,
+     "ultima": "9.0.1"
+    }
+   ]
+  },
+  "nodejs": {
+   "rotulo": "Node.js",
+   "pagina": "https://endoflife.date/nodejs",
+   "politica": "https://nodejs.org/en/about/previous-releases",
+   "ciclos": [
+    {
+     "ciclo": "26",
+     "lancamento": "2026-05-05",
+     "lts": true,
+     "fimSuporte": "2029-04-30",
+     "fimSuporteAtivo": "2027-10-27",
+     "mantido": true,
+     "ultima": "26.13.0"
+    },
+    {
+     "ciclo": "25",
+     "lancamento": "2025-10-15",
+     "lts": false,
+     "fimSuporte": "2026-06-01",
+     "fimSuporteAtivo": "2026-04-01",
+     "mantido": false,
+     "ultima": "25.9.0"
+    },
+    {
+     "ciclo": "24",
+     "lancamento": "2025-05-06",
+     "lts": true,
+     "fimSuporte": "2028-04-30",
+     "fimSuporteAtivo": "2026-10-20",
+     "mantido": true,
+     "ultima": "24.22.2"
+    },
+    {
+     "ciclo": "23",
+     "lancamento": "2024-10-16",
+     "lts": false,
+     "fimSuporte": "2025-06-01",
+     "fimSuporteAtivo": "2025-04-01",
+     "mantido": false,
+     "ultima": "23.11.1"
+    },
+    {
+     "ciclo": "22",
+     "lancamento": "2024-04-24",
+     "lts": true,
+     "fimSuporte": "2027-04-30",
+     "fimSuporteAtivo": "2025-10-21",
+     "mantido": true,
+     "ultima": "22.23.4"
+    },
+    {
+     "ciclo": "21",
+     "lancamento": "2023-10-17",
+     "lts": false,
+     "fimSuporte": "2024-06-01",
+     "fimSuporteAtivo": "2024-04-01",
+     "mantido": false,
+     "ultima": "21.7.3"
+    },
+    {
+     "ciclo": "20",
+     "lancamento": "2023-04-18",
+     "lts": true,
+     "fimSuporte": "2026-04-30",
+     "fimSuporteAtivo": "2024-10-22",
+     "mantido": true,
+     "ultima": "20.20.2"
+    },
+    {
+     "ciclo": "19",
+     "lancamento": "2022-10-18",
+     "lts": false,
+     "fimSuporte": "2023-06-01",
+     "fimSuporteAtivo": "2023-04-01",
+     "mantido": false,
+     "ultima": "19.9.0"
+    },
+    {
+     "ciclo": "18",
+     "lancamento": "2022-04-19",
+     "lts": true,
+     "fimSuporte": "2025-04-30",
+     "fimSuporteAtivo": "2023-10-18",
+     "mantido": true,
+     "ultima": "18.20.8"
+    },
+    {
+     "ciclo": "17",
+     "lancamento": "2021-10-19",
+     "lts": false,
+     "fimSuporte": "2022-06-01",
+     "fimSuporteAtivo": "2022-04-01",
+     "mantido": false,
+     "ultima": "17.9.1"
+    }
+   ]
+  },
+  "opentofu": {
+   "rotulo": "OpenTofu",
+   "pagina": "https://endoflife.date/opentofu",
+   "politica": null,
+   "ciclos": [
+    {
+     "ciclo": "1.13",
+     "lancamento": "2026-09-30",
+     "lts": false,
+     "fimSuporte": "2027-08-01",
+     "fimSuporteAtivo": null,
+     "mantido": true,
+     "ultima": "1.13.9"
+    },
+    {
+     "ciclo": "1.12",
+     "lancamento": "2026-05-14",
+     "lts": false,
+     "fimSuporte": "2027-02-01",
+     "fimSuporteAtivo": null,
+     "mantido": true,
+     "ultima": "1.12.12"
+    },
+    {
+     "ciclo": "1.11",
+     "lancamento": "2025-12-09",
+     "lts": false,
+     "fimSuporte": "2026-08-19",
+     "fimSuporteAtivo": null,
+     "mantido": false,
+     "ultima": "1.11.14"
+    },
+    {
+     "ciclo": "1.10",
+     "lancamento": "2025-06-24",
+     "lts": false,
+     "fimSuporte": "2026-09-30",
+     "fimSuporteAtivo": null,
+     "mantido": false,
+     "ultima": "1.10.10"
+    },
+    {
+     "ciclo": "1.9",
+     "lancamento": "2025-01-09",
+     "lts": false,
+     "fimSuporte": "2026-05-14",
+     "fimSuporteAtivo": null,
+     "mantido": false,
+     "ultima": "1.9.4"
+    },
+    {
+     "ciclo": "1.8",
+     "lancamento": "2024-07-29",
+     "lts": false,
+     "fimSuporte": "2025-12-09",
+     "fimSuporteAtivo": null,
+     "mantido": false,
+     "ultima": "1.8.11"
+    },
+    {
+     "ciclo": "1.7",
+     "lancamento": "2024-04-30",
+     "lts": false,
+     "fimSuporte": "2025-06-24",
+     "fimSuporteAtivo": null,
+     "mantido": false,
+     "ultima": "1.7.10"
+    },
+    {
+     "ciclo": "1.6",
+     "lancamento": "2024-01-09",
+     "lts": false,
+     "fimSuporte": "2025-01-09",
+     "fimSuporteAtivo": null,
+     "mantido": false,
+     "ultima": "1.6.3"
+    }
+   ]
+  },
+  "php": {
+   "rotulo": "PHP",
+   "pagina": "https://endoflife.date/php",
+   "politica": "https://www.php.net/supported-versions.php",
+   "ciclos": [
+    {
+     "ciclo": "8.5",
+     "lancamento": "2025-11-20",
+     "lts": false,
+     "fimSuporte": "2029-12-31",
+     "fimSuporteAtivo": "2027-12-31",
+     "mantido": true,
+     "ultima": "8.5.12"
+    },
+    {
+     "ciclo": "8.4",
+     "lancamento": "2024-11-21",
+     "lts": false,
+     "fimSuporte": "2028-12-31",
+     "fimSuporteAtivo": "2026-12-31",
+     "mantido": true,
+     "ultima": "8.4.27"
+    },
+    {
+     "ciclo": "8.3",
+     "lancamento": "2023-11-23",
+     "lts": false,
+     "fimSuporte": "2027-12-31",
+     "fimSuporteAtivo": "2025-12-31",
+     "mantido": true,
+     "ultima": "8.3.36"
+    },
+    {
+     "ciclo": "8.2",
+     "lancamento": "2022-12-08",
+     "lts": false,
+     "fimSuporte": "2026-12-31",
+     "fimSuporteAtivo": "2024-12-31",
+     "mantido": true,
+     "ultima": "8.2.35"
+    },
+    {
+     "ciclo": "8.1",
+     "lancamento": "2021-11-25",
+     "lts": false,
+     "fimSuporte": "2025-12-31",
+     "fimSuporteAtivo": "2023-11-25",
+     "mantido": false,
+     "ultima": "8.1.34"
+    },
+    {
+     "ciclo": "8.0",
+     "lancamento": "2020-11-26",
+     "lts": false,
+     "fimSuporte": "2023-11-26",
+     "fimSuporteAtivo": "2022-11-26",
+     "mantido": false,
+     "ultima": "8.0.30"
+    },
+    {
+     "ciclo": "7.4",
+     "lancamento": "2019-11-28",
+     "lts": false,
+     "fimSuporte": "2022-11-28",
+     "fimSuporteAtivo": "2021-11-28",
+     "mantido": false,
+     "ultima": "7.4.33"
+    },
+    {
+     "ciclo": "7.3",
+     "lancamento": "2018-12-06",
+     "lts": false,
+     "fimSuporte": "2021-12-06",
+     "fimSuporteAtivo": "2020-12-06",
+     "mantido": false,
+     "ultima": "7.3.33"
+    },
+    {
+     "ciclo": "7.2",
+     "lancamento": "2017-11-30",
+     "lts": false,
+     "fimSuporte": "2020-11-30",
+     "fimSuporteAtivo": "2019-11-30",
+     "mantido": false,
+     "ultima": "7.2.34"
+    },
+    {
+     "ciclo": "7.1",
+     "lancamento": "2016-12-01",
+     "lts": false,
+     "fimSuporte": "2019-12-01",
+     "fimSuporteAtivo": "2018-12-01",
+     "mantido": false,
+     "ultima": "7.1.33"
+    }
+   ]
+  },
+  "postgresql": {
+   "rotulo": "PostgreSQL",
+   "pagina": "https://endoflife.date/postgresql",
+   "politica": "https://www.postgresql.org/support/versioning/",
+   "ciclos": [
+    {
+     "ciclo": "18",
+     "lancamento": "2025-09-25",
+     "lts": false,
+     "fimSuporte": "2030-11-14",
+     "fimSuporteAtivo": null,
+     "mantido": true,
+     "ultima": "18.6"
+    },
+    {
+     "ciclo": "17",
+     "lancamento": "2024-09-26",
+     "lts": false,
+     "fimSuporte": "2029-11-08",
+     "fimSuporteAtivo": null,
+     "mantido": true,
+     "ultima": "17.11"
+    },
+    {
+     "ciclo": "16",
+     "lancamento": "2023-09-14",
+     "lts": false,
+     "fimSuporte": "2028-11-09",
+     "fimSuporteAtivo": null,
+     "mantido": true,
+     "ultima": "16.15"
+    },
+    {
+     "ciclo": "15",
+     "lancamento": "2022-10-13",
+     "lts": false,
+     "fimSuporte": "2027-11-11",
+     "fimSuporteAtivo": null,
+     "mantido": true,
+     "ultima": "15.19"
+    },
+    {
+     "ciclo": "14",
+     "lancamento": "2021-09-30",
+     "lts": false,
+     "fimSuporte": "2026-11-12",
+     "fimSuporteAtivo": null,
+     "mantido": true,
+     "ultima": "14.24"
+    },
+    {
+     "ciclo": "13",
+     "lancamento": "2020-09-24",
+     "lts": false,
+     "fimSuporte": "2025-11-13",
+     "fimSuporteAtivo": null,
+     "mantido": false,
+     "ultima": "13.23"
+    },
+    {
+     "ciclo": "12",
+     "lancamento": "2019-10-03",
+     "lts": false,
+     "fimSuporte": "2024-11-21",
+     "fimSuporteAtivo": null,
+     "mantido": false,
+     "ultima": "12.22"
+    },
+    {
+     "ciclo": "11",
+     "lancamento": "2018-10-18",
+     "lts": false,
+     "fimSuporte": "2023-11-09",
+     "fimSuporteAtivo": null,
+     "mantido": false,
+     "ultima": "11.22"
+    },
+    {
+     "ciclo": "10",
+     "lancamento": "2017-10-05",
+     "lts": false,
+     "fimSuporte": "2022-11-10",
+     "fimSuporteAtivo": null,
+     "mantido": false,
+     "ultima": "10.23"
+    },
+    {
+     "ciclo": "9.6",
+     "lancamento": "2016-09-29",
+     "lts": false,
+     "fimSuporte": "2021-11-11",
+     "fimSuporteAtivo": null,
+     "mantido": false,
+     "ultima": "9.6.24"
+    }
+   ]
+  },
+  "prometheus": {
+   "rotulo": "Prometheus",
+   "pagina": "https://endoflife.date/prometheus",
+   "politica": "https://prometheus.io/docs/introduction/release-cycle/",
+   "ciclos": [
+    {
+     "ciclo": "3.16",
+     "lancamento": "2026-11-04",
+     "lts": false,
+     "fimSuporte": "2026-12-16",
+     "fimSuporteAtivo": null,
+     "mantido": true,
+     "ultima": "3.16.0"
+    },
+    {
+     "ciclo": "3.15",
+     "lancamento": "2026-09-24",
+     "lts": false,
+     "fimSuporte": "2026-11-06",
+     "fimSuporteAtivo": null,
+     "mantido": false,
+     "ultima": "3.15.1"
+    },
+    {
+     "ciclo": "3.14",
+     "lancamento": "2026-08-17",
+     "lts": false,
+     "fimSuporte": "2026-09-30",
+     "fimSuporteAtivo": null,
+     "mantido": false,
+     "ultima": "3.14.0"
+    },
+    {
+     "ciclo": "3.13",
+     "lancamento": "2026-07-01",
+     "lts": true,
+     "fimSuporte": "2027-07-31",
+     "fimSuporteAtivo": null,
+     "mantido": true,
+     "ultima": "3.13.5"
+    },
+    {
+     "ciclo": "3.12",
+     "lancamento": "2026-05-28",
+     "lts": false,
+     "fimSuporte": "2026-07-09",
+     "fimSuporteAtivo": null,
+     "mantido": false,
+     "ultima": "3.12.0"
+    },
+    {
+     "ciclo": "3.11",
+     "lancamento": "2026-04-02",
+     "lts": false,
+     "fimSuporte": "2026-05-14",
+     "fimSuporteAtivo": null,
+     "mantido": false,
+     "ultima": "3.11.3"
+    },
+    {
+     "ciclo": "3.10",
+     "lancamento": "2026-02-25",
+     "lts": false,
+     "fimSuporte": "2026-04-08",
+     "fimSuporteAtivo": null,
+     "mantido": false,
+     "ultima": "3.10.0"
+    },
+    {
+     "ciclo": "3.9",
+     "lancamento": "2026-01-06",
+     "lts": false,
+     "fimSuporte": "2026-02-17",
+     "fimSuporteAtivo": null,
+     "mantido": false,
+     "ultima": "3.9.1"
+    },
+    {
+     "ciclo": "3.8",
+     "lancamento": "2025-11-28",
+     "lts": false,
+     "fimSuporte": "2026-01-09",
+     "fimSuporteAtivo": null,
+     "mantido": false,
+     "ultima": "3.8.1"
+    },
+    {
+     "ciclo": "3.7",
+     "lancamento": "2025-10-15",
+     "lts": false,
+     "fimSuporte": "2025-11-26",
+     "fimSuporteAtivo": null,
+     "mantido": false,
+     "ultima": "3.7.3"
+    }
+   ]
+  },
+  "python": {
+   "rotulo": "Python",
+   "pagina": "https://endoflife.date/python",
+   "politica": "https://devguide.python.org/versions/",
+   "ciclos": [
+    {
+     "ciclo": "3.15",
+     "lancamento": "2026-10-09",
+     "lts": false,
+     "fimSuporte": "2031-10-31",
+     "fimSuporteAtivo": "2028-10-09",
+     "mantido": true,
+     "ultima": "3.15.2"
+    },
+    {
+     "ciclo": "3.14",
+     "lancamento": "2025-10-07",
+     "lts": false,
+     "fimSuporte": "2030-10-31",
+     "fimSuporteAtivo": "2027-10-01",
+     "mantido": true,
+     "ultima": "3.14.10"
+    },
+    {
+     "ciclo": "3.13",
+     "lancamento": "2024-10-07",
+     "lts": false,
+     "fimSuporte": "2029-10-31",
+     "fimSuporteAtivo": "2026-10-01",
+     "mantido": true,
+     "ultima": "3.13.18"
+    },
+    {
+     "ciclo": "3.12",
+     "lancamento": "2023-10-02",
+     "lts": false,
+     "fimSuporte": "2028-10-31",
+     "fimSuporteAtivo": "2025-04-02",
+     "mantido": true,
+     "ultima": "3.12.16"
+    },
+    {
+     "ciclo": "3.11",
+     "lancamento": "2022-10-24",
+     "lts": false,
+     "fimSuporte": "2027-10-31",
+     "fimSuporteAtivo": "2024-04-01",
+     "mantido": true,
+     "ultima": "3.11.18"
+    },
+    {
+     "ciclo": "3.10",
+     "lancamento": "2021-10-04",
+     "lts": false,
+     "fimSuporte": "2026-10-01",
+     "fimSuporteAtivo": "2023-04-05",
+     "mantido": false,
+     "ultima": "3.10.22"
+    },
+    {
+     "ciclo": "3.9",
+     "lancamento": "2020-10-05",
+     "lts": false,
+     "fimSuporte": "2025-10-31",
+     "fimSuporteAtivo": "2022-05-17",
+     "mantido": false,
+     "ultima": "3.9.25"
+    },
+    {
+     "ciclo": "3.8",
+     "lancamento": "2019-10-14",
+     "lts": false,
+     "fimSuporte": "2024-10-07",
+     "fimSuporteAtivo": "2021-05-03",
+     "mantido": false,
+     "ultima": "3.8.20"
+    },
+    {
+     "ciclo": "3.7",
+     "lancamento": "2018-06-27",
+     "lts": false,
+     "fimSuporte": "2023-06-27",
+     "fimSuporteAtivo": "2020-06-27",
+     "mantido": false,
+     "ultima": "3.7.17"
+    },
+    {
+     "ciclo": "3.6",
+     "lancamento": "2016-12-23",
+     "lts": false,
+     "fimSuporte": "2021-12-23",
+     "fimSuporteAtivo": "2018-12-24",
+     "mantido": false,
+     "ultima": "3.6.15"
+    }
+   ]
+  },
+  "rabbitmq": {
+   "rotulo": "RabbitMQ",
+   "pagina": "https://endoflife.date/rabbitmq",
+   "politica": "https://www.rabbitmq.com/release-information",
+   "ciclos": [
+    {
+     "ciclo": "4.4",
+     "lancamento": "2026-10-20",
+     "lts": false,
+     "fimSuporte": "2027-07-31",
+     "fimSuporteAtivo": null,
+     "mantido": true,
+     "ultima": "4.4.0"
+    },
+    {
+     "ciclo": "4.3",
+     "lancamento": "2026-04-23",
+     "lts": false,
+     "fimSuporte": "2027-01-31",
+     "fimSuporteAtivo": null,
+     "mantido": true,
+     "ultima": "4.3.7"
+    },
+    {
+     "ciclo": "4.2",
+     "lancamento": "2025-10-27",
+     "lts": false,
+     "fimSuporte": "2026-07-31",
+     "fimSuporteAtivo": null,
+     "mantido": true,
+     "ultima": "4.2.9"
+    },
+    {
+     "ciclo": "4.1",
+     "lancamento": "2025-04-15",
+     "lts": false,
+     "fimSuporte": "2026-01-30",
+     "fimSuporteAtivo": null,
+     "mantido": true,
+     "ultima": "4.1.8"
+    },
+    {
+     "ciclo": "4.0",
+     "lancamento": "2024-09-18",
+     "lts": false,
+     "fimSuporte": "2025-04-30",
+     "fimSuporteAtivo": null,
+     "mantido": false,
+     "ultima": "4.0.9"
+    },
+    {
+     "ciclo": "3.13",
+     "lancamento": "2024-02-22",
+     "lts": false,
+     "fimSuporte": "2024-09-30",
+     "fimSuporteAtivo": null,
+     "mantido": true,
+     "ultima": "3.13.7"
+    },
+    {
+     "ciclo": "3.12",
+     "lancamento": "2023-06-01",
+     "lts": false,
+     "fimSuporte": "2024-02-29",
+     "fimSuporteAtivo": null,
+     "mantido": false,
+     "ultima": "3.12.14"
+    },
+    {
+     "ciclo": "3.11",
+     "lancamento": "2022-09-26",
+     "lts": false,
+     "fimSuporte": "2023-06-01",
+     "fimSuporteAtivo": null,
+     "mantido": false,
+     "ultima": "3.11.28"
+    },
+    {
+     "ciclo": "3.10",
+     "lancamento": "2022-05-03",
+     "lts": false,
+     "fimSuporte": "2022-09-28",
+     "fimSuporteAtivo": null,
+     "mantido": false,
+     "ultima": "3.10.25"
+    },
+    {
+     "ciclo": "3.9",
+     "lancamento": "2021-07-23",
+     "lts": false,
+     "fimSuporte": "2023-01-31",
+     "fimSuporteAtivo": null,
+     "mantido": false,
+     "ultima": "3.9.29"
+    }
+   ]
+  },
+  "rails": {
+   "rotulo": "Ruby on Rails",
+   "pagina": "https://endoflife.date/rails",
+   "politica": "https://rubyonrails.org/maintenance",
+   "ciclos": [
+    {
+     "ciclo": "8.1",
+     "lancamento": "2025-10-22",
+     "lts": false,
+     "fimSuporte": "2027-10-10",
+     "fimSuporteAtivo": "2026-10-10",
+     "mantido": true,
+     "ultima": "8.1.4.1"
+    },
+    {
+     "ciclo": "8.0",
+     "lancamento": "2024-11-07",
+     "lts": false,
+     "fimSuporte": "2026-11-07",
+     "fimSuporteAtivo": "2026-05-07",
+     "mantido": false,
+     "ultima": "8.0.5.2"
+    },
+    {
+     "ciclo": "7.2",
+     "lancamento": "2024-08-09",
+     "lts": false,
+     "fimSuporte": "2026-08-09",
+     "fimSuporteAtivo": "2025-08-09",
+     "mantido": false,
+     "ultima": "7.2.4"
+    },
+    {
+     "ciclo": "7.1",
+     "lancamento": "2023-10-05",
+     "lts": false,
+     "fimSuporte": "2025-10-01",
+     "fimSuporteAtivo": "2024-10-01",
+     "mantido": false,
+     "ultima": "7.1.6"
+    },
+    {
+     "ciclo": "7.0",
+     "lancamento": "2021-12-15",
+     "lts": false,
+     "fimSuporte": "2025-04-01",
+     "fimSuporteAtivo": "2023-10-15",
+     "mantido": false,
+     "ultima": "7.0.10"
+    },
+    {
+     "ciclo": "6.1",
+     "lancamento": "2020-12-09",
+     "lts": false,
+     "fimSuporte": "2024-10-01",
+     "fimSuporteAtivo": "2021-12-15",
+     "mantido": false,
+     "ultima": "6.1.7.10"
+    },
+    {
+     "ciclo": "6.0",
+     "lancamento": "2019-08-16",
+     "lts": false,
+     "fimSuporte": "2023-06-01",
+     "fimSuporteAtivo": "2021-12-15",
+     "mantido": false,
+     "ultima": "6.0.6.1"
+    },
+    {
+     "ciclo": "5.2",
+     "lancamento": "2018-04-09",
+     "lts": false,
+     "fimSuporte": "2022-06-01",
+     "fimSuporteAtivo": "2021-12-15",
+     "mantido": false,
+     "ultima": "5.2.8.1"
+    },
+    {
+     "ciclo": "5.1",
+     "lancamento": "2017-04-27",
+     "lts": false,
+     "fimSuporte": "2019-08-25",
+     "fimSuporteAtivo": "2018-04-09",
+     "mantido": false,
+     "ultima": "5.1.7"
+    },
+    {
+     "ciclo": "5.0",
+     "lancamento": "2016-06-30",
+     "lts": false,
+     "fimSuporte": "2018-04-09",
+     "fimSuporteAtivo": "2018-04-09",
+     "mantido": false,
+     "ultima": "5.0.7.2"
+    }
+   ]
+  },
+  "redis": {
+   "rotulo": "Redis",
+   "pagina": "https://endoflife.date/redis",
+   "politica": "https://redis.io/docs/latest/operate/oss_and_stack/install/version-mgmt/",
+   "ciclos": [
+    {
+     "ciclo": "8.10",
+     "lancamento": "2026-07-29",
+     "lts": false,
+     "fimSuporte": null,
+     "fimSuporteAtivo": null,
+     "mantido": true,
+     "ultima": "8.10.3"
+    },
+    {
+     "ciclo": "8.8",
+     "lancamento": "2026-05-25",
+     "lts": false,
+     "fimSuporte": null,
+     "fimSuporteAtivo": "2026-07-29",
+     "mantido": true,
+     "ultima": "8.8.4"
+    },
+    {
+     "ciclo": "8.6",
+     "lancamento": "2026-02-11",
+     "lts": false,
+     "fimSuporte": null,
+     "fimSuporteAtivo": "2026-05-25",
+     "mantido": true,
+     "ultima": "8.6.8"
+    },
+    {
+     "ciclo": "8.4",
+     "lancamento": "2025-11-18",
+     "lts": false,
+     "fimSuporte": null,
+     "fimSuporteAtivo": "2026-02-11",
+     "mantido": true,
+     "ultima": "8.4.8"
+    },
+    {
+     "ciclo": "8.2",
+     "lancamento": "2025-08-04",
+     "lts": false,
+     "fimSuporte": "2030-09-01",
+     "fimSuporteAtivo": "2025-11-18",
+     "mantido": true,
+     "ultima": "8.2.11"
+    },
+    {
+     "ciclo": "8.0",
+     "lancamento": "2025-05-02",
+     "lts": false,
+     "fimSuporte": "2026-12-01",
+     "fimSuporteAtivo": "2025-08-04",
+     "mantido": true,
+     "ultima": "8.0.6"
+    },
+    {
+     "ciclo": "7.4",
+     "lancamento": "2024-07-29",
+     "lts": false,
+     "fimSuporte": "2029-12-01",
+     "fimSuporteAtivo": "2025-05-02",
+     "mantido": true,
+     "ultima": "7.4.12"
+    },
+    {
+     "ciclo": "7.2",
+     "lancamento": "2023-08-15",
+     "lts": false,
+     "fimSuporte": "2029-12-01",
+     "fimSuporteAtivo": "2024-07-29",
+     "mantido": true,
+     "ultima": "7.2.17"
+    },
+    {
+     "ciclo": "7.0",
+     "lancamento": "2022-04-27",
+     "lts": false,
+     "fimSuporte": "2024-07-29",
+     "fimSuporteAtivo": "2023-08-15",
+     "mantido": false,
+     "ultima": "7.0.15"
+    },
+    {
+     "ciclo": "6.2",
+     "lancamento": "2021-02-22",
+     "lts": false,
+     "fimSuporte": "2027-04-01",
+     "fimSuporteAtivo": "2022-04-27",
+     "mantido": true,
+     "ultima": "6.2.24"
+    }
+   ]
+  },
+  "ruby": {
+   "rotulo": "Ruby",
+   "pagina": "https://endoflife.date/ruby",
+   "politica": "https://www.ruby-lang.org/en/downloads/branches/",
+   "ciclos": [
+    {
+     "ciclo": "4.0",
+     "lancamento": "2025-12-25",
+     "lts": false,
+     "fimSuporte": "2029-03-31",
+     "fimSuporteAtivo": null,
+     "mantido": true,
+     "ultima": "4.0.9"
+    },
+    {
+     "ciclo": "3.4",
+     "lancamento": "2024-12-24",
+     "lts": false,
+     "fimSuporte": "2028-03-31",
+     "fimSuporteAtivo": null,
+     "mantido": true,
+     "ultima": "3.4.12"
+    },
+    {
+     "ciclo": "3.3",
+     "lancamento": "2023-12-25",
+     "lts": false,
+     "fimSuporte": "2027-03-31",
+     "fimSuporteAtivo": null,
+     "mantido": true,
+     "ultima": "3.3.13"
+    },
+    {
+     "ciclo": "3.2",
+     "lancamento": "2022-12-25",
+     "lts": false,
+     "fimSuporte": "2026-03-31",
+     "fimSuporteAtivo": null,
+     "mantido": false,
+     "ultima": "3.2.11"
+    },
+    {
+     "ciclo": "3.1",
+     "lancamento": "2021-12-25",
+     "lts": false,
+     "fimSuporte": "2025-03-26",
+     "fimSuporteAtivo": null,
+     "mantido": false,
+     "ultima": "3.1.7"
+    },
+    {
+     "ciclo": "3.0",
+     "lancamento": "2020-12-25",
+     "lts": false,
+     "fimSuporte": "2024-04-23",
+     "fimSuporteAtivo": null,
+     "mantido": false,
+     "ultima": "3.0.7"
+    },
+    {
+     "ciclo": "2.7",
+     "lancamento": "2019-12-25",
+     "lts": false,
+     "fimSuporte": "2023-03-31",
+     "fimSuporteAtivo": null,
+     "mantido": false,
+     "ultima": "2.7.8"
+    },
+    {
+     "ciclo": "2.6",
+     "lancamento": "2018-12-25",
+     "lts": false,
+     "fimSuporte": "2022-03-31",
+     "fimSuporteAtivo": null,
+     "mantido": false,
+     "ultima": "2.6.10"
+    },
+    {
+     "ciclo": "2.5",
+     "lancamento": "2017-12-25",
+     "lts": false,
+     "fimSuporte": "2021-03-31",
+     "fimSuporteAtivo": null,
+     "mantido": false,
+     "ultima": "2.5.9"
+    },
+    {
+     "ciclo": "2.4",
+     "lancamento": "2016-12-23",
+     "lts": false,
+     "fimSuporte": "2020-03-31",
+     "fimSuporteAtivo": null,
+     "mantido": false,
+     "ultima": "2.4.10"
+    }
+   ]
+  },
+  "rust": {
+   "rotulo": "Rust",
+   "pagina": "https://endoflife.date/rust",
+   "politica": "https://rust-lang.github.io/rustup/concepts/channels.html",
+   "ciclos": [
+    {
+     "ciclo": "1.99",
+     "lancamento": "2026-10-01",
+     "lts": false,
+     "fimSuporte": null,
+     "fimSuporteAtivo": null,
+     "mantido": true,
+     "ultima": "1.99.1"
+    },
+    {
+     "ciclo": "1.98",
+     "lancamento": "2026-08-20",
+     "lts": false,
+     "fimSuporte": "2026-10-01",
+     "fimSuporteAtivo": null,
+     "mantido": false,
+     "ultima": "1.98.1"
+    },
+    {
+     "ciclo": "1.97",
+     "lancamento": "2026-07-09",
+     "lts": false,
+     "fimSuporte": "2026-08-20",
+     "fimSuporteAtivo": null,
+     "mantido": false,
+     "ultima": "1.97.1"
+    },
+    {
+     "ciclo": "1.96",
+     "lancamento": "2026-05-28",
+     "lts": false,
+     "fimSuporte": "2026-07-09",
+     "fimSuporteAtivo": null,
+     "mantido": false,
+     "ultima": "1.96.1"
+    },
+    {
+     "ciclo": "1.95",
+     "lancamento": "2026-04-16",
+     "lts": false,
+     "fimSuporte": "2026-05-28",
+     "fimSuporteAtivo": null,
+     "mantido": false,
+     "ultima": "1.95.0"
+    },
+    {
+     "ciclo": "1.94",
+     "lancamento": "2026-03-06",
+     "lts": false,
+     "fimSuporte": "2026-04-16",
+     "fimSuporteAtivo": null,
+     "mantido": false,
+     "ultima": "1.94.1"
+    },
+    {
+     "ciclo": "1.93",
+     "lancamento": "2026-01-22",
+     "lts": false,
+     "fimSuporte": "2026-03-06",
+     "fimSuporteAtivo": null,
+     "mantido": false,
+     "ultima": "1.93.1"
+    },
+    {
+     "ciclo": "1.92",
+     "lancamento": "2025-12-11",
+     "lts": false,
+     "fimSuporte": "2026-01-22",
+     "fimSuporteAtivo": null,
+     "mantido": false,
+     "ultima": "1.92.0"
+    },
+    {
+     "ciclo": "1.91",
+     "lancamento": "2025-10-30",
+     "lts": false,
+     "fimSuporte": "2025-12-11",
+     "fimSuporteAtivo": null,
+     "mantido": false,
+     "ultima": "1.91.1"
+    },
+    {
+     "ciclo": "1.90",
+     "lancamento": "2025-09-18",
+     "lts": false,
+     "fimSuporte": "2025-10-30",
+     "fimSuporteAtivo": null,
+     "mantido": false,
+     "ultima": "1.90.0"
+    }
+   ]
+  },
+  "spring-boot": {
+   "rotulo": "Spring Boot",
+   "pagina": "https://endoflife.date/spring-boot",
+   "politica": "https://github.com/spring-projects/spring-boot/wiki/Supported-Versions",
+   "ciclos": [
+    {
+     "ciclo": "4.1",
+     "lancamento": "2026-06-30",
+     "lts": false,
+     "fimSuporte": "2027-07-31",
+     "fimSuporteAtivo": null,
+     "mantido": true,
+     "ultima": "4.1.2"
+    },
+    {
+     "ciclo": "4.0",
+     "lancamento": "2025-11-30",
+     "lts": false,
+     "fimSuporte": "2026-12-31",
+     "fimSuporteAtivo": null,
+     "mantido": true,
+     "ultima": "4.0.9"
+    },
+    {
+     "ciclo": "3.5",
+     "lancamento": "2025-05-31",
+     "lts": false,
+     "fimSuporte": "2026-06-30",
+     "fimSuporteAtivo": null,
+     "mantido": true,
+     "ultima": "3.5.16"
+    },
+    {
+     "ciclo": "3.4",
+     "lancamento": "2024-11-30",
+     "lts": false,
+     "fimSuporte": "2025-12-31",
+     "fimSuporteAtivo": null,
+     "mantido": true,
+     "ultima": "3.4.13"
+    },
+    {
+     "ciclo": "3.3",
+     "lancamento": "2024-05-31",
+     "lts": false,
+     "fimSuporte": "2025-06-30",
+     "fimSuporteAtivo": null,
+     "mantido": false,
+     "ultima": "3.3.13"
+    },
+    {
+     "ciclo": "3.2",
+     "lancamento": "2023-11-30",
+     "lts": false,
+     "fimSuporte": "2024-12-31",
+     "fimSuporteAtivo": null,
+     "mantido": false,
+     "ultima": "3.2.12"
+    },
+    {
+     "ciclo": "3.1",
+     "lancamento": "2023-05-31",
+     "lts": false,
+     "fimSuporte": "2024-06-30",
+     "fimSuporteAtivo": null,
+     "mantido": false,
+     "ultima": "3.1.12"
+    },
+    {
+     "ciclo": "3.0",
+     "lancamento": "2022-11-24",
+     "lts": false,
+     "fimSuporte": "2023-12-31",
+     "fimSuporteAtivo": null,
+     "mantido": false,
+     "ultima": "3.0.13"
+    },
+    {
+     "ciclo": "2.7",
+     "lancamento": "2022-05-31",
+     "lts": false,
+     "fimSuporte": "2023-06-30",
+     "fimSuporteAtivo": null,
+     "mantido": true,
+     "ultima": "2.7.18"
+    },
+    {
+     "ciclo": "2.6",
+     "lancamento": "2021-11-17",
+     "lts": false,
+     "fimSuporte": "2022-11-24",
+     "fimSuporteAtivo": null,
+     "mantido": false,
+     "ultima": "2.6.15"
+    }
+   ]
+  },
+  "sqlite": {
+   "rotulo": "SQLite",
+   "pagina": "https://endoflife.date/sqlite",
+   "politica": "https://www.sqlite.org/support.html",
+   "ciclos": [
+    {
+     "ciclo": "3",
+     "lancamento": "2004-09-18",
+     "lts": false,
+     "fimSuporte": null,
+     "fimSuporteAtivo": null,
+     "mantido": true,
+     "ultima": "3.54.1"
+    },
+    {
+     "ciclo": "2",
+     "lancamento": "2001-09-28",
+     "lts": false,
+     "fimSuporte": "2004-09-18",
+     "fimSuporteAtivo": null,
+     "mantido": false,
+     "ultima": "2.8.17"
+    },
+    {
+     "ciclo": "1",
+     "lancamento": "2000-08-17",
+     "lts": false,
+     "fimSuporte": "2001-09-28",
+     "fimSuporteAtivo": null,
+     "mantido": false,
+     "ultima": "1.0.32"
+    }
+   ]
+  },
+  "terraform": {
+   "rotulo": "Hashicorp Terraform",
+   "pagina": "https://endoflife.date/terraform",
+   "politica": "https://support.hashicorp.com/hc/en-us/articles/360021185113-Support-Period-and-End-of-Life-EOL-Policy",
+   "ciclos": [
+    {
+     "ciclo": "1.17",
+     "lancamento": "2026-10-21",
+     "lts": false,
+     "fimSuporte": null,
+     "fimSuporteAtivo": null,
+     "mantido": true,
+     "ultima": "1.17.1"
+    },
+    {
+     "ciclo": "1.16",
+     "lancamento": "2026-08-26",
+     "lts": false,
+     "fimSuporte": null,
+     "fimSuporteAtivo": null,
+     "mantido": true,
+     "ultima": "1.16.7"
+    },
+    {
+     "ciclo": "1.15",
+     "lancamento": "2026-04-29",
+     "lts": false,
+     "fimSuporte": "2026-10-21",
+     "fimSuporteAtivo": null,
+     "mantido": false,
+     "ultima": "1.15.9"
+    },
+    {
+     "ciclo": "1.14",
+     "lancamento": "2025-11-19",
+     "lts": false,
+     "fimSuporte": "2026-08-26",
+     "fimSuporteAtivo": null,
+     "mantido": false,
+     "ultima": "1.14.9"
+    },
+    {
+     "ciclo": "1.13",
+     "lancamento": "2025-08-20",
+     "lts": false,
+     "fimSuporte": "2026-04-29",
+     "fimSuporteAtivo": null,
+     "mantido": false,
+     "ultima": "1.13.5"
+    },
+    {
+     "ciclo": "1.12",
+     "lancamento": "2025-05-14",
+     "lts": false,
+     "fimSuporte": "2025-11-19",
+     "fimSuporteAtivo": null,
+     "mantido": false,
+     "ultima": "1.12.2"
+    },
+    {
+     "ciclo": "1.11",
+     "lancamento": "2025-02-27",
+     "lts": false,
+     "fimSuporte": "2025-08-20",
+     "fimSuporteAtivo": null,
+     "mantido": false,
+     "ultima": "1.11.4"
+    },
+    {
+     "ciclo": "1.10",
+     "lancamento": "2024-11-26",
+     "lts": false,
+     "fimSuporte": "2025-05-14",
+     "fimSuporteAtivo": null,
+     "mantido": false,
+     "ultima": "1.10.5"
+    },
+    {
+     "ciclo": "1.9",
+     "lancamento": "2024-06-26",
+     "lts": false,
+     "fimSuporte": "2025-02-27",
+     "fimSuporteAtivo": null,
+     "mantido": false,
+     "ultima": "1.9.8"
+    },
+    {
+     "ciclo": "1.8",
+     "lancamento": "2024-04-10",
+     "lts": false,
+     "fimSuporte": "2024-11-26",
+     "fimSuporteAtivo": null,
+     "mantido": false,
+     "ultima": "1.8.5"
+    }
+   ]
+  },
+  "valkey": {
+   "rotulo": "Valkey",
+   "pagina": "https://endoflife.date/valkey",
+   "politica": "https://valkey.io/topics/releases/",
+   "ciclos": [
+    {
+     "ciclo": "9.1",
+     "lancamento": "2026-05-19",
+     "lts": false,
+     "fimSuporte": "2031-05-19",
+     "fimSuporteAtivo": "2029-05-19",
+     "mantido": true,
+     "ultima": "9.1.3"
+    },
+    {
+     "ciclo": "9.0",
+     "lancamento": "2025-10-21",
+     "lts": false,
+     "fimSuporte": "2028-10-21",
+     "fimSuporteAtivo": "2028-10-21",
+     "mantido": true,
+     "ultima": "9.0.7"
+    },
+    {
+     "ciclo": "8.1",
+     "lancamento": "2025-03-31",
+     "lts": false,
+     "fimSuporte": "2030-03-31",
+     "fimSuporteAtivo": "2028-03-31",
+     "mantido": true,
+     "ultima": "8.1.11"
+    },
+    {
+     "ciclo": "8.0",
+     "lancamento": "2024-09-15",
+     "lts": false,
+     "fimSuporte": "2027-09-15",
+     "fimSuporteAtivo": "2027-09-15",
+     "mantido": true,
+     "ultima": "8.0.12"
+    },
+    {
+     "ciclo": "7.2",
+     "lancamento": "2024-04-16",
+     "lts": false,
+     "fimSuporte": "2029-04-16",
+     "fimSuporteAtivo": "2027-04-16",
+     "mantido": true,
+     "ultima": "7.2.15"
+    }
+   ]
+  },
+  "express": {
+   "rotulo": "Express",
+   "pagina": "https://endoflife.date/express",
+   "politica": "https://expressjs.com/en/support/",
+   "ciclos": [
+    {
+     "ciclo": "5",
+     "lancamento": "2024-09-09",
+     "lts": false,
+     "fimSuporte": null,
+     "fimSuporteAtivo": null,
+     "mantido": true,
+     "ultima": "5.3.0"
+    },
+    {
+     "ciclo": "4",
+     "lancamento": "2014-04-09",
+     "lts": false,
+     "fimSuporte": null,
+     "fimSuporteAtivo": null,
+     "mantido": true,
+     "ultima": "4.22.3"
+    },
+    {
+     "ciclo": "3",
+     "lancamento": "2012-10-23",
+     "lts": false,
+     "fimSuporte": "2015-07-05",
+     "fimSuporteAtivo": null,
+     "mantido": true,
+     "ultima": "3.21.2"
+    },
+    {
+     "ciclo": "2",
+     "lancamento": "2011-03-17",
+     "lts": false,
+     "fimSuporte": "2012-07-01",
+     "fimSuporteAtivo": null,
+     "mantido": false,
+     "ultima": "2.5.11"
+    },
+    {
+     "ciclo": "1",
+     "lancamento": "2010-11-16",
+     "lts": false,
+     "fimSuporte": "2011-03-01",
+     "fimSuporteAtivo": null,
+     "mantido": false,
+     "ultima": "1.0.9"
+    }
+   ]
+  },
+  "nestjs": {
+   "rotulo": "NestJS",
+   "pagina": "https://endoflife.date/nestjs",
+   "politica": null,
+   "ciclos": [
+    {
+     "ciclo": "12",
+     "lancamento": "2026-08-27",
+     "lts": false,
+     "fimSuporte": null,
+     "fimSuporteAtivo": null,
+     "mantido": true,
+     "ultima": "12.4.2"
+    },
+    {
+     "ciclo": "11",
+     "lancamento": "2025-01-20",
+     "lts": false,
+     "fimSuporte": null,
+     "fimSuporteAtivo": "2026-08-27",
+     "mantido": true,
+     "ultima": "11.2.9"
+    },
+    {
+     "ciclo": "10",
+     "lancamento": "2023-06-15",
+     "lts": false,
+     "fimSuporte": "encerrado",
+     "fimSuporteAtivo": "2025-01-20",
+     "mantido": false,
+     "ultima": "10.4.22"
+    },
+    {
+     "ciclo": "9",
+     "lancamento": "2022-07-08",
+     "lts": false,
+     "fimSuporte": "encerrado",
+     "fimSuporteAtivo": "2023-06-15",
+     "mantido": false,
+     "ultima": "9.4.3"
+    },
+    {
+     "ciclo": "8",
+     "lancamento": "2021-07-07",
+     "lts": false,
+     "fimSuporte": "encerrado",
+     "fimSuporteAtivo": "2022-07-08",
+     "mantido": false,
+     "ultima": "8.4.7"
+    },
+    {
+     "ciclo": "7",
+     "lancamento": "2020-03-13",
+     "lts": false,
+     "fimSuporte": "encerrado",
+     "fimSuporteAtivo": "2021-07-07",
+     "mantido": false,
+     "ultima": "7.6.18"
+    }
+   ]
+  }
+ }
+}

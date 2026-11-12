@@ -68,7 +68,8 @@ Um chatbot genérico opina diferente a cada vez, tende a concordar com quem perg
 - o Índice de Ajuste em faixa, com frase por faixa;
 - a avaliação da ideia prévia;
 - o plano ideal;
-- o relatório compartilhável por link.
+- o relatório compartilhável por link;
+- uma página de entrada pública que explica o produto e o método antes de pedir a chave de IA, sem depoimentos, clientes ou números que não existem (decisão do responsável, 11/11/2026).
 
 **Fora:** acompanhamento da execução depois da decisão, times e colaboração, registro de decisão (ADR) editável, calibração própria do usuário e comparação entre rodadas. Nenhum desses agrega o valor necessário agora.
 
@@ -115,6 +116,7 @@ Um chatbot genérico opina diferente a cada vez, tende a concordar com quem perg
 
 - **Nome:** StackSync.
 - **Voz:** direta, simples e amigável; técnica sem ser hermética. Sem exageros, sem urgência e sem superlativos. Quando não há o que mudar, diz isso sem rodeio.
+- **Identidade visual:** brutalista e neobrutalista (decisão do responsável, 11/11/2026; DESIGN.md v2.0 "Concreto Aparente"): sem raio de borda, tipografia em escala grotesca, grade aparente, preenchimento e paleta viva, num tema só, o claro (decisão do responsável, 11/11/2026). A estrutura à mostra espelha a transparência do método. O tom do texto continua calmo e honesto: o brutalismo está na forma, não na voz.
 - **Vocabulário:** "Índice de Ajuste" por extenso, sempre; "IA" só para inteligência artificial. Idioma pt-BR, com termos técnicos consagrados em inglês acompanhados de explicação.
 
 ## Evidence on Hand

@@ -1,0 +1,27 @@
+{
+  "name": "@stacksync/content",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./tipos": "./src/tipos.ts",
+    "./gerado/conteudo.json": "./gerado/conteudo.json",
+    "./vocabulario": "./src/vocabulario.ts"
+  },
+  "scripts": {
+    "build": "tsx src/build.ts",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit -p tsconfig.json"
+  },
+  "dependencies": {
+    "zod": "^4.6.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.19.2",
+    "tsx": "^4.23.0",
+    "typescript": "^7.0.0",
+    "vitest": "^5.1.0",
+    "yaml": "^2.9.0"
+  }
+}

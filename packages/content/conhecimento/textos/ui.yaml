@@ -1,0 +1,114 @@
+# Textos de interface (DESIGN.md, "Conteúdo, voz e dados de exemplo"; P3 12.6).
+# Caixa de sentença, voz ativa, verbos nos botões, sem exclamação, sem emoji.
+
+ui.produto: StackSync
+ui.salvo: Salvo
+ui.salvando: Salvando...
+ui.semConexao: Sem conexão. Tentando de novo.
+ui.conflito: Esta resposta foi alterada em outra aba. Escolha qual versão manter.
+
+ui.painel.titulo: Análises
+ui.painel.vazio: Nenhuma análise ainda. A análise rápida leva cerca de 7 minutos.
+ui.painel.vazio.explica: O StackSync compara o que o sistema precisa com o que a arquitetura entrega e diz se a sua ideia faz sentido, qual seria o plano ideal ou se é melhor não mexer.
+ui.painel.nova: Nova análise
+ui.painel.metodo: Como o StackSync decide
+ui.painel.erro: Não foi possível carregar as análises. Tente de novo em instantes.
+
+ui.ia.titulo: Conectar a IA
+ui.ia.porQue: A IA escolhe a próxima pergunta pelo perfil do sistema e sugere as respostas mais comuns. Ela não decide o resultado; o resultado sai de regras e pesos explícitos.
+ui.ia.enviado: "Em cada etapa vai só o necessário: a pergunta, as respostas dadas e o enquadramento. Nunca vão o nome da organização nem a sua ideia prévia nas sugestões."
+ui.ia.cobranca: O uso é cobrado pelo provedor, na sua própria conta.
+ui.ia.testar: Testar e conectar
+ui.ia.testando: Testando a conexão...
+ui.ia.conectada: "Conectada: {provedor}, {modelo}, chave terminada em {ultimos4}."
+ui.ia.chaveInvalida: O provedor recusou a chave. Confira a chave e teste de novo.
+ui.ia.foraDoAr: O provedor de IA não respondeu. Tente de novo em instantes.
+ui.ia.modeloNaoAvaliado: "Modelo não avaliado: a qualidade das sugestões pode variar; as verificações continuam valendo."
+ui.ia.soSessao: Usar só nesta sessão, sem guardar a chave
+ui.ia.trocar: Trocar a IA
+ui.ia.remover: Remover a conexão
+
+ui.enquadramento.titulo: Nova análise
+ui.enquadramento.aviso: Não mudar nada é um resultado válido e frequente. O StackSync só propõe mudanças quando o ganho compensa.
+ui.enquadramento.p1: O que você quer avaliar?
+ui.enquadramento.p2: Em que nível?
+ui.enquadramento.p3: Você já tem uma ideia?
+ui.enquadramento.p3.ajuda: "Opcional. Descreva o que pensa em fazer, sem nomes de clientes nem regras do negócio. O StackSync diz o quanto ela adere à necessidade real e compara com não mudar."
+ui.enquadramento.p4: Com que profundidade?
+ui.enquadramento.nome: Nome para identificar a análise
+ui.enquadramento.recomendado: Recomendado
+ui.enquadramento.comecar: Começar
+ui.enquadramento.refatoracao: Refatoração
+ui.enquadramento.refatoracao.detalhe: Mudar algo que já existe.
+ui.enquadramento.planejamento: Planejamento
+ui.enquadramento.planejamento.detalhe: Decidir antes de construir.
+
+ui.pergunta.outra: Outra resposta
+ui.pergunta.outra.ajuda: Escreva com as suas palavras; o StackSync propõe como interpretar e você confirma.
+ui.pergunta.naoSei: Não sei
+ui.pergunta.medido: Tenho esse dado medido
+ui.pergunta.fonte: Fonte do dado
+ui.pergunta.dataMedida: Mês da medida
+ui.pergunta.proxima: Próxima
+ui.pergunta.porQue: Por que perguntamos isso
+ui.pergunta.sugestoesIndisponiveis: Sugestões indisponíveis agora; o resultado não depende delas. Escolha uma opção ou escreva a sua.
+ui.pergunta.irRevisao: Ir para a revisão
+ui.pergunta.tempoRestante: "{minutos, plural, one {Cerca de # minuto restante} other {Cerca de # minutos restantes}}"
+ui.pergunta.ambitos: Âmbitos cobertos
+ui.pergunta.aprofundar: Aprofundar para {nivel}
+ui.pergunta.anteriores: Respostas anteriores
+ui.pergunta.alterar: Alterar
+ui.pergunta.aposVeredito: Você alterou esta resposta depois de ver o veredito. A alteração fica registrada no histórico.
+
+ui.naoSei.acolhimento: Sem problema. Responda uma pergunta mais fácil e estimamos uma faixa, com confiança baixa.
+ui.naoSei.campoLivre: "Não sei, mas..."
+ui.naoSei.usar: Usar a estimativa
+ui.naoSei.ajustar: Ajustar a faixa
+ui.naoSei.manter: Manter desconhecida
+ui.naoSei.conversaoFaixa: "Você disse {resposta}, então estimamos entre {de} e {ate} (inferido)."
+ui.naoSei.conversaoUma: "Você disse {resposta}, então estimamos {opcao} (inferido)."
+ui.naoSei.conversaoSinal: "Você disse {resposta}. {explicacao} A estimativa fica marcada como inferida."
+ui.naoSei.contraditorias: As respostas apontam para lados diferentes, então a faixa ficou mais larga.
+ui.naoSei.peso5: Esta lacuna não impede o diagnóstico. Mas, para aprovar a mudança, ela precisa ser respondida.
+ui.naoSei.comoDescobrir: Como descobrir
+ui.naoSei.quemPodeSaber: Quem pode saber
+
+ui.proposta.confirmar: Confirmar
+ui.proposta.ajustar: Ajustar
+ui.proposta.descartar: Descartar
+
+ui.revisao.titulo: Revisão antes do veredito
+ui.revisao.gerar: Gerar veredito
+ui.revisao.composicao: Composição das respostas
+ui.revisao.ideia: Como entendemos a sua ideia
+ui.revisao.podemMudar: Podem mudar o resultado
+ui.revisao.podePular: Pode pular
+
+ui.resultado.titulo: Resultado
+ui.resultado.exportar: Exportar relatório
+ui.resultado.motivos: Motivos principais
+ui.resultado.plano: Plano ideal
+ui.resultado.ideia: Avaliação da sua ideia
+ui.resultado.mapa: Mapa de ajuste
+ui.resultado.oQueMudaria: O que mudaria este veredito
+ui.resultado.descartado: Considerado e descartado
+ui.resultado.decidiriam: Perguntas que decidiriam
+ui.resultado.raciocinio: Raciocínio guiado
+ui.resultado.aguardandoRaciocinio: Aguardando o raciocínio
+ui.resultado.divergencia: A IA vê este ponto de outro modo. Vale o resultado do motor, porque o ônus da prova é da mudança (RN-73).
+ui.resultado.descartadoIa: "Descartado pela verificação: {motivo}"
+ui.resultado.falhaIa: O provedor de IA não respondeu. O veredito não depende dele; o raciocínio guiado pode ser tentado de novo.
+ui.resultado.tentarDeNovo: Tentar de novo
+ui.resultado.candidatas: Candidatas a avaliar
+ui.resultado.candidatas.explica: Tecnologias sugeridas pela IA que ainda não passaram pela avaliação da base de referência. Não entram no plano oficial.
+ui.resultado.decisaoSua: O resultado é apoio, não decisão. Quem decide é você, apoiado nos motivos acima.
+
+ui.relatorio.titulo: Relatório
+ui.relatorio.link: Criar link de leitura
+ui.relatorio.linkCriado: "Link criado. Expira em {data}."
+ui.relatorio.revogar: Revogar o link
+ui.relatorio.imprimir: Imprimir ou salvar em PDF
+ui.relatorio.markdown: Baixar em Markdown
+ui.relatorio.apendice: Apêndice
+ui.relatorio.capituloIa: Raciocínio guiado pela IA
+ui.relatorio.responsabilidade: "Este relatório se baseia nas necessidades declaradas por quem respondeu. A decisão é de quem responde pela arquitetura."

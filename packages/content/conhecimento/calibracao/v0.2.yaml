@@ -1,0 +1,51 @@
+# Calibração v0.1 (P3 11.1). Valores iniciais, a calibrar contra os casos-âncora (RN-88, RN-97).
+versao: "0.2"
+data: "2026-11-10"
+notas: "v0.2 (portão F1, 10/11/2026), contra os casos-âncora e sem mudar gabaritos: K-10δ de 0,5 para 0,3 (Q-05); tolerância de sobra de 1,0 em E1, E4, E5 e E7, porque um nível de folga em modularidade, escala, redundância e operação é higiene, não sobreajuste (o nível 0 dessas âncoras descreve estados de risco); em K-17, cada opção mapeia a âncora do seu nível com ±0,25, a clareza das fronteiras limita E1 a um nível acima da necessidade, a escala automática da plataforma vale 1,5 a 2,25 (Parte 4, seção 6) e a automação básica pesa menos que rastreamento e plantão; âncora de E6 corrigida para equipes mínimas (Parte 4, 6.2)."
+
+pesos:
+  E1: 4
+  E2: 5
+  E3: 4
+  E4: 3
+  E5: 3
+  E6: 5
+  E7: 4
+  E8: 2
+  T1: 5
+  T2: 4
+  T3: 4
+  T4: 4
+  T5: 4
+  T6: 3
+
+tolerancias:
+  E1: { sobra: 1.0, falta: 0.5 }
+  E2: { sobra: 0.5, falta: 0.5 }
+  E3: { sobra: 0.5, falta: 0.5 }
+  E4: { sobra: 1.0, falta: 0.5 }
+  E5: { sobra: 1.0, falta: 0.5 }
+  E6: { sobra: 0.5, falta: 0.5 }
+  E7: { sobra: 1.0, falta: 0.5 }
+  E8: { sobra: 0.5, falta: 0.5 }
+  T1: { sobra: 0.75, falta: 0.5 }
+  T2: { sobra: 4, falta: 0.5 }
+  T3: { sobra: 4, falta: 0.5 }
+  T4: { sobra: 4, falta: 0.5 }
+  T5: { sobra: 4, falta: 0.5 }
+  T6: { sobra: 0.5, falta: 4 }
+
+eMax: 2
+limiarCategoria: 15
+materialidade: 10
+dominancia: 0.8
+confianca: { alta: 10, media: 25 }
+fatoresOrigem: { medida: 1.0, estimativa: 0.7, inferencia: 0.4 }
+delta: 0.3
+minimoSinal: 0.6
+validadeMeses: 12
+horizonteMinimoMeses: 12
+faixasAderencia: [30, 50, 70, 85]
+pontosValorInformacao: 5
+limiarPodePular: 2
+robustez: { variacaoPeso: 1, variacaoTolerancia: 0.25, variacaoLimiar: 3 }

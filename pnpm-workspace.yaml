@@ -1,0 +1,14 @@
+packages:
+  - apps/*
+  - packages/*
+
+# DT-26: scripts de instalação bloqueados, exceto os aprovados aqui.
+# @google/genai e protobufjs têm scripts que não fazem falta (no-op e verificação de versão).
+allowBuilds:
+  '@google/genai': false
+  esbuild: true
+  protobufjs: false
+
+# DT-26: quarentena de versões novas (7 dias). Correções de segurança urgentes entram por exceção explícita.
+minimumReleaseAge: 10080
+minimumReleaseAgeExclude: []

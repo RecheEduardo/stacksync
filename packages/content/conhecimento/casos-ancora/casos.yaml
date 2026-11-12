@@ -1,0 +1,674 @@
+# Casos-âncora (P3 11.3; Parte 4 6.2). Os gabaritos só mudam em commit de calibração (FF-18).
+# Respostas sem origem contam como estimativa. Os sistemas e números são ilustrativos.
+casos:
+  - id: EX-A
+    nome: Portal de Convênios (Exemplo A)
+    tipo: exemplo
+    subnivel: refatoracao.sistema
+    profundidade: avancado
+    asOf: "2026-11-10"
+    respostas:
+      M-01: { valor: [nada_especifico] }
+      E-01: { valor: time, origem: medida }
+      D-01: { valor: "1", origem: medida }
+      D-02: { valor: claras }
+      D-03: { valor: 3_5 }
+      B-10: { valor: 3_5 }
+      B-03: { valor: ano }
+      B-04: { valor: previsivel }
+      B-05: { valor: uma }
+      C-02: { valor: moderado, origem: medida }
+      C-03: { valor: estavel }
+      C-05: { valor: folga, origem: medida }
+      D-11: { valor: manual }
+      B-02: { valor: receita }
+      D-12: { valor: automatica }
+      F-04: { valor: menos_1h, origem: medida }
+      F-10: { valor: [publicacao, alertas] }
+      E-09: { valor: escala }
+      D-09: { valor: nao }
+      D-13: { valor: condicionais }
+      B-01: { valor: mais_5 }
+      F-01: { valor: diaria, origem: medida }
+      F-02: { valor: horas, origem: medida }
+      F-03: { valor: 0_1, origem: medida }
+      F-06: { valor: menos_10 }
+      F-08: { valor: criticas }
+      F-11: { valor: menos_6m }
+      F-12: { valor: mais_18m }
+      E-06: { valor: tres_mais }
+    gabarito: { categoria: ajustado, plano: nao_mexa }
+    testa: "Fim de papo: Ajustado e saudável, plano não mexa"
+
+  - id: EX-B
+    nome: Plataforma de Agendamento (Exemplo B)
+    tipo: exemplo
+    subnivel: refatoracao.sistema
+    profundidade: avancado
+    asOf: "2026-11-10"
+    ideia:
+      texto: Migrar para arquitetura orientada a eventos e dividir mais 6 serviços.
+      movimentos: [{ id: arq.eventos }, { id: arq.separar_muitas }]
+    respostas:
+      M-01: { valor: [aguentar_uso] }
+      M-02: { valor: valor_e_meta }
+      M-03: { valor: escala }
+      M-04: { valor: sim }
+      E-01: { valor: time, origem: medida }
+      D-01: { valor: 6_20, origem: medida }
+      D-02: { valor: claras }
+      B-10: { valor: 3_5 }
+      B-03: { valor: ano }
+      B-04: { valor: previsivel }
+      B-05: { valor: poucas }
+      D-07: { valor: por_parte, origem: medida }
+      D-08: { valor: tres_mais, origem: medida }
+      D-04: { valor: sincrono }
+      D-05: { valor: 4_6, origem: medida }
+      D-05b: { valor: "99_95", origem: medida }
+      C-06: { valor: "99_5", origem: medida }
+      D-06: { valor: [compensacoes, transacoes] }
+      C-02: { valor: moderado, origem: medida }
+      C-02b: { valor: 2_5x }
+      C-03: { valor: ate_2x }
+      C-07: { valor: algumas }
+      B-11: { valor: nao }
+      D-11: { valor: por_parte }
+      D-12: { valor: automatica }
+      B-02: { valor: receita }
+      D-14: { valor: muito }
+      D-13: { valor: pontos }
+      F-10: { valor: [publicacao, alertas] }
+      E-09: { valor: escala }
+      E-03: { valor: todas }
+      D-09: { valor: nao }
+      B-01: { valor: mais_5 }
+      G-T: { valor: dificil }
+      G-R: { valor: sim }
+    gabarito: { categoria: sobreajustado, ideia: contraproducente }
+    testa: "Sobreajuste em distribuição e sociotécnico; intenção contraproducente"
+
+  - id: EX-C
+    nome: ERP de Distribuição (Exemplo C)
+    tipo: exemplo
+    subnivel: refatoracao.sistema
+    profundidade: avancado
+    asOf: "2026-11-10"
+    ideia:
+      texto: Reescrever em cerca de 30 microsserviços, em uma nova linguagem, em 18 meses.
+      movimentos: [{ id: arq.reescrever }, { id: arq.separar_muitas }, { id: arq.trocar_tecnologia }]
+    respostas:
+      M-01: { valor: [entregar_rapido] }
+      M-02: { valor: valor_e_meta }
+      M-03: { valor: entregas_lentas }
+      M-04: { valor: sim }
+      E-01: { valor: times_4_8, origem: medida }
+      E-02: { valor: camada, origem: medida }
+      E-03: { valor: poucas }
+      E-05: { valor: quase_sempre, origem: medida }
+      D-10: { valor: nunca, origem: medida }
+      D-01: { valor: "1", origem: medida }
+      D-02: { valor: fracas }
+      D-09: { valor: muitos, origem: medida }
+      B-10: { valor: 6_10 }
+      B-03: { valor: mes }
+      B-03b: { valor: poucas_areas }
+      C-04: { valor: algumas }
+      C-02: { valor: moderado }
+      C-03: { valor: ate_2x }
+      C-05: { valor: estoura_pico }
+      D-11: { valor: manual }
+      B-02: { valor: receita }
+      D-12: { valor: basica }
+      F-10: { valor: [publicacao] }
+      E-09: { valor: informal }
+      F-01: { valor: mensal, origem: medida }
+      F-02: { valor: semanas, origem: medida }
+      F-03: { valor: 2_3, origem: medida }
+      F-05: { valor: concentrados }
+      F-06: { valor: mais_25 }
+      F-12: { valor: 6_18m, origem: medida }
+      B-01: { valor: mais_5 }
+      G-T: { valor: dificil }
+      G-R: { valor: parcial }
+    gabarito: { categoria: subajustado, ideia: existe_caminho_melhor }
+    testa: "Subajuste sociotécnico e de distribuição; reescrita perde para caminho menos invasivo"
+
+  - id: EX-D
+    nome: App de Fidelidade (Exemplo D)
+    tipo: exemplo
+    subnivel: refatoracao.sistema
+    profundidade: equilibrado
+    asOf: "2026-11-10"
+    respostas:
+      M-01: { valor: [nada_especifico] }
+      E-01: { valor: times_2_3, origem: inferencia }
+      D-01: { valor: 2_5, origem: inferencia }
+      D-10: { valor: geralmente, origem: desconhecida }
+      E-05: { valor: as_vezes, origem: desconhecida }
+      D-09: { valor: poucos, origem: desconhecida }
+      D-02: { valor: fracas, origem: inferencia }
+      B-10: { valor: 3_5 }
+      B-03: { valor: mes }
+      D-04: { valor: sincrono, origem: inferencia }
+      D-08: { valor: duas, origem: inferencia }
+      C-02: { valor: alto }
+      C-03: { valor: ate_2x }
+      D-11: { valor: automatica }
+      B-02: { valor: receita }
+      D-12: { valor: automatica, origem: inferencia }
+      F-10: { valor: [publicacao, alertas], origem: inferencia }
+      B-01: { valor: mais_5 }
+    gabarito: { categoriasAceitas: [indefinido, inconclusivo] }
+    testa: "Muitas inferências e lacunas: Indefinido, sem direções"
+
+  - id: S-01
+    nome: Quatro pessoas, dezoito partes
+    tipo: sintetico
+    subnivel: refatoracao.sistema
+    profundidade: equilibrado
+    asOf: "2026-11-10"
+    respostas:
+      M-01: { valor: [manter_facil] }
+      E-01: { valor: time, origem: medida }
+      D-01: { valor: 6_20, origem: medida }
+      D-02: { valor: claras }
+      D-08: { valor: duas }
+      D-04: { valor: sincrono }
+      B-10: { valor: 3_5 }
+      B-03: { valor: ano }
+      C-02: { valor: baixo }
+      C-03: { valor: estavel }
+      D-11: { valor: automatica }
+      B-02: { valor: incomodo }
+      D-12: { valor: automatica }
+      F-10: { valor: [publicacao, alertas] }
+      D-09: { valor: nao }
+      B-01: { valor: mais_5 }
+    gabarito: { categoria: sobreajustado }
+    testa: "E2 e E6 sobreajustados"
+
+  - id: S-02
+    nome: Seis times, uma parte, trem de publicação
+    tipo: sintetico
+    subnivel: refatoracao.sistema
+    profundidade: equilibrado
+    asOf: "2026-11-10"
+    respostas:
+      M-01: { valor: [entregar_rapido] }
+      E-01: { valor: times_4_8, origem: medida }
+      E-05: { valor: quase_sempre }
+      D-10: { valor: nunca }
+      E-02: { valor: camada }
+      D-01: { valor: "1", origem: medida }
+      D-02: { valor: fracas }
+      B-10: { valor: 6_10 }
+      B-03: { valor: mes }
+      C-02: { valor: moderado }
+      C-03: { valor: ate_2x }
+      D-11: { valor: manual }
+      B-02: { valor: receita }
+      D-12: { valor: basica }
+      F-10: { valor: [publicacao] }
+      D-09: { valor: varios }
+      B-01: { valor: mais_5 }
+    gabarito: { categoria: subajustado }
+    testa: "E2, E6 e H6 subajustados"
+
+  - id: S-03
+    nome: Ferramenta interna estável de duas pessoas
+    tipo: sintetico
+    subnivel: refatoracao.sistema
+    profundidade: rapido
+    asOf: "2026-11-10"
+    respostas:
+      M-01: { valor: [nada_especifico] }
+      E-01: { valor: dupla, origem: medida }
+      D-01: { valor: "1", origem: medida }
+      D-02: { valor: claras }
+      B-03: { valor: raramente }
+      B-10: { valor: 1_2 }
+      B-02: { valor: incomodo }
+      F-10: { valor: [publicacao] }
+      D-09: { valor: nao }
+      C-02: { valor: baixo }
+      D-11: { valor: manual }
+    gabarito: { categoria: ajustado, plano: nao_mexa }
+    testa: "Fim de papo: ajustado, zero sugestões (FD-07)"
+
+  - id: S-04
+    nome: Dez times com serviços por domínio e operação madura
+    tipo: sintetico
+    subnivel: refatoracao.sistema
+    profundidade: equilibrado
+    asOf: "2026-11-10"
+    respostas:
+      M-01: { valor: [nada_especifico] }
+      E-01: { valor: times_mais_8, origem: medida }
+      E-02: { valor: area }
+      E-03: { valor: todas }
+      E-05: { valor: raramente }
+      D-10: { valor: sempre }
+      D-01: { valor: 6_20, origem: medida }
+      D-02: { valor: automaticas }
+      D-04: { valor: mistura }
+      D-08: { valor: uma }
+      C-07: { valor: algumas }
+      B-10: { valor: mais_10 }
+      B-03: { valor: semana }
+      B-03b: { valor: poucas_areas }
+      C-04: { valor: muitas }
+      B-11: { valor: varios }
+      C-02: { valor: muito_alto }
+      C-02b: { valor: 5_10x }
+      C-03: { valor: 2_10x }
+      D-11: { valor: por_parte }
+      B-02: { valor: contrato }
+      D-12: { valor: isolada }
+      F-04: { valor: menos_1h }
+      F-10: { valor: [publicacao, alertas, provisionamento, rastreamento] }
+      E-09: { valor: time_dedicado }
+      D-09: { valor: nao }
+      B-01: { valor: sem_prazo }
+    gabarito: { categoria: ajustado }
+    testa: "Simetria: distribuição justificada não é punida (RN-87)"
+
+  - id: S-05
+    nome: Sobreajustado com fim de vida em nove meses
+    tipo: sintetico
+    subnivel: refatoracao.sistema
+    profundidade: equilibrado
+    asOf: "2026-11-10"
+    respostas:
+      M-01: { valor: [custar_menos] }
+      E-01: { valor: time, origem: medida }
+      D-01: { valor: 6_20, origem: medida }
+      D-02: { valor: claras }
+      D-08: { valor: tres_mais }
+      D-04: { valor: sincrono }
+      B-10: { valor: 3_5 }
+      B-03: { valor: ano }
+      C-02: { valor: baixo }
+      C-03: { valor: estavel }
+      D-11: { valor: por_parte }
+      B-02: { valor: incomodo }
+      D-12: { valor: automatica }
+      F-10: { valor: [publicacao, alertas] }
+      D-09: { valor: nao }
+      B-01: { valor: menos_1, origem: medida }
+    gabarito: { categoria: sobreajustado, conviver: true, plano: conviver }
+    testa: "Conviver: a correção não se paga no horizonte (RN-84)"
+
+  - id: S-06
+    nome: Ajustado com fim de suporte em quatro meses
+    tipo: sintetico
+    subnivel: refatoracao.sistema
+    profundidade: avancado
+    asOf: "2026-11-10"
+    respostas:
+      M-01: { valor: [cumprir_prazo] }
+      M-02: { valor: valor_e_meta }
+      E-01: { valor: time, origem: medida }
+      D-01: { valor: "1", origem: medida }
+      D-02: { valor: claras }
+      B-10: { valor: 3_5 }
+      B-03: { valor: ano }
+      C-02: { valor: moderado }
+      C-03: { valor: estavel }
+      C-05: { valor: folga }
+      D-11: { valor: manual }
+      B-02: { valor: receita }
+      D-12: { valor: automatica }
+      F-10: { valor: [publicacao, alertas] }
+      E-09: { valor: escala }
+      D-09: { valor: nao }
+      D-13: { valor: condicionais }
+      B-05: { valor: uma }
+      B-04: { valor: previsivel }
+      B-01: { valor: mais_5 }
+      F-12: { valor: menos_6m, origem: medida }
+      F-02: { valor: dias }
+      F-06: { valor: menos_10 }
+      F-08: { valor: criticas }
+      F-11: { valor: menos_6m }
+      E-06: { valor: duas }
+    gabarito: { categoria: ajustado, plano: nao_mexa }
+    testa: "Obrigação datada e H4 crítico como fatos, sem recomendação estrutural (RN-85)"
+
+  - id: S-07
+    nome: Ideia com ganho pequeno
+    tipo: sintetico
+    subnivel: refatoracao.sistema
+    profundidade: equilibrado
+    asOf: "2026-11-10"
+    ideia:
+      texto: Criar pontos de extensão para as variações de cliente.
+      movimentos: [{ id: arq.extensao }]
+    respostas:
+      M-01: { valor: [manter_facil] }
+      M-02: { valor: valor_e_meta }
+      M-03: { valor: manutencao }
+      M-04: { valor: sim }
+      E-01: { valor: time, origem: medida }
+      D-01: { valor: "1", origem: medida }
+      D-02: { valor: claras }
+      B-10: { valor: 3_5 }
+      B-03: { valor: mes }
+      B-05: { valor: varias }
+      B-04: { valor: pivos }
+      D-13: { valor: condicionais }
+      C-02: { valor: moderado }
+      C-03: { valor: ate_2x }
+      D-11: { valor: automatica }
+      B-02: { valor: receita }
+      D-12: { valor: automatica }
+      F-10: { valor: [publicacao, alertas] }
+      E-09: { valor: escala }
+      D-09: { valor: nao }
+      B-01: { valor: mais_5 }
+      G-T: { valor: viavel }
+      G-R: { valor: sim }
+    gabarito: { ideia: ganho_irrisorio }
+    testa: "Ganho abaixo da materialidade não vira proposta (RN-76)"
+
+  - id: S-08
+    nome: Muitos serviços sem observabilidade
+    tipo: sintetico
+    subnivel: refatoracao.sistema
+    profundidade: equilibrado
+    asOf: "2026-11-10"
+    respostas:
+      M-01: { valor: [cair_menos] }
+      E-01: { valor: time_grande, origem: medida }
+      D-01: { valor: 21_100, origem: medida }
+      D-02: { valor: claras }
+      D-04: { valor: mistura }
+      D-08: { valor: duas }
+      B-10: { valor: 6_10 }
+      B-03: { valor: mes }
+      C-02: { valor: moderado }
+      C-03: { valor: ate_2x }
+      D-11: { valor: automatica }
+      B-02: { valor: receita }
+      D-12: { valor: automatica }
+      F-10: { valor: [nenhuma] }
+      E-09: { valor: ninguem }
+      D-09: { valor: nao }
+      B-01: { valor: mais_5 }
+    gabarito: { categoriasAceitas: [misto, sobreajustado] }
+    testa: "Misto: sobra em distribuição e falta em operação, com interdependência"
+
+  - id: S-09
+    nome: Metade das respostas desconhecidas
+    tipo: sintetico
+    subnivel: refatoracao.sistema
+    profundidade: equilibrado
+    asOf: "2026-11-10"
+    respostas:
+      M-01: { valor: [nada_especifico] }
+      E-01: { valor: times_2_3, origem: desconhecida }
+      D-01: { valor: 2_5, origem: desconhecida }
+      D-02: { valor: claras, origem: desconhecida }
+      B-10: { valor: 3_5, origem: desconhecida }
+      B-03: { valor: mes }
+      C-02: { valor: moderado }
+      C-03: { valor: ate_2x, origem: desconhecida }
+      D-11: { valor: automatica, origem: desconhecida }
+      B-02: { valor: receita }
+      D-12: { valor: automatica, origem: desconhecida }
+      F-10: { valor: [publicacao], origem: desconhecida }
+      D-09: { valor: nao, origem: desconhecida }
+    gabarito: { categoriasAceitas: [indefinido, inconclusivo] }
+    testa: "Incerteza honesta (RN-77)"
+
+  - id: S-10
+    nome: Ideia bem fundamentada
+    tipo: sintetico
+    subnivel: refatoracao.sistema
+    profundidade: equilibrado
+    asOf: "2026-11-10"
+    ideia:
+      texto: Fortalecer as fronteiras internas, definir donos por área e separar faturamento e estoque em duas partes, uma de cada vez.
+      movimentos: [{ id: arq.modularizar }, { id: arq.donos }, { id: arq.separar_poucas }]
+    respostas:
+      M-01: { valor: [entregar_rapido] }
+      M-02: { valor: valor_e_meta, origem: medida }
+      M-03: { valor: entregas_lentas }
+      M-04: { valor: sim }
+      E-01: { valor: times_4_8, origem: medida }
+      E-02: { valor: camada, origem: medida }
+      E-03: { valor: poucas, origem: medida }
+      E-05: { valor: quase_sempre, origem: medida }
+      D-10: { valor: nunca, origem: medida }
+      D-01: { valor: "1", origem: medida }
+      D-02: { valor: fracas, origem: medida }
+      D-09: { valor: poucos, origem: medida }
+      B-10: { valor: 6_10, origem: medida }
+      B-03: { valor: mes, origem: medida }
+      B-03b: { valor: poucas_areas }
+      C-04: { valor: algumas }
+      C-02: { valor: moderado, origem: medida }
+      C-03: { valor: ate_2x }
+      D-11: { valor: automatica }
+      B-02: { valor: receita }
+      D-12: { valor: automatica }
+      F-10: { valor: [publicacao, alertas, provisionamento] }
+      E-09: { valor: escala }
+      B-01: { valor: mais_5 }
+      G-T: { valor: viavel }
+      G-R: { valor: sim }
+    gabarito: { categoria: subajustado, ideia: justificada_em_principio }
+    testa: "O StackSync também diz sim"
+
+  - id: S-11
+    nome: "StackSync: equipe mínima, monólito modular"
+    tipo: sintetico
+    subnivel: refatoracao.sistema
+    profundidade: equilibrado
+    asOf: "2026-11-10"
+    respostas:
+      M-01: { valor: [nada_especifico] }
+      E-01: { valor: dupla, origem: medida }
+      D-01: { valor: "1", origem: medida }
+      D-02: { valor: automaticas }
+      B-10: { valor: 3_5 }
+      B-03: { valor: semana }
+      C-02: { valor: baixo }
+      C-03: { valor: ate_2x }
+      D-11: { valor: automatica }
+      B-02: { valor: incomodo }
+      D-12: { valor: automatica }
+      F-10: { valor: [publicacao, alertas, provisionamento] }
+      E-09: { valor: informal }
+      D-09: { valor: nao }
+      B-05: { valor: uma }
+      B-04: { valor: pivos }
+      D-13: { valor: pontos }
+      B-01: { valor: mais_5 }
+    gabarito: { categoria: ajustado }
+    testa: "Autoaplicação (Parte 4, seção 6)"
+
+  - id: CA-01
+    nome: Monitoramento da Prime Video antes da consolidação
+    tipo: publico
+    subnivel: refatoracao.sistema
+    profundidade: equilibrado
+    asOf: "2026-11-10"
+    respostas:
+      M-01: { valor: [custar_menos] }
+      E-01: { valor: time }
+      D-01: { valor: 6_20 }
+      D-02: { valor: claras }
+      D-04: { valor: assincrono }
+      D-08: { valor: tres_mais }
+      C-07: { valor: quase_todas }
+      B-10: { valor: 1_2 }
+      B-03: { valor: ano }
+      B-11: { valor: nao }
+      C-02: { valor: alto }
+      C-03: { valor: ate_2x }
+      D-11: { valor: por_parte }
+      B-02: { valor: receita }
+      D-12: { valor: automatica }
+      F-10: { valor: [publicacao, alertas, provisionamento] }
+      E-09: { valor: escala }
+      D-09: { valor: nao }
+      B-01: { valor: mais_5 }
+    gabarito: { categoria: sobreajustado }
+    testa: "Custo de distribuição (RN-25)"
+
+  - id: CA-04
+    nome: Migração porque outras empresas estão migrando
+    tipo: publico
+    subnivel: refatoracao.sistema
+    profundidade: rapido
+    asOf: "2026-11-10"
+    ideia:
+      texto: Migrar para microsserviços, como o mercado está fazendo.
+      movimentos: [{ id: arq.separar_varias }]
+    respostas:
+      M-01: { valor: [manter_facil] }
+      M-02: { valor: nenhum }
+      M-03: { valor: tendencia }
+      E-01: { valor: time }
+      D-01: { valor: "1" }
+      D-02: { valor: claras }
+      B-03: { valor: ano }
+      B-10: { valor: 3_5 }
+      B-02: { valor: receita }
+      F-10: { valor: [publicacao, alertas] }
+      D-09: { valor: poucos }
+    gabarito: { categoria: ajustado, ideia: sem_fundamento }
+    testa: "Motivo só de tendência (RN-01)"
+
+  - id: PL-A
+    nome: Ferramenta interna nova de um time
+    tipo: sintetico
+    subnivel: planejamento.sistema
+    profundidade: equilibrado
+    asOf: "2026-11-10"
+    respostas:
+      M-01: { valor: [manter_facil] }
+      E-01: { valor: time }
+      B-10: { valor: 1_2 }
+      B-03: { valor: ano }
+      C-02: { valor: baixo }
+      C-03: { valor: estavel }
+      B-02: { valor: incomodo }
+      F-10: { valor: [publicacao, alertas] }
+      E-09: { valor: informal }
+      B-01: { valor: 3_5 }
+      B-05: { valor: uma }
+      B-04: { valor: previsivel }
+      G-T2: { valor: folga }
+      G-R2: { valor: nenhuma }
+    gabarito: { plano: nao_mexa }
+    testa: "A solução mais simples basta"
+
+  - id: PL-B
+    nome: Plataforma nova de seis times com carga alta
+    tipo: sintetico
+    subnivel: planejamento.sistema
+    profundidade: equilibrado
+    asOf: "2026-11-10"
+    respostas:
+      M-01: { valor: [entregar_rapido, aguentar_uso] }
+      E-01: { valor: times_4_8 }
+      B-10: { valor: 6_10 }
+      B-03: { valor: semana }
+      B-03b: { valor: poucas_areas }
+      C-04: { valor: muitas }
+      C-02: { valor: alto }
+      C-02b: { valor: 5_10x }
+      C-03: { valor: 2_10x }
+      B-11: { valor: varios }
+      C-07: { valor: algumas }
+      B-02: { valor: contrato }
+      F-10: { valor: [publicacao, alertas, provisionamento] }
+      E-09: { valor: escala }
+      B-01: { valor: sem_prazo }
+      G-T2: { valor: folga }
+      G-R2: { valor: algumas }
+    gabarito: { plano: mudanca }
+    testa: "Planejamento que precisa de mais que a forma mais simples"
+
+  - id: FE-A
+    nome: PostgreSQL 13 fora de suporte
+    tipo: sintetico
+    subnivel: refatoracao.ferramenta
+    profundidade: equilibrado
+    asOf: "2026-11-10"
+    respostas:
+      M-01: { valor: [cumprir_prazo] }
+      T-01: { valor: banco_dados }
+      T-02: { valor: postgresql }
+      T-02v: { valor: "13" }
+      T-03-db: { valor: relacionais }
+      C-02: { valor: moderado }
+      C-03: { valor: ate_2x }
+      E-01: { valor: time }
+      T-07: { valor: [postgresql] }
+      T-05: { valor: exposto }
+      F-10: { valor: [publicacao, alertas] }
+      E-09: { valor: escala }
+      D-09: { valor: poucos }
+      T-08: { valor: medio }
+      B-01: { valor: mais_5 }
+    gabarito: { plano: atualizar }
+    testa: "Fim de suporte se resolve com atualização, sem troca"
+
+  - id: FE-B
+    nome: Fila para poucas mensagens
+    tipo: sintetico
+    subnivel: planejamento.ferramenta
+    profundidade: equilibrado
+    asOf: "2026-11-10"
+    ideia:
+      texto: Adotar o Kafka.
+      movimentos: [{ id: fer.trocar, parametro: kafka }]
+    respostas:
+      M-01: { valor: [manter_facil] }
+      M-03: { valor: tendencia }
+      T-01: { valor: mensageria }
+      T-03-msg: { valor: ate_100 }
+      T-03-msg2: { valor: nao }
+      C-02: { valor: baixo }
+      C-03: { valor: estavel }
+      E-01: { valor: time }
+      T-07: { valor: [] }
+      T-05: { valor: interno }
+      F-10: { valor: [publicacao] }
+      E-09: { valor: informal }
+      B-01: { valor: 3_5 }
+    gabarito: { plano: mais_simples }
+    testa: "A opção mais simples que atende; Kafka é sobreajuste"
+
+  - id: FE-C
+    nome: Trocar Python por Rust para ter menos bugs
+    tipo: sintetico
+    subnivel: refatoracao.ferramenta
+    profundidade: equilibrado
+    asOf: "2026-11-10"
+    ideia:
+      texto: Reescrever em Rust para ter menos bugs.
+      movimentos: [{ id: fer.trocar, parametro: rust }]
+    respostas:
+      M-01: { valor: [manter_facil] }
+      M-02: { valor: nenhum }
+      M-03: { valor: manutencao }
+      T-01: { valor: linguagem }
+      T-02: { valor: python }
+      T-02v: { valor: "3.13" }
+      T-03-lang: { valor: web_io }
+      T-04: { valor: algumas }
+      T-05: { valor: exposto }
+      T-06: { valor: [nenhuma] }
+      T-07: { valor: [python] }
+      E-01: { valor: time }
+      E-10: { valor: facil }
+      C-02: { valor: moderado }
+      C-03: { valor: ate_2x }
+      F-10: { valor: [publicacao, alertas] }
+      B-01: { valor: mais_5 }
+    gabarito: { plano: nao_mexa, ideia: contraproducente }
+    testa: "Linguagem pesa pouco na qualidade (RN-30, Berger et al., 2019)"

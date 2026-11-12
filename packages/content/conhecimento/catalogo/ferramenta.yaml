@@ -1,0 +1,296 @@
+# Perguntas dos subníveis de ferramenta técnica (P3 5.9; fatores 10, 11, 12, 15 e 16 da Parte 1).
+grupos:
+  ferr: &ferr [refatoracao.ferramenta, planejamento.ferramenta]
+
+perguntas:
+  - id: T-01
+    ambito: ferramenta
+    texto: Que tipo de ferramenta está em avaliação?
+    porQue: Cada tipo de ferramenta tem concorrentes e critérios próprios.
+    tipo: opcao
+    opcoes:
+      - { id: banco_dados, rotulo: Banco de dados }
+      - { id: mensageria, rotulo: Mensageria e filas }
+      - { id: cache, rotulo: Cache em memória }
+      - { id: linguagem, rotulo: Linguagem e plataforma de execução }
+      - { id: framework_web, rotulo: Framework de servidor web }
+      - { id: iac, rotulo: Infraestrutura como código }
+    padrao: [banco_dados, linguagem, framework_web, mensageria]
+    modo: E
+    subniveis: *ferr
+    peso: 6
+    obrigatoria: true
+    alimenta: [Ferramenta]
+    segundos: 10
+    permiteMedida: false
+
+  - id: T-02
+    ambito: ferramenta
+    texto: Qual está em uso hoje?
+    porQue: A ferramenta atual é a linha de base. Mudar precisa provar que vale mais do que manter.
+    tipo: opcao
+    opcoes: []
+    opcoesDinamicas: tecnologias
+    padrao: []
+    modo: E
+    subniveis: [refatoracao.ferramenta]
+    condicao: { pergunta: T-01, respondida: true }
+    peso: 6
+    obrigatoria: true
+    alimenta: [Ferramenta]
+    segundos: 10
+    permiteMedida: false
+
+  - id: T-02v
+    ambito: ferramenta
+    texto: Qual versão está em uso?
+    porQue: A versão define a data de fim de suporte, um fato com data que pode exigir só uma atualização, sem troca.
+    tipo: opcao
+    opcoes: []
+    opcoesDinamicas: ciclos
+    padrao: []
+    modo: E
+    subniveis: [refatoracao.ferramenta]
+    condicao: { pergunta: T-02, respondida: true }
+    peso: 5
+    obrigatoria: true
+    alimenta: [T3.C, Obrigações]
+    comoDescobrir: O comando de versão da ferramenta, ou o arquivo de dependências do projeto, mostra a versão.
+    quemPodeSaber: Líder técnico
+    segundos: 15
+    permiteMedida: false
+
+  - id: T-03-db
+    ambito: ferramenta
+    texto: Como são os dados principais?
+    porQue: O formato dos dados define quais bancos atendem sem contorno.
+    tipo: opcao
+    opcoes:
+      - { id: relacionais, rotulo: "Registros relacionados entre si, com regras de consistência" }
+      - { id: documentos, rotulo: Documentos de formato variável }
+      - { id: chave_valor, rotulo: Pares de chave e valor simples }
+      - { id: embarcado, rotulo: Dados locais de um único aplicativo }
+    padrao: [relacionais, documentos, chave_valor]
+    modo: E
+    subniveis: *ferr
+    condicao: { pergunta: T-01, em: [banco_dados] }
+    peso: 5
+    alimenta: [T1.N]
+    segundos: 15
+    permiteMedida: false
+
+  - id: T-03-msg
+    ambito: ferramenta
+    texto: Quantas mensagens por segundo no pico?
+    porQue: O volume de mensagens define se uma fila simples basta ou se é preciso uma plataforma de eventos.
+    tipo: opcao
+    opcoes:
+      - { id: ate_100, rotulo: Até 100 }
+      - { id: milhares, rotulo: Centenas a alguns milhares }
+      - { id: dezenas_milhares, rotulo: Dezenas de milhares ou mais }
+    padrao: [ate_100, milhares, dezenas_milhares]
+    modo: E
+    subniveis: *ferr
+    condicao: { pergunta: T-01, em: [mensageria] }
+    peso: 5
+    alimenta: [T1.N]
+    segundos: 15
+    permiteMedida: true
+
+  - id: T-03-msg2
+    ambito: ferramenta
+    texto: É preciso reler mensagens antigas, como um histórico que pode ser reprocessado?
+    porQue: Reprocessar o histórico exige um registro durável de mensagens, que nem toda fila oferece.
+    tipo: opcao
+    opcoes:
+      - { id: nao, rotulo: Não }
+      - { id: sim, rotulo: Sim }
+    padrao: [nao, sim]
+    modo: E
+    subniveis: *ferr
+    condicao: { pergunta: T-01, em: [mensageria] }
+    peso: 4
+    alimenta: [T1.N]
+    segundos: 10
+    permiteMedida: false
+
+  - id: T-03-cache
+    ambito: ferramenta
+    texto: Para que o cache serve?
+    porQue: Cache só de leitura repetida é mais simples que estruturas em memória.
+    tipo: opcao
+    opcoes:
+      - { id: leitura, rotulo: Evitar ler os mesmos dados toda hora }
+      - { id: sessoes, rotulo: Guardar sessões e dados temporários }
+      - { id: estruturas, rotulo: "Filas, contadores e estruturas em memória" }
+    padrao: [leitura, sessoes, estruturas]
+    modo: E
+    subniveis: *ferr
+    condicao: { pergunta: T-01, em: [cache] }
+    peso: 5
+    alimenta: [T1.N]
+    segundos: 10
+    permiteMedida: false
+
+  - id: T-03-lang
+    ambito: ferramenta
+    texto: Que tipo de trabalho domina?
+    porQue: O tipo de trabalho define se o desempenho da linguagem pesa ou se o ecossistema e as pessoas pesam mais.
+    tipo: opcao
+    opcoes:
+      - { id: web_io, rotulo: Atender requisições web e esperar banco ou rede }
+      - { id: calculo, rotulo: Cálculo intenso }
+      - { id: tempo_real, rotulo: Tempo real com latência muito baixa }
+      - { id: dados, rotulo: Scripts e análise de dados }
+    padrao: [web_io, calculo, dados]
+    modo: E
+    subniveis: *ferr
+    condicao: { pergunta: T-01, em: [linguagem, framework_web] }
+    peso: 5
+    alimenta: [T1.N]
+    segundos: 15
+    permiteMedida: false
+
+  - id: T-03-fw
+    ambito: ferramenta
+    texto: O que o framework vai entregar?
+    porQue: Alguns frameworks são feitos para páginas renderizadas no servidor; outros, para interfaces de programação.
+    tipo: opcao
+    opcoes:
+      - { id: api, rotulo: Serviços para outros sistemas ou para um front-end }
+      - { id: paginas, rotulo: Páginas renderizadas no servidor }
+      - { id: ambos, rotulo: As duas coisas }
+    padrao: [api, paginas, ambos]
+    modo: E
+    subniveis: *ferr
+    condicao: { pergunta: T-01, em: [framework_web] }
+    peso: 4
+    alimenta: [T1.N]
+    segundos: 10
+    permiteMedida: false
+
+  - id: T-03-iac
+    ambito: ferramenta
+    texto: Quantos ambientes e recursos de nuvem serão descritos?
+    porQue: Poucos recursos dispensam ferramentas com muitas abstrações.
+    tipo: opcao
+    opcoes:
+      - { id: poucos, rotulo: Poucos ambientes e recursos }
+      - { id: varios, rotulo: Vários ambientes e dezenas de recursos }
+      - { id: muitos, rotulo: Muitas contas e centenas de recursos }
+    padrao: [poucos, varios, muitos]
+    modo: E
+    subniveis: *ferr
+    condicao: { pergunta: T-01, em: [iac] }
+    peso: 4
+    alimenta: [T1.N]
+    segundos: 10
+    permiteMedida: false
+
+  - id: T-04
+    ambito: ferramenta
+    texto: "{alvo} depende de bibliotecas ou integrações especializadas? Por exemplo, pagamentos, processamento de mídia, cálculo científico ou aprendizado de máquina."
+    porQue: Bibliotecas do domínio pesam mais na escolha de linguagem do que a sintaxe (Meyerovich e Rabkin, 2013).
+    tipo: opcao
+    opcoes:
+      - { id: pouco, rotulo: Pouco }
+      - { id: algumas, rotulo: Algumas }
+      - { id: muito, rotulo: Muito }
+    padrao: [pouco, algumas, muito]
+    modo: E
+    subniveis: *ferr
+    condicao: { pergunta: T-01, em: [linguagem, framework_web] }
+    peso: 4
+    alimenta: [T2.N]
+    segundos: 15
+    permiteMedida: false
+
+  - id: T-05
+    ambito: seguranca
+    texto: "{alvo} fica exposto na internet ou guarda dados sensíveis?"
+    porQue: A exposição define o peso da segurança e da cadeia de suprimentos da ferramenta.
+    tipo: opcao
+    opcoes:
+      - { id: interno, rotulo: "Uso interno, sem dados sensíveis" }
+      - { id: exposto, rotulo: Exposto na internet ou com dados sensíveis }
+      - { id: regulado, rotulo: "As duas coisas, em setor regulado" }
+    padrao: [interno, exposto, regulado]
+    modo: E
+    subniveis: *ferr
+    peso: 3
+    alimenta: [T5.N]
+    segundos: 15
+    permiteMedida: false
+
+  - id: T-06
+    ambito: seguranca
+    texto: Alguma destas propriedades é uma exigência real, por incidente ou medida, e não só preferência?
+    porQue: Trocar de linguagem só se justifica por uma propriedade verificável, nunca por popularidade (RN-30).
+    tipo: multipla
+    opcoes:
+      - { id: memoria, rotulo: Segurança de memória }
+      - { id: tipagem, rotulo: Tipagem estática }
+      - { id: desempenho, rotulo: Desempenho máximo de processamento }
+      - { id: nenhuma, rotulo: Nenhuma }
+    padrao: [nenhuma, tipagem, memoria]
+    modo: E
+    subniveis: *ferr
+    condicao: { pergunta: T-01, em: [linguagem] }
+    peso: 4
+    alimenta: [T5.N, T1.N]
+    segundos: 15
+    permiteMedida: false
+
+  - id: T-07
+    ambito: times
+    texto: Em quais destas o time já tem experiência?
+    porQue: Experiência do time pesa mais na adoção do que recursos da ferramenta, e treinar tem custo.
+    tipo: multipla
+    opcoes: []
+    opcoesDinamicas: tecnologias
+    padrao: []
+    modo: E
+    subniveis: *ferr
+    condicao: { pergunta: T-01, respondida: true }
+    peso: 4
+    alimenta: [T4.C]
+    segundos: 15
+    permiteMedida: false
+
+  - id: T-08
+    ambito: dados
+    texto: Quanto dado precisaria ser migrado numa troca?
+    porQue: Dados são a parte mais cara de qualquer troca de banco ou de mensageria (Taibi et al., 2017).
+    tipo: opcao
+    opcoes:
+      - { id: pouco, rotulo: Pouco }
+      - { id: medio, rotulo: Um volume moderado }
+      - { id: muito, rotulo: "Muito, com histórico longo" }
+    padrao: [pouco, medio, muito]
+    modo: E
+    subniveis: [refatoracao.ferramenta]
+    condicao: { pergunta: T-01, em: [banco_dados, mensageria] }
+    peso: 4
+    cobre: [F3]
+    alimenta: [Dados, Custo de mudar]
+    segundos: 10
+    permiteMedida: false
+
+  - id: E-10
+    ambito: times
+    texto: Quão fácil é contratar ou treinar pessoas na tecnologia atual?
+    textoPorSubnivel:
+      planejamento.ferramenta: Quão fácil é contratar ou treinar pessoas para a ferramenta?
+    porQue: O tamanho do mercado de trabalho e o custo de treinar entram no custo total (RN-36).
+    tipo: opcao
+    opcoes:
+      - { id: facil, rotulo: Fácil }
+      - { id: moderado, rotulo: Moderado }
+      - { id: dificil, rotulo: Difícil }
+    padrao: [facil, moderado, dificil]
+    modo: C
+    subniveis: *ferr
+    peso: 3
+    alimenta: [T4.N]
+    segundos: 10
+    permiteMedida: false

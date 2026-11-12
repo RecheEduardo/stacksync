@@ -1,0 +1,140 @@
+# Estrutura de decisão do percurso adaptativo (DT-30, RN-89 a RN-91).
+# A IA do usuário escolhe a próxima pergunta dentro desta estrutura; sem provedor, vale a ordem padrão.
+versao: "2026.11.1"
+
+subniveis:
+  refatoracao.sistema:
+    ramo: refatoracao
+    rotulo: Sistema inteiro
+    descricao: A arquitetura do sistema como um todo.
+    modelo: arquitetura
+    alvo: o sistema
+    existente: o sistema
+    naoMudar: não mudar
+    planoNaoMexa: "Não mexa: nenhuma mudança se paga com a necessidade descrita."
+    linhaDeBase: atual
+    coberturaEstimada:
+      F4: [D-09, D-08, D-01]
+      F5: [D-02, D-09]
+  refatoracao.modulo:
+    ramo: refatoracao
+    rotulo: Módulo específico
+    descricao: Uma parte do sistema e as fronteiras dela.
+    modelo: arquitetura
+    alvo: o módulo
+    existente: o módulo
+    naoMudar: não mudar
+    planoNaoMexa: "Não mexa no módulo: nenhuma mudança se paga com a necessidade descrita."
+    linhaDeBase: atual
+    coberturaEstimada:
+      F4: [D-09, D-08, D-01]
+      F5: [D-02, D-09]
+  refatoracao.ferramenta:
+    ramo: refatoracao
+    rotulo: Ferramenta técnica
+    descricao: Linguagem, banco de dados, framework ou similar.
+    modelo: ferramenta
+    alvo: o sistema
+    existente: o sistema
+    naoMudar: manter a ferramenta
+    planoNaoMexa: "Mantenha a ferramenta: nenhuma troca se paga com a necessidade descrita."
+    linhaDeBase: ferramenta_atual
+    coberturaEstimada:
+      F4: [D-09, T-08]
+      F5: [D-09]
+  planejamento.sistema:
+    ramo: planejamento
+    rotulo: Sistema novo
+    descricao: Um sistema que ainda vai ser construído.
+    modelo: arquitetura
+    alvo: o sistema
+    existente: a organização
+    naoMudar: a solução mais simples
+    planoNaoMexa: "A solução mais simples basta: {forma}"
+    linhaDeBase: mais_simples
+    coberturaEstimada:
+      F4: [E-01]
+      F5: [B-01]
+  planejamento.modulo:
+    ramo: planejamento
+    rotulo: Módulo ou funcionalidade nova
+    descricao: Algo novo dentro de um sistema que já existe.
+    modelo: arquitetura
+    alvo: o módulo novo
+    existente: o sistema que vai receber o módulo
+    naoMudar: colocar o módulo no sistema como ele está
+    planoNaoMexa: "Cabe no que existe: o módulo entra no sistema atual sem mudar a estrutura."
+    linhaDeBase: atual
+    coberturaEstimada:
+      F4: [D-09, D-01]
+      F5: [D-02, D-09]
+  planejamento.ferramenta:
+    ramo: planejamento
+    rotulo: Escolha de ferramenta técnica
+    descricao: Escolher linguagem, banco de dados, framework ou similar.
+    modelo: ferramenta
+    alvo: o sistema
+    existente: a organização
+    naoMudar: a opção mais simples
+    planoNaoMexa: "A opção mais simples que atende: {forma}"
+    linhaDeBase: nenhuma
+    coberturaEstimada:
+      F4: [E-01]
+      F5: [B-01]
+
+profundidades:
+  rapido:
+    rotulo: Rápido
+    descricao: Cerca de 7 minutos, uma avaliação prática.
+    perguntas: 11
+    minutos: 7
+    minutosDe: 6
+    minutosAte: 8
+    minutosRotulo: cerca de 7 minutos
+    modos: [E]
+    recomendado: false
+  equilibrado:
+    rotulo: Equilibrado
+    descricao: 15 a 20 minutos, embasamento para defender ou derrubar uma proposta.
+    perguntas: 27
+    minutos: 18
+    minutosDe: 15
+    minutosAte: 20
+    minutosRotulo: 15 a 20 minutos
+    modos: [E, C]
+    recomendado: true
+  avancado:
+    rotulo: Avançado
+    descricao: 35 a 50 minutos, a análise completa da arquitetura.
+    perguntas: null
+    minutos: 42
+    minutosDe: 35
+    minutosAte: 50
+    minutosRotulo: 35 a 50 minutos
+    modos: [E, C]
+    recomendado: false
+
+ambitos:
+  meta: Meta
+  motivo: Motivo da ideia
+  times: Times
+  dados: Dados
+  transicao: Custo de mudar
+  reversibilidade: Reversibilidade
+  estrutura: Estrutura atual
+  carga: Carga
+  disponibilidade: Disponibilidade
+  mudanca: Ritmo de mudança
+  operacao: Operação
+  horizonte: Horizonte
+  ferramenta: Ferramenta
+  seguranca: Segurança
+  saude: Saúde técnica
+  obrigacoes: Obrigações com data
+
+fatoresPeso5:
+  F1: Meta mensurável
+  F2: Times e arquitetura
+  F3: Dados
+  F4: Custo de transição
+  F5: Caminho reversível

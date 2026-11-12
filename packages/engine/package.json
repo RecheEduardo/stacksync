@@ -1,0 +1,22 @@
+{
+  "name": "@stacksync/engine",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./mensagens": "./src/mensagens.ts",
+    "./tipos": "./src/tipos.ts"
+  },
+  "scripts": {
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit -p tsconfig.json"
+  },
+  "devDependencies": {
+    "@stacksync/content": "workspace:*",
+    "fast-check": "^4.10.0",
+    "typescript": "^7.0.0",
+    "vitest": "^5.1.0",
+    "@types/node": "^24.0.0"
+  }
+}

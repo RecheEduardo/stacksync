@@ -1,0 +1,417 @@
+# Mensagens da interface (DESIGN.md, "Conteúdo, voz e dados de exemplo"): telas, componentes e estados.
+# Caixa de sentença, voz ativa, verbos nos botões, sem exclamação, sem emoji, sem superlativo, sem urgência.
+# Formato ICU (DT-28), sob o lint de vocabulário (FF-06, FD-04).
+
+# ---------------------------------------------------------------- geral
+ui.continuar: Continuar
+ui.cancelar: Cancelar
+ui.fechar: Fechar
+ui.erroSalvar: Não foi possível salvar. Confira a conexão e tente de novo.
+ui.erroSessao: Não foi possível abrir o seu espaço no StackSync. Confira a conexão e tente de novo.
+ui.conflitoCurto: Resposta alterada em outra aba
+ui.conflito.titulo: Esta resposta mudou em outra aba
+ui.conflito.outraAba: Versão da outra aba
+ui.conflito.minha: Sua versão
+ui.conflito.minhaDescricao: A resposta que você acabou de escolher.
+ui.conflito.usarOutra: Usar a da outra aba
+ui.conflito.manterMinha: Manter a minha
+ui.citacao: "{autores}, {ano}"
+ui.menu.conta: Conta
+ui.cabecalho.analises: Análises
+ui.menu.ia: IA conectada
+ui.menu.dados: Seus dados
+ui.provedor.anthropic: Anthropic (Claude)
+ui.provedor.anthropic.detalhe: Modelos Claude, com a sua chave da Anthropic.
+ui.provedor.openai: OpenAI
+ui.provedor.openai.detalhe: Modelos da OpenAI, com a sua chave.
+ui.provedor.google: Google (Gemini)
+ui.provedor.google.detalhe: Modelos Gemini, com a sua chave do Google AI Studio.
+ui.provedor.compativel: Endpoint compatível com a API da OpenAI
+ui.provedor.compativel.detalhe: Azure OpenAI, OpenRouter ou um modelo hospedado pela sua organização.
+ui.provedor.simulado: Simulado (desenvolvimento)
+ui.provedor.simulado.detalhe: Respostas fixas para testar o fluxo localmente. Não existe em produção.
+
+# ---------------------------------------------------------------- conectar a IA
+ui.ia.provedor: Provedor
+ui.ia.endpoint: URL do endpoint
+ui.ia.endpoint.ajuda: Endereço HTTPS da API, por exemplo https://seu-recurso.openai.azure.com/openai/v1
+ui.ia.chave: Chave de API
+ui.ia.chave.ajuda: "Campo só de escrita: depois de salva, a chave não volta a aparecer; só os últimos 4 caracteres."
+ui.ia.chave.manter: "Deixe em branco para manter a chave terminada em {ultimos4}."
+ui.ia.modelo: Modelo
+ui.ia.modelo.ajuda: Escolha da lista do provedor ou escreva o identificador do modelo.
+ui.ia.listarModelos: Listar modelos do provedor
+ui.ia.listando: Listando...
+ui.ia.modelosEncontrados: "{n, plural, one {# modelo encontrado} other {# modelos encontrados}}"
+ui.ia.privacidade: O conteúdo vai para o provedor que você escolheu, com a sua chave, sob o contrato que você tem com ele.
+ui.ia.erro.provedor: Escolha um provedor.
+ui.ia.erro.chave: Informe a chave de API do provedor.
+ui.ia.erro.endpoint: Informe a URL do endpoint.
+ui.ia.erro.modelo: Informe o modelo.
+ui.ia.testadaEm: "Conexão testada em {data}."
+ui.ia.testarDeNovo: Testar de novo
+ui.ia.irParaAnalises: Ir para as análises
+ui.ia.soSessaoAtiva: A chave vale só para esta sessão e não foi guardada. Ao fechar o navegador, ela precisa ser informada de novo.
+ui.ia.chaveDaSessao: A chave da sessão anterior não está mais disponível. Informe a chave de novo para continuar.
+ui.ia.reserva: "Neste modelo, se a Anthropic recusar um pedido por política de segurança, ela refaz o pedido num modelo de reserva, e o uso é cobrado pelo modelo que respondeu."
+ui.ia.remover.titulo: Remover a conexão com a IA?
+ui.ia.remover.descricao: A chave sai do StackSync. As análises e os raciocínios já gerados continuam no histórico. Para responder novas perguntas, será preciso conectar uma IA de novo.
+ui.ia.rotuloProposta: "Proposta da IA conectada ({provedor}, {modelo}). Só vale depois da sua confirmação."
+ui.ia.uso.titulo: Uso da sua chave
+ui.ia.uso.explica: Chamadas feitas com a sua chave nos últimos 13 meses, sem o conteúdo. O provedor cobra esse uso na sua conta.
+ui.ia.uso.etapa: Etapa
+ui.ia.uso.chamadas: Chamadas
+ui.ia.uso.entrada: Tokens de entrada
+ui.ia.uso.saida: Tokens de saída
+ui.ia.uso.falhas: "{n, plural, one {# falha} other {# falhas}}"
+ui.ia.uso.vazio: Nenhuma chamada ainda.
+ui.ia.etapa.teste: Teste de conexão
+ui.ia.etapa.RG-12: Escolha da próxima pergunta e sugestões
+ui.ia.etapa.RG-13: Sugestões de resposta
+ui.ia.etapa.RG-01: Leitura de texto livre
+ui.ia.etapa.ideia: Leitura da ideia prévia
+ui.ia.etapa.RG-10: Raciocínio guiado do resultado
+ui.ia.etapa.RG-14: Tecnologias candidatas
+
+# ---------------------------------------------------------------- painel
+ui.painel.arquivadas: Análises arquivadas
+ui.painel.verArquivadas: Ver arquivadas
+ui.painel.verAtivas: Ver ativas
+ui.painel.semArquivadas: Nenhuma análise arquivada.
+ui.painel.coluna.analise: Análise
+ui.painel.coluna.estado: Estado
+ui.painel.coluna.veredito: Último veredito
+ui.painel.coluna.confianca: Confiança
+ui.painel.coluna.calibracao: Calibração
+ui.painel.coluna.obrigacao: Obrigação mais próxima
+ui.painel.coluna.atualizada: Atualizada em
+ui.painel.coluna.acoes: Ações
+ui.painel.estado.preenchendo: Em preenchimento
+ui.painel.estado.veredito: Veredito emitido
+ui.painel.semVeredito: Sem veredito ainda
+ui.painel.vereditoResumo: "{categoria}, Índice de Ajuste entre {de} e {ate}"
+ui.painel.novaCalibracao: Nova calibração disponível
+ui.painel.atualizadaEm: "Atualizada em {data}"
+ui.painel.acoes: "Ações da análise {nome}"
+ui.painel.arquivar: Arquivar
+ui.painel.desarquivar: Desarquivar
+ui.painel.excluir: Excluir a análise
+ui.painel.excluir.titulo: Excluir esta análise?
+ui.painel.excluir.descricao: "A análise “{nome}”, as respostas, os vereditos, os raciocínios e os links de leitura serão apagados de vez. Não dá para desfazer."
+
+# ---------------------------------------------------------------- enquadramento
+ui.enquadramento.etapa: "Etapa {n} de {total}"
+ui.enquadramento.ideia: Sua ideia
+ui.enquadramento.semIdeia: Sem ideia prévia
+ui.enquadramento.semIdeiaContinuar: Continuar sem ideia
+ui.enquadramento.nome.ajuda: Só para você reconhecer a análise no painel. Não é enviado à IA.
+ui.enquadramento.nomePadrao: "{objetivo}, {data}"
+ui.enquadramento.trocarDepois: Dá para aprofundar depois sem perder respostas.
+ui.enquadramento.traz.rapido: O resultado traz as direções e a forma geral da arquitetura.
+ui.enquadramento.traz.equilibrado: O resultado traz também as tecnologias candidatas comparadas às concorrentes.
+ui.enquadramento.traz.avancado: O resultado traz também os passos incrementais com ponto de volta e o custo de transição.
+
+# ---------------------------------------------------------------- casca e trilho
+ui.analise.erroCarga: Não foi possível carregar a análise. Tente de novo em instantes.
+ui.trilho.rotulo: Etapas da análise
+ui.trilho.enquadramento: Enquadramento
+ui.trilho.perguntas: Perguntas
+ui.trilho.revisao: Revisão
+ui.trilho.resultado: Resultado
+ui.trilho.relatorio: Relatório
+ui.trilho.concluido: As perguntas deste nível terminaram.
+ui.trilho.coberto: coberto
+ui.trilho.naoCoberto: ainda não coberto
+ui.trilho.trocarNivel: Trocar a profundidade
+ui.trilho.trocarNivel.explica: As respostas dadas continuam valendo em qualquer nível.
+
+# ---------------------------------------------------------------- questionário
+ui.pergunta.titulo: "Perguntas da análise {nome}"
+ui.pergunta.escolhendo: Escolhendo a próxima pergunta pelo perfil das suas respostas
+ui.pergunta.erroCarga: Não foi possível carregar a pergunta. O progresso está salvo.
+ui.pergunta.sugeridas: Respostas comuns para o perfil das suas respostas
+ui.pergunta.verTodas: "Ver todas as opções ({n})"
+ui.pergunta.verSugeridas: Ver só as respostas comuns
+ui.pergunta.pular: Pular por agora
+ui.pergunta.pesoMaximo: Alimenta um fator de peso 5
+ui.pergunta.alimenta: Esta resposta alimenta
+ui.pergunta.limite: "Escolha até {n} opções."
+ui.pergunta.fonte.ajuda: Onde o dado foi medido, por exemplo um painel de monitoramento ou um relatório.
+ui.pergunta.medida.erro: Informe a fonte e o mês da medida, ou desmarque "Tenho esse dado medido".
+ui.pergunta.alterarAria: "Alterar a resposta de: {pergunta}"
+ui.pergunta.todasRespostas: Todas as respostas
+ui.pergunta.fim: "As perguntas do nível {nivel} terminaram."
+ui.pergunta.fim.explica: Revise a base e gere o veredito. Se quiser mais precisão, aprofunde o nível sem perder as respostas.
+ui.livre.titulo: Leitura da sua resposta
+ui.livre.interpretar: Interpretar
+ui.livre.interpretando: Interpretando...
+ui.livre.entendemos: "Entendemos: {leitura}."
+ui.livre.entendemosFaixa: "Entendemos uma faixa: {leitura}."
+ui.livre.naoEntendeu: O texto não permitiu escolher uma opção. Ajuste a leitura escolhendo as opções que se aplicam.
+ui.livre.falha: "{motivo} Escolha as opções que se aplicam."
+ui.livre.ajustar: Escolha as opções que correspondem ao que você escreveu
+ui.livre.ajustarFaixa: Marque opções vizinhas para indicar uma faixa.
+ui.livre.ajustarMultipla: Marque todas as que se aplicam.
+ui.naoSei.acolhimentoSemPonte: Sem problema. Conte o que sabe no campo abaixo ou mantenha a resposta desconhecida; a faixa do resultado fica mais larga.
+ui.naoSei.campoLivre.ajuda: Escreva o que você sabe, mesmo que aproximado. A IA propõe uma leitura e você confirma.
+
+# ---------------------------------------------------------------- revisão
+ui.revisao.explica: Confira a base antes de gerar o veredito. Gerar é sempre possível, mesmo com respostas faltando.
+ui.revisao.erroCarga: Não foi possível carregar a revisão. Tente de novo em instantes.
+ui.revisao.respondidas: "{n, plural, one {# resposta dada} other {# respostas dadas}}"
+ui.revisao.ideia.lendo: Lendo a sua ideia
+ui.revisao.ideia.proposta: Leitura da sua ideia
+ui.revisao.ideia.falha: "{motivo} Escolha os movimentos que representam a sua ideia."
+ui.revisao.ideia.nenhumMovimento: Nenhum movimento do catálogo representa a ideia como foi escrita.
+ui.revisao.ideia.foraDoCatalogo: O que nenhum movimento representa
+ui.revisao.ideia.confirmada: A ideia entra no cálculo assim
+ui.revisao.ideia.descartada: A leitura foi descartada; a ideia não será avaliada.
+ui.revisao.ideia.semConfirmar: A ideia só é avaliada depois que você confirma ou ajusta a leitura.
+ui.revisao.ideia.ajustarUm: Escolha o movimento que representa a sua ideia.
+ui.revisao.ideia.ajustarVarios: Marque os movimentos que representam a sua ideia.
+ui.revisao.ideia.tecnologia: Tecnologia de destino
+ui.revisao.ideia.escolhaTecnologia: Escolha da base de referência
+ui.revisao.ideia.usarAjuste: Usar esta leitura
+ui.revisao.pendentes: Leituras a decidir
+ui.revisao.decidir: Decidir
+ui.revisao.responder: Responder
+ui.revisao.responderDeNovo: Rever a resposta
+ui.revisao.comoDescobrir: "Como descobrir: {texto}"
+ui.revisao.quemPodeSaber: "Quem pode saber: {texto}"
+ui.revisao.nenhumaMuda: Nenhuma lacuna muda o resultado.
+ui.revisao.fatores: Fatores de peso 5 sem resposta
+ui.revisao.fatores.explica: O veredito sai mesmo assim; esses fatores ficam sem a sua resposta e a faixa fica mais larga.
+ui.revisao.voltar: Voltar às perguntas
+ui.revisao.depois: A partir daqui, alterações nas respostas ficam registradas e aparecem no relatório.
+
+# ---------------------------------------------------------------- resultado e laudo
+ui.resultado.erroCarga: Não foi possível carregar o resultado. Tente de novo em instantes.
+ui.resultado.naoMaisRecente: Este não é o veredito mais recente desta análise.
+ui.resultado.alteradoDepois: Há alterações depois deste veredito.
+ui.resultado.gerarNovo: Gerar novo veredito
+ui.resultado.indefinidoEntre: "Indefinido entre {categorias}"
+ui.resultado.decidiriam.explica: Estas respostas decidiriam o resultado. Medir ou estimar melhor qualquer uma delas estreita a faixa.
+ui.resultado.ideiaSemConfirmar: A ideia prévia não foi avaliada porque a leitura dela não foi confirmada.
+ui.resultado.irRevisao: Confirmar na revisão
+ui.resultado.mapa.explica: Cada linha mostra o desvio entre a capacidade e a necessidade do eixo, com a zona de tolerância hachurada. Abra uma linha para ver como o eixo foi avaliado.
+ui.resultado.sobreajuste: Sobreajuste
+ui.resultado.subajuste: Subajuste
+ui.resultado.ouExplica: Sobreajuste e subajuste são medidos em separado e não se compensam; o Índice de Ajuste desconta os dois.
+ui.resultado.saude: Saúde
+ui.resultado.obrigacoes: Obrigações datadas
+ui.resultado.robustez: Robustez
+ui.resultado.alteracoes: Alterações depois do veredito
+ui.resultado.inferencias: Respostas inferidas
+ui.resultado.voltarPerguntas: Voltar às perguntas
+ui.indice.rotulo: "Índice de Ajuste {faixa}"
+ui.indice.aria: "Índice de Ajuste {faixa}, numa régua de 0 a 100"
+ui.indice.entre: "entre {de} e {ate}"
+ui.indice.igual: "igual a {valor}"
+ui.ideia.entre: "Entre “{a}” e “{b}”."
+ui.ideia.lidaComo: "Lida como: {movimentos}."
+ui.ideia.indice: "Índice de Ajuste da ideia {faixa}"
+ui.ideia.indiceAria: "Índice de Ajuste da ideia {faixa}, numa régua de 0 a 100"
+ui.ideia.contraBase: "Comparada a {base}: {valor} pontos, entre {de} e {ate}."
+ui.ideia.portoes: Portões da ideia
+ui.portao.define: Define o veredito
+ui.laudo.sistema: Análise
+ui.laudo.objetivo: Objetivo
+ui.laudo.profundidade: Profundidade
+ui.laudo.dataReferencia: Data de referência
+ui.laudo.calibracao: Calibração
+ui.laudo.calibracaoValor: "Padrão {versao}"
+ui.laudo.composicao: Composição das respostas
+ui.composicao.item: "{pct}% {origem}"
+ui.composicao.medida: medidas
+ui.composicao.estimativa: estimadas
+ui.composicao.inferencia: inferidas
+ui.composicao.desconhecida: desconhecidas
+ui.origem.medida: medido
+ui.origem.estimativa: estimado
+ui.origem.inferencia: inferido
+ui.origem.desconhecida: desconhecido
+ui.origem.nao_se_aplica: não se aplica
+ui.origem.marca.antiga: antiga
+ui.origem.marca.alterada: alterada após o veredito
+ui.origem.marca.livre: texto livre
+ui.plano.indice: "Índice de Ajuste projetado {faixa}"
+ui.plano.indiceAria: "Índice de Ajuste projetado do plano {faixa}, numa régua de 0 a 100"
+ui.plano.contraBase: "Comparado a {base}: {valor} pontos, entre {de} e {ate}."
+ui.plano.direcoes: Direções
+ui.plano.forma: Forma da arquitetura
+ui.plano.tecnologias: Tecnologias
+ui.plano.passos: Sequência de passos
+ui.plano.pontoDeVolta: "Ponto de volta: {texto}"
+ui.plano.custo: "Custo de transição {nivel}: {motivos}."
+ui.plano.custo.baixo: baixo
+ui.plano.custo.medio: médio
+ui.plano.custo.alto: alto
+ui.plano.custoTransicao: "Custo de transição do plano: {nivel}. {motivos}."
+ui.plano.deixariaDeBastar: O que faria esta forma deixar de bastar
+ui.tecnologias.criterio: Critério
+ui.tecnologias.legenda: "Comparação das tecnologias avaliadas para {decisao}"
+ui.tecnologias.escolhida: Escolhida
+ui.tecnologias.atual: Atual
+ui.tecnologias.c.indice: Índice de Ajuste
+ui.tecnologias.c.complexidade: Complexidade
+ui.tecnologias.c.simplicidade: Simplicidade
+ui.tecnologias.c.popularidade: Popularidade
+ui.tecnologias.c.ecossistema: Ecossistema
+ui.tecnologias.c.licenca: Licença
+ui.tecnologias.c.fimSuporte: Fim de suporte
+ui.tecnologias.c.cadeiaSuprimentos: Cadeia de suprimentos
+ui.tecnologias.popularidadeValor: "{pct}% de uso declarado"
+ui.tecnologias.semPopularidade: Sem dado de popularidade na base
+ui.tecnologias.fonteData: "Fonte: {fonte}, consultada em {data}"
+ui.tecnologias.consultadoEm: "Consultada em {data}"
+ui.mapa.cabecalho.eixo: Eixo
+ui.mapa.cabecalho.leitura: Desvio
+ui.mapa.escala.falta: falta
+ui.mapa.escala.sobra: sobra
+ui.mapa.peso: "{id}, peso {peso}"
+ui.mapa.desvio: "{valor} {um, select, sim {nível} other {níveis}}"
+ui.mapa.faixa: "de {de} a {ate}"
+ui.mapa.dentro: dentro da tolerância
+ui.mapa.cruza: a faixa cruza a tolerância
+ui.mapa.saturado: no limite ou além
+ui.mapa.semSinal: sem sinal suficiente
+ui.mapa.naoAvaliado: não avaliado nesta profundidade
+ui.mapa.lado.sobra: "sobra de {valor} níveis"
+ui.mapa.lado.falta: "falta de {valor} níveis"
+ui.mapa.aria: "{eixo}: {lado}, entre {de} e {ate}{marcas}"
+ui.mapa.abrirDetalhe: Abrir o detalhe do eixo
+ui.mapa.fecharDetalhe: Fechar o detalhe do eixo
+ui.mapa.legenda.zona: Zona de tolerância
+ui.mapa.legenda.sobra: Sobra (capacidade além da necessidade)
+ui.mapa.legenda.falta: Falta (capacidade aquém da necessidade)
+ui.mapa.legenda.faixa: Faixa de incerteza
+ui.mapa.legenda.batente: Limite de saturação
+ui.eixo.necessidade: Necessidade
+ui.eixo.capacidade: Capacidade
+ui.eixo.reguaAria: "{lado} entre {de} e {ate}, numa escala de 0 a 4"
+ui.eixo.semSinais: Nenhuma resposta formou este lado.
+ui.eixo.efeito.eleva: eleva o nível
+ui.eixo.efeito.reduz: reduz o nível
+ui.eixo.evidencias: Evidências
+ui.saude.saudavel: Saudável
+ui.saude.atencao: Atenção
+ui.saude.critico: Crítico
+ui.saude.desconhecido: Desconhecido
+ui.obrigacoes.hoje: Hoje
+ui.obrigacoes.aria: "{n, plural, one {# obrigação datada na linha do tempo} other {# obrigações datadas na linha do tempo}}"
+ui.obrigacoes.vencida: Vencida
+ui.obrigacoes.proxima: Em menos de 6 meses
+ui.obrigacoes.futura: Futura
+ui.obrigacoes.sem_data: Sem data
+ui.obrigacoes.em_vigor: Em vigor
+ui.obrigacoes.fonte: "Fonte: {fonte}"
+
+# ---------------------------------------------------------------- raciocínio guiado
+ui.raciocinio.rotulo: "Anotação da IA conectada ({provedor}, {modelo}). Segunda opinião: não muda o veredito."
+ui.raciocinio.rotuloSemModelo: Anotação da IA conectada. Segunda opinião; não muda o veredito.
+ui.raciocinio.rotuloRelatorio: "Anotação da IA conectada pelo usuário ({provedor}, {modelo}, prompts {versao}). Segunda opinião: não muda o veredito."
+ui.raciocinio.explica: Para cada ponto avaliado pelo motor, a IA resume o que pesou, traz o contra-argumento mais forte e diz o que mudaria a conclusão. Na divergência, vale o motor.
+ui.raciocinio.contraArgumento: Contra-argumento mais forte
+ui.raciocinio.oQueMudaria: O que mudaria esta conclusão
+ui.raciocinio.avaliacao: Avaliação da IA
+ui.raciocinio.avaliacao.concorda: Concorda com o motor.
+ui.raciocinio.avaliacao.mais_favoravel_a_mudar: Mais favorável a mudar que o motor.
+ui.raciocinio.avaliacao.menos_favoravel_a_mudar: Menos favorável a mudar que o motor.
+ui.raciocinio.diverge: Diverge do motor
+ui.raciocinio.divergeMais: "A IA é mais favorável à mudança que o motor. Vale o motor: o ônus da prova é da mudança (RN-73). Medir as respostas citadas é o que poderia mudar o resultado."
+ui.raciocinio.divergeMenos: "A IA vê um risco que o motor deixou passar. O veredito segue o motor; o risco fica registrado aqui para a sua decisão."
+ui.raciocinio.cita: Cita
+ui.raciocinio.sintese: Síntese
+ui.raciocinio.descartados: Itens descartados pela verificação
+ui.raciocinio.candidataAvaliar: candidata a avaliar
+
+# ---------------------------------------------------------------- relatório e link
+ui.relatorio.compartilhar: Compartilhar
+ui.relatorio.compartilhar.explica: "O link de leitura mostra este relatório sem precisar de conta e expira em 30 dias. Quem recebe não altera nada."
+ui.relatorio.copiar: Copiar o link
+ui.relatorio.copiado: Link copiado
+ui.relatorio.linkUmaVez: O link aparece só agora; depois, só é possível revogá-lo ou criar outro.
+ui.relatorio.linkAtivo: "Link criado em {criado}, expira em {expira}, {acessos, plural, one {# acesso} other {# acessos}}"
+ui.relatorio.composicao: Composição das respostas
+ui.relatorio.versoes: "Motor {motor}, catálogo {catalogo}, calibração {calibracao}, base de tecnologias {base}. Data de referência {data}. Hash das entradas {hash}."
+ui.relatorio.rodape: "{nome}. Data de referência {data}. Calibração {calibracao}."
+ui.publico.aviso: Relatório de leitura compartilhado por link. Só leitura.
+ui.publico.indisponivel: Este relatório não está disponível
+ui.publico.indisponivel.explica: O link pode ter expirado ou sido revogado. Peça um novo link a quem compartilhou.
+
+# ---------------------------------------------------------------- seus dados
+ui.dados.titulo: Seus dados
+ui.dados.explica: Os dados ficam no espaço deste navegador no StackSync. Você pode levar tudo ou apagar tudo quando quiser.
+ui.dados.exportar.titulo: Exportar
+ui.dados.exportar.texto: Um arquivo JSON com as análises, as respostas e o histórico delas, os vereditos, os raciocínios da IA e o uso da sua chave. A chave da IA não sai.
+ui.dados.exportar: Baixar a exportação
+ui.dados.excluir.titulo: Excluir o espaço
+ui.dados.excluir.texto: Apaga de vez todas as análises, os vereditos, os links de leitura e a conexão com a IA.
+ui.dados.excluir: Excluir tudo
+ui.dados.excluir.confirmar.titulo: Excluir tudo de vez?
+ui.dados.excluir.confirmar.texto: Todas as análises, respostas, vereditos, raciocínios, links de leitura e a conexão com a IA serão apagados. Não dá para desfazer.
+
+# ---------------------------------------------------------------- como o StackSync decide (T-03)
+ui.metodo.titulo: Como o StackSync decide
+ui.metodo.resumo: "O StackSync compara o que o sistema precisa com o que a arquitetura entrega, eixo por eixo, e só propõe mudança quando o ganho passa de um limite fixo. Mesmas respostas, mesmo resultado."
+ui.metodo.ajuste.titulo: Necessidade contra capacidade
+ui.metodo.ajuste.texto: |-
+  Cada eixo tem uma necessidade, o que as respostas dizem que o sistema precisa, e uma capacidade, o que a arquitetura entrega hoje. As duas são níveis de 0 a 4, sempre em faixa, porque estimativas e respostas desconhecidas alargam a incerteza.
+  O desvio é a capacidade menos a necessidade. Sobra é capacidade além da necessidade; falta é capacidade aquém dela. Dentro da zona de tolerância hachurada, o eixo está ajustado.
+ui.metodo.ajuste.legenda: "Exemplo ilustrativo: um eixo com {valor} de sobra, {faixa}, fora da tolerância."
+ui.metodo.eixos.titulo: Os eixos
+ui.metodo.eixos.texto: Na arquitetura, oito eixos. O peso diz quanto cada um conta no Índice de Ajuste; a tolerância diz quanto desvio ainda é ajuste.
+ui.metodo.eixos.eixo: Eixo
+ui.metodo.eixos.peso: Peso
+ui.metodo.eixos.tolerancia: Tolerância
+ui.metodo.eixos.toleranciaValor: "falta {falta}, sobra {sobra}"
+ui.metodo.eixos.ferramenta: "Na escolha ou troca de ferramenta técnica, os eixos são outros: {eixos}."
+ui.metodo.indice.titulo: Índice de Ajuste, faixa e confiança
+ui.metodo.indice.texto: |-
+  O Índice de Ajuste vai de 0 a 100 e mede o quanto uma proposta (a sua ideia, o plano ideal ou o sistema atual) se ajusta à necessidade real. Sobreajuste e subajuste são medidos em separado e os dois descontam do índice; um não compensa o outro.
+  O índice sempre aparece em faixa, com a confiança ao lado. A categoria só muda quando o desvio passa de {limiar} pontos.
+ui.metodo.indice.exemplo: Exemplo ilustrativo de régua do Índice de Ajuste, entre 58 e 76
+ui.metodo.indice.legenda: "Exemplo ilustrativo. As marcas tracejadas são os limites das faixas de aderência: {limites}."
+ui.metodo.faixa.85: De 85 a 100, a proposta atende à necessidade real.
+ui.metodo.faixa.70: De 70 a 84, atende na maior parte; alguns pontos pedem ajuste.
+ui.metodo.faixa.50: De 50 a 69, resolve parte do problema, mas deixa necessidades importantes de fora ou cria outras.
+ui.metodo.faixa.30: De 30 a 49, se afasta da necessidade real em pontos centrais.
+ui.metodo.faixa.0: De 0 a 29, não corresponde à necessidade descrita.
+ui.metodo.onus.titulo: O ônus da prova é da mudança
+ui.metodo.onus.texto: |-
+  Toda proposta é comparada com não mudar. Uma mudança só é recomendada quando melhora o ajuste mesmo no limite desfavorável da faixa e o ganho passa de {materialidade} pontos. "Não mexa" e "a solução mais simples basta" são resultados tão legítimos quanto qualquer plano.
+  A ideia que você já tem passa por cinco portões, em ordem.
+ui.metodo.portao.P1: O motivo precisa ser um problema do sistema, com evidência; tendência de mercado não basta.
+ui.metodo.portao.P2: É preciso saber o valor de hoje e a meta.
+ui.metodo.portao.P3: O ajuste projetado precisa melhorar, não piorar.
+ui.metodo.portao.P4: "O ganho precisa passar de {materialidade} pontos."
+ui.metodo.portao.P5: Se uma alternativa menos invasiva alcança quase o mesmo ganho, ela vem antes.
+ui.metodo.naoSei.titulo: Quando você não sabe
+ui.metodo.naoSei.texto: |-
+  "Não sei" é uma resposta válida. Ela alarga a faixa do resultado, e o StackSync oferece perguntas mais fáceis para estimar, com a conversão explicada. Toda estimativa fica marcada como inferida e nada vale sem a sua confirmação.
+  No resultado, as perguntas que decidiriam aparecem com como descobrir e quem pode saber.
+ui.metodo.ia.titulo: O papel da IA
+ui.metodo.ia.texto: |-
+  A IA que você conecta escolhe a próxima pergunta dentro de uma estrutura fixa, sugere as respostas mais comuns para o perfil, interpreta texto livre e explica o resultado como segunda opinião.
+  Ela não decide o resultado: o Índice de Ajuste, a categoria, os portões e o plano saem de regras e pesos explícitos. As sugestões nunca veem a sua ideia prévia nem resultados parciais, e nada que a IA produz é gravado sem a sua confirmação.
+ui.metodo.calibracao.titulo: Calibração vigente
+ui.metodo.calibracao.texto: "Calibração {versao}, de {data}. Os pesos e limiares são verificados contra casos de referência com solução conhecida, e toda mudança é versionada."
+ui.metodo.naoFaz.titulo: O que o StackSync não faz
+ui.metodo.naoFaz.texto: |-
+  Não decide por você: o resultado é apoio, com os motivos e a incerteza à vista.
+  Não usa a IA para dar o veredito, e não recomenda tecnologia que ainda não passou pela avaliação da base de referência.
+  Não pede o conteúdo do seu negócio: só características técnicas do sistema.
+ui.metodo.fontes: Fontes da pesquisa
+ui.metodo.abrirFonte: Abrir a fonte
+ui.metodo.voltar: Voltar às análises
+
+# ---------------------------------------------------------------- carregamento (esqueletos, DV-52)
+ui.carregando.sessao: Abrindo o seu espaço
+ui.carregando.analises: Carregando as análises
+ui.carregando.analise: Carregando a análise
+ui.carregando.revisao: Montando a revisão
+ui.carregando.resultado: Carregando o resultado
+ui.carregando.relatorio: Carregando o relatório
+ui.carregando.conexao: Carregando a conexão da IA
+ui.carregando.uso: Carregando o uso da chave
+ui.livre.lendo: Lendo o que você escreveu

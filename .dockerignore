@@ -1,0 +1,15 @@
+**/node_modules
+**/dist
+.data
+.git
+.claude
+.turbo
+**/*.log
+.env
+.env.*
+evidencias
+apps/web/test-results
+apps/web/playwright-report
+apps/web/public/fontes
+apps/web/src/styles/tokens.css
+packages/content/gerado

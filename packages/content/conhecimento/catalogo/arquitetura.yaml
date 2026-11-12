@@ -1,0 +1,1300 @@
+# Catálogo de perguntas (P3 8.4), reescrito em linguagem simples (RN-96).
+# Perguntam características do sistema, nunca regras de negócio, nomes de clientes ou código.
+# {alvo} e {existente} são trocados pelo texto do subnível (estrutura.yaml).
+
+grupos:
+  todos: &todos [refatoracao.sistema, refatoracao.modulo, refatoracao.ferramenta, planejamento.sistema, planejamento.modulo, planejamento.ferramenta]
+  arq: &arq [refatoracao.sistema, refatoracao.modulo, planejamento.sistema, planejamento.modulo]
+  existente: &existente [refatoracao.sistema, refatoracao.modulo, planejamento.modulo]
+  refarq: &refarq [refatoracao.sistema, refatoracao.modulo]
+  ref: &ref [refatoracao.sistema, refatoracao.modulo, refatoracao.ferramenta]
+  arqOrg: &arqOrg [refatoracao.sistema, refatoracao.modulo, planejamento.sistema, planejamento.modulo, refatoracao.ferramenta, planejamento.ferramenta]
+
+multiplosTimes: &multiplosTimes { pergunta: E-01, em: [times_2_3, times_4_8, times_mais_8] }
+variasPartes: &variasPartes { pergunta: D-01, naoEm: ["1"] }
+
+perguntas:
+  - id: M-01
+    ambito: meta
+    texto: O que mais precisa melhorar em {alvo}?
+    textoPorSubnivel:
+      planejamento.sistema: O que {alvo} precisa garantir acima de tudo?
+      planejamento.modulo: O que {alvo} precisa garantir acima de tudo?
+      planejamento.ferramenta: O que a ferramenta precisa garantir acima de tudo?
+    porQue: A meta define quais eixos pesam nos motivos e é a base para julgar se uma mudança melhora o que importa.
+    tipo: multipla
+    maxSelecoes: 2
+    opcoes:
+      - { id: entregar_rapido, rotulo: Entregar mudanças mais rápido }
+      - { id: aguentar_uso, rotulo: Aguentar mais uso }
+      - { id: responder_rapido, rotulo: Responder mais rápido }
+      - { id: cair_menos, rotulo: Ficar menos tempo fora do ar }
+      - { id: custar_menos, rotulo: Custar menos para operar }
+      - { id: manter_facil, rotulo: Ficar mais fácil de manter }
+      - { id: cumprir_prazo, rotulo: "Cumprir um prazo externo (fim de suporte, regulação)" }
+      - { id: nada_especifico, rotulo: "Nada específico: quero saber se está adequado" }
+    padrao: [entregar_rapido, manter_facil, aguentar_uso, nada_especifico]
+    modo: E
+    subniveis: *todos
+    peso: 5
+    obrigatoria: true
+    cobre: [F1]
+    alimenta: [Meta, P2]
+    segundos: 30
+    permiteMedida: false
+
+  - id: M-02
+    ambito: meta
+    texto: Isso tem um número hoje e uma meta?
+    porQue: Uma meta com valor atual e alvo é o que permite dizer se uma mudança vale a pena. Sem ela, nenhuma mudança passa no portão da meta mensurável.
+    termos:
+      - { termo: meta mensurável, explicacao: "Um número que se pode acompanhar, como tempo de resposta, horas fora do ar por mês ou dias até uma correção chegar à produção." }
+    tipo: opcao
+    opcoes:
+      - { id: valor_e_meta, rotulo: "Sim: sabemos o valor de hoje e a meta" }
+      - { id: so_valor, rotulo: "Sabemos o valor de hoje, mas não há meta" }
+      - { id: so_meta, rotulo: "Há uma meta, mas não medimos hoje" }
+      - { id: nenhum, rotulo: Nem um nem outro }
+    padrao: [valor_e_meta, so_valor, nenhum]
+    modo: E
+    subniveis: *todos
+    condicao:
+      todas:
+        - { pergunta: M-01, naoEm: [nada_especifico] }
+        - alguma:
+            - { ideiaPrevia: true }
+            - { profundidade: [equilibrado, avancado] }
+    peso: 4
+    cobre: [F1]
+    alimenta: [Meta, P2]
+    comoDescobrir: Procure o painel de monitoramento ou o último relatório de entregas; o número de hoje costuma estar lá.
+    quemPodeSaber: Líder técnico ou operações
+    segundos: 25
+    permiteMedida: true
+
+  - id: M-03
+    ambito: motivo
+    texto: O que motivou a ideia que você já tem?
+    porQue: O motivo é o primeiro portão da ideia. Tendência de mercado sozinha não basta para mudar (RN-01).
+    tipo: opcao
+    opcoes:
+      - { id: fim_suporte, rotulo: Algo que usamos vai perder suporte }
+      - { id: licenca, rotulo: Mudança de licença de um componente }
+      - { id: regulacao, rotulo: Exigência de regulação }
+      - { id: incidentes, rotulo: Incidentes ou quedas }
+      - { id: custo, rotulo: Custo alto }
+      - { id: entregas_lentas, rotulo: Entregas lentas }
+      - { id: requisito_novo, rotulo: Um requisito novo }
+      - { id: manutencao, rotulo: Dificuldade de manter }
+      - { id: escala, rotulo: Falta de escala }
+      - { id: tendencia, rotulo: É o que o mercado está usando }
+    padrao: [manutencao, entregas_lentas, escala, tendencia]
+    modo: E
+    subniveis: *todos
+    condicao: { ideiaPrevia: true }
+    peso: 4
+    obrigatoria: true
+    alimenta: [P1]
+    segundos: 20
+    permiteMedida: false
+
+  - id: M-04
+    ambito: motivo
+    texto: Dá para mostrar esse motivo com um dado, um incidente registrado ou uma data oficial?
+    porQue: Um motivo legítimo sem evidência deixa o portão do gatilho indeterminado.
+    tipo: opcao
+    opcoes:
+      - { id: sim, rotulo: Sim }
+      - { id: parcial, rotulo: Em parte }
+      - { id: nao, rotulo: Não }
+    padrao: [sim, parcial, nao]
+    modo: C
+    subniveis: *todos
+    condicao:
+      todas:
+        - { ideiaPrevia: true }
+        - { pergunta: M-03, naoEm: [tendencia] }
+    peso: 3
+    alimenta: [P1]
+    segundos: 15
+    permiteMedida: false
+
+  - id: B-01
+    ambito: horizonte
+    texto: Por quanto tempo {alvo} deve continuar em uso?
+    porQue: Se a vida útil restante for curta, corrigir um desajuste pode não se pagar. Nesse caso, conviver com ele é a decisão racional (RN-84).
+    tipo: opcao
+    opcoes:
+      - { id: menos_1, rotulo: Menos de 1 ano }
+      - { id: 1_3, rotulo: 1 a 3 anos }
+      - { id: 3_5, rotulo: 3 a 5 anos }
+      - { id: mais_5, rotulo: Mais de 5 anos }
+      - { id: sem_prazo, rotulo: Sem prazo para acabar }
+    padrao: [1_3, 3_5, sem_prazo]
+    modo: E
+    subniveis: *todos
+    peso: 3
+    alimenta: [Conviver, T3]
+    pontes:
+      - id: B-01.p1
+        texto: É um experimento ou um produto mínimo com data para ser validado?
+        opcoes:
+          - { id: sim, rotulo: Sim, converte: [menos_1, 1_3], explicacao: Experimentos com data de validação têm horizonte curto até prova em contrário. }
+          - { id: nao, rotulo: Não, converte: [3_5, mais_5, sem_prazo], explicacao: Sistemas que não são experimento costumam durar anos. }
+      - id: B-01.p2
+        texto: Existe plano de substituir {alvo}?
+        opcoes:
+          - { id: em_breve, rotulo: "Sim, nos próximos meses", converte: [menos_1], explicacao: Um plano de substituição próximo encurta o horizonte. }
+          - { id: sem_data, rotulo: "Sim, mas sem data", converte: [1_3, 3_5], explicacao: Planos sem data costumam se arrastar por alguns anos. }
+          - { id: nao, rotulo: Não, converte: [3_5, mais_5, sem_prazo], explicacao: "Sem plano de substituição, o horizonte é longo." }
+    comoDescobrir: Pergunte se há plano de substituição ou data de validação do produto.
+    quemPodeSaber: Liderança de produto
+    segundos: 15
+    permiteMedida: false
+
+  - id: B-02
+    ambito: disponibilidade
+    texto: Se {alvo} ficar 1 hora fora do ar, o que acontece?
+    porQue: O impacto de ficar fora do ar define quanta redundância e quanta operação a arquitetura precisa ter.
+    tipo: opcao
+    opcoes:
+      - { id: nada, rotulo: Nada relevante }
+      - { id: incomodo, rotulo: Incômodo para quem usa }
+      - { id: receita, rotulo: Perda de receita }
+      - { id: contrato, rotulo: Quebra de contrato ou de regra }
+      - { id: pessoas, rotulo: Risco para pessoas }
+    padrao: [incomodo, receita, contrato]
+    modo: E
+    subniveis: *arq
+    peso: 4
+    alimenta: [E5.N, E7.N]
+    pontes:
+      - id: B-02.p1
+        texto: Alguém é acionado de madrugada quando {alvo} cai?
+        opcoes:
+          - { id: sim, rotulo: Sim, converte: [receita, contrato, pessoas], explicacao: Plantão de madrugada só existe quando a queda custa caro. }
+          - { id: nao, rotulo: Não, converte: [nada, incomodo, receita], explicacao: "Sem plantão, a queda costuma ser tolerável por algumas horas." }
+      - id: B-02.p2
+        texto: Já houve multa, reclamação formal ou cobrança por indisponibilidade?
+        opcoes:
+          - { id: sim, rotulo: Sim, converte: [contrato, pessoas], explicacao: Multa ou reclamação formal indica contrato ou regra envolvidos. }
+          - { id: nao, rotulo: Não, converte: [nada, incomodo, receita], explicacao: "Sem cobrança formal, o impacto fica abaixo de quebra de contrato." }
+    comoDescobrir: Veja se há acordo de nível de serviço em contrato e o que aconteceu na última queda.
+    quemPodeSaber: Operações ou liderança de produto
+    segundos: 20
+    permiteMedida: false
+
+  - id: B-03
+    ambito: mudanca
+    texto: Com que frequência as regras de {alvo} mudam?
+    porQue: Ritmo de mudança alto pede fronteiras internas mais fortes; ritmo baixo dispensa estrutura extra.
+    tipo: opcao
+    opcoes:
+      - { id: raramente, rotulo: Raramente }
+      - { id: ano, rotulo: Algumas vezes por ano }
+      - { id: mes, rotulo: Todo mês }
+      - { id: semana, rotulo: Toda semana }
+    padrao: [ano, mes, semana]
+    modo: E
+    subniveis: *arq
+    peso: 4
+    alimenta: [E1.N, E8.N]
+    pontes:
+      - id: B-03.p1
+        texto: Quantas demandas de mudança chegaram no último trimestre?
+        opcoes:
+          - { id: poucas, rotulo: Até 5, converte: [raramente, ano], explicacao: Poucas demandas por trimestre indicam mudanças esporádicas. }
+          - { id: varias, rotulo: 6 a 30, converte: [mes], explicacao: Algumas demandas por mês indicam ritmo mensal. }
+          - { id: muitas, rotulo: Mais de 30, converte: [semana], explicacao: Várias demandas por semana indicam ritmo semanal. }
+    comoDescobrir: Conte as demandas do último trimestre no quadro de tarefas.
+    quemPodeSaber: Líder técnico ou produto
+    segundos: 15
+    permiteMedida: true
+
+  - id: B-03b
+    ambito: mudanca
+    texto: As mudanças se concentram em algumas áreas ou se espalham por tudo?
+    porQue: Áreas que mudam em ritmos diferentes são um motivo legítimo para separar fronteiras (Ford et al., 2021).
+    tipo: opcao
+    opcoes:
+      - { id: poucas_areas, rotulo: Concentram-se em poucas áreas }
+      - { id: espalhadas, rotulo: Espalham-se por várias áreas }
+      - { id: tudo_junto, rotulo: Tudo muda no mesmo ritmo }
+    padrao: [poucas_areas, espalhadas, tudo_junto]
+    modo: C
+    subniveis: *arq
+    condicao: { pergunta: B-03, naoEm: [raramente] }
+    peso: 3
+    alimenta: [E2.N, E1.N]
+    segundos: 15
+    permiteMedida: false
+
+  - id: B-04
+    ambito: mudanca
+    texto: Quão previsível é o futuro do produto?
+    porQue: Incerteza alta dá valor a pontos de extensão; previsibilidade alta torna a generalidade um custo sem retorno.
+    tipo: opcao
+    opcoes:
+      - { id: estavel, rotulo: Estável e conhecido }
+      - { id: previsivel, rotulo: Evolui de forma previsível }
+      - { id: pivos, rotulo: Pode mudar de direção }
+      - { id: incerto, rotulo: Muito incerto }
+    padrao: [estavel, previsivel, pivos]
+    modo: C
+    subniveis: *arq
+    peso: 2
+    alimenta: [E8.N]
+    segundos: 15
+    permiteMedida: false
+
+  - id: B-05
+    ambito: mudanca
+    texto: Quantas variações {alvo} atende? Por exemplo, clientes com regras próprias, marcas, países ou parceiros.
+    porQue: O número de variações define quanta flexibilidade a arquitetura precisa ter.
+    tipo: opcao
+    opcoes:
+      - { id: uma, rotulo: Uma só }
+      - { id: poucas, rotulo: Poucas (2 a 5) }
+      - { id: varias, rotulo: Várias (6 a 20) }
+      - { id: muitas, rotulo: Muitas (mais de 20) }
+      - { id: plataforma, rotulo: É uma plataforma que terceiros estendem }
+    padrao: [uma, poucas, varias]
+    modo: C
+    subniveis: *arq
+    peso: 2
+    alimenta: [E8.N]
+    segundos: 15
+    permiteMedida: true
+
+  - id: B-08
+    ambito: obrigacoes
+    texto: Alguma destas situações se aplica?
+    porQue: Regulação cria obrigações com data, que aparecem à parte do ajuste e fixam prazos.
+    tipo: multipla
+    opcoes:
+      - { id: ue, rotulo: Vende software ou serviço para a União Europeia }
+      - { id: transferencia, rotulo: Dados pessoais vão para fora do Brasil }
+      - { id: regulado, rotulo: "Setor regulado (financeiro, saúde, governo)" }
+      - { id: nenhuma, rotulo: Nenhuma }
+    padrao: [nenhuma, transferencia, regulado]
+    modo: C
+    subniveis: *todos
+    peso: 2
+    alimenta: [Obrigações, E5.N]
+    segundos: 15
+    permiteMedida: false
+
+  - id: B-09
+    ambito: estrutura
+    texto: O que {alvo} faz bem hoje e precisa ser preservado?
+    porQue: Legado não é sinônimo de ruim (Khadka et al., 2014). O que funciona entra no custo de mudar.
+    tipo: multipla
+    maxSelecoes: 3
+    opcoes:
+      - { id: confiavel, rotulo: Funciona de forma confiável }
+      - { id: regras_corretas, rotulo: As regras estão corretas }
+      - { id: desempenho, rotulo: Tem bom desempenho }
+      - { id: time_conhece, rotulo: O time conhece bem }
+      - { id: nada, rotulo: Nada em especial }
+    padrao: [confiavel, regras_corretas, time_conhece]
+    modo: C
+    subniveis: *ref
+    peso: 2
+    alimenta: [Custo de mudar]
+    segundos: 20
+    permiteMedida: false
+
+  - id: B-10
+    ambito: estrutura
+    texto: Quantas áreas bem diferentes {alvo} atende? Por exemplo, cadastro, faturamento e estoque contam como três.
+    porQue: Mais áreas distintas pedem fronteiras internas mais claras e, às vezes, partes separadas.
+    tipo: opcao
+    opcoes:
+      - { id: 1_2, rotulo: Uma ou duas }
+      - { id: 3_5, rotulo: 3 a 5 }
+      - { id: 6_10, rotulo: 6 a 10 }
+      - { id: mais_10, rotulo: Mais de 10 }
+    padrao: [1_2, 3_5, 6_10]
+    modo: E
+    subniveis: *arq
+    peso: 4
+    alimenta: [E1.N, E2.N]
+    segundos: 15
+    permiteMedida: false
+
+  - id: B-11
+    ambito: carga
+    texto: "{alvo} depende de serviços externos que às vezes ficam lentos ou fora do ar? Por exemplo, pagamentos, parceiros ou outros sistemas."
+    porQue: Dependências instáveis são o caso clássico em que desacoplar no tempo, com filas, compensa.
+    tipo: opcao
+    opcoes:
+      - { id: nao, rotulo: Não }
+      - { id: poucos, rotulo: Um ou dois }
+      - { id: varios, rotulo: Vários }
+    padrao: [nao, poucos, varios]
+    modo: C
+    subniveis: *arq
+    peso: 3
+    alimenta: [E3.N]
+    segundos: 15
+    permiteMedida: false
+
+  - id: C-02
+    ambito: carga
+    texto: Quanto {alvo} é usado num dia normal?
+    porQue: O volume de uso define quanta capacidade de escala é necessária; escala além disso é custo sem retorno.
+    tipo: opcao
+    opcoes:
+      - { id: baixo, rotulo: "Pouco: até algumas centenas de pessoas", detalhe: ou poucas operações por minuto }
+      - { id: moderado, rotulo: "Moderado: alguns milhares de pessoas", detalhe: ou dezenas de operações por minuto }
+      - { id: alto, rotulo: "Alto: dezenas de milhares", detalhe: ou centenas de operações por minuto }
+      - { id: muito_alto, rotulo: "Muito alto: centenas de milhares ou mais", detalhe: ou milhares de operações por segundo }
+    padrao: [baixo, moderado, alto]
+    modo: E
+    subniveis: *todos
+    peso: 3
+    alimenta: [E4.N, T1.N]
+    pontes:
+      - id: C-02.p1
+        texto: Quantos pedidos, atendimentos ou transações acontecem por dia?
+        opcoes:
+          - { id: centenas, rotulo: Algumas centenas, converte: [baixo], explicacao: Centenas de transações por dia são carga baixa. }
+          - { id: milhares, rotulo: Alguns milhares, converte: [moderado], explicacao: Milhares por dia são carga moderada. }
+          - { id: dezenas_milhares, rotulo: Dezenas de milhares, converte: [alto], explicacao: Dezenas de milhares por dia são carga alta. }
+          - { id: mais, rotulo: Mais que isso, converte: [muito_alto], explicacao: Centenas de milhares por dia são carga muito alta. }
+    comoDescobrir: O painel de monitoramento ou o relatório de acessos mostra o volume diário.
+    quemPodeSaber: Operações ou time de dados
+    segundos: 15
+    permiteMedida: true
+
+  - id: C-02b
+    ambito: carga
+    texto: No dia mais movimentado do ano, quanto o uso sobe em relação a um dia normal?
+    porQue: Picos fortes pedem folga de escala ou desacoplamento no tempo.
+    tipo: opcao
+    opcoes:
+      - { id: ate_2x, rotulo: Até o dobro }
+      - { id: 2_5x, rotulo: De 2 a 5 vezes }
+      - { id: 5_10x, rotulo: De 5 a 10 vezes }
+      - { id: mais_10x, rotulo: Mais de 10 vezes }
+    padrao: [ate_2x, 2_5x, 5_10x]
+    modo: C
+    subniveis: *arq
+    peso: 2
+    alimenta: [E4.N, E3.N]
+    segundos: 15
+    permiteMedida: true
+
+  - id: C-03
+    ambito: carga
+    texto: Quanto o uso deve crescer nos próximos 12 a 24 meses?
+    porQue: Crescimento previsto justifica preparar a escala; crescimento imaginado não.
+    tipo: opcao
+    opcoes:
+      - { id: estavel, rotulo: Deve ficar estável }
+      - { id: ate_2x, rotulo: Até dobrar }
+      - { id: 2_10x, rotulo: De 2 a 10 vezes }
+      - { id: mais_10x, rotulo: Mais de 10 vezes }
+    padrao: [estavel, ate_2x, 2_10x]
+    modo: E
+    subniveis: *todos
+    peso: 3
+    alimenta: [E4.N, T1.N]
+    pontes:
+      - id: C-03.p1
+        texto: Há expansão comercial planejada, como novo canal, país ou um cliente grande?
+        opcoes:
+          - { id: sim, rotulo: Sim, converte: [ate_2x, 2_10x], explicacao: Expansões planejadas costumam dobrar o uso ou mais. }
+          - { id: nao, rotulo: Não, converte: [estavel, ate_2x], explicacao: "Sem expansão planejada, o uso tende a ficar perto do atual." }
+    comoDescobrir: O plano comercial do próximo ano costuma trazer a expectativa de crescimento.
+    quemPodeSaber: Liderança de produto
+    segundos: 15
+    permiteMedida: false
+
+  - id: C-04
+    ambito: carga
+    texto: Algumas partes de {alvo} têm picos ou volumes muito diferentes das outras? Por exemplo, um fechamento de mês ou um processamento noturno.
+    porQue: Perfis de carga distintos são um motivo legítimo para escalar partes separadamente.
+    tipo: opcao
+    opcoes:
+      - { id: nao, rotulo: Não }
+      - { id: algumas, rotulo: Algumas }
+      - { id: muitas, rotulo: "Sim, várias" }
+    padrao: [nao, algumas, muitas]
+    modo: C
+    subniveis: *arq
+    peso: 3
+    alimenta: [E2.N, E4.N]
+    segundos: 15
+    permiteMedida: false
+
+  - id: C-05
+    ambito: carga
+    texto: Como está o tempo de resposta da operação mais importante?
+    porQue: Lentidão acima do aceitável é falta de capacidade, mesmo que a estrutura pareça adequada.
+    tipo: opcao
+    opcoes:
+      - { id: folga, rotulo: Bem dentro do aceitável }
+      - { id: limite, rotulo: Perto do limite nos picos }
+      - { id: estoura_pico, rotulo: Passa do aceitável nos picos }
+      - { id: estoura, rotulo: Passa do aceitável quase sempre }
+    padrao: [folga, limite, estoura_pico]
+    modo: E
+    subniveis: [refatoracao.sistema, refatoracao.modulo, planejamento.modulo, refatoracao.ferramenta]
+    peso: 3
+    alimenta: [E4.C, T1.C]
+    pontes:
+      - id: C-05.p1
+        texto: As pessoas reclamam de lentidão?
+        opcoes:
+          - { id: nunca, rotulo: Quase nunca, converte: [folga, limite], explicacao: "Sem reclamações, o tempo de resposta tende a estar dentro do aceitável." }
+          - { id: pico, rotulo: Nos horários de pico, converte: [limite, estoura_pico], explicacao: Reclamações só no pico indicam limite atingido nos picos. }
+          - { id: sempre, rotulo: Quase sempre, converte: [estoura], explicacao: Reclamações constantes indicam lentidão fora do pico. }
+      - id: C-05.p2
+        texto: Há tempos-limite estourando com frequência?
+        opcoes:
+          - { id: nao, rotulo: Não, converte: [folga, limite], explicacao: "Sem tempos-limite estourando, a operação responde a tempo." }
+          - { id: semanal, rotulo: Toda semana, converte: [estoura_pico, estoura], explicacao: Tempos-limite semanais indicam latência acima do aceitável. }
+    comoDescobrir: O monitoramento de tempo de resposta (p99) da operação principal responde isso.
+    quemPodeSaber: Operações
+    segundos: 20
+    permiteMedida: true
+
+  - id: C-06
+    ambito: disponibilidade
+    texto: Qual é a meta de disponibilidade do fluxo principal?
+    porQue: "Com várias partes chamadas em sequência, a disponibilidade total é o produto das disponibilidades de cada uma; a meta diz se essa conta fecha."
+    tipo: opcao
+    opcoes:
+      - { id: "99", rotulo: "99% (até 7 horas fora por mês)" }
+      - { id: "99_5", rotulo: "99,5% (até 3,6 horas por mês)" }
+      - { id: "99_9", rotulo: "99,9% (até 43 minutos por mês)" }
+      - { id: "99_95", rotulo: "99,95% (até 22 minutos por mês)" }
+      - { id: "99_99", rotulo: "99,99% (até 4 minutos por mês)" }
+    padrao: ["99_5", "99_9", "99_95"]
+    modo: C
+    subniveis: *existente
+    condicao:
+      todas:
+        - *variasPartes
+        - { profundidade: [avancado] }
+    peso: 2
+    alimenta: [E3.C]
+    segundos: 15
+    permiteMedida: true
+
+  - id: C-07
+    ambito: dados
+    texto: Se um dado aparecer atualizado só alguns segundos depois em outra tela, alguma operação importante sairia prejudicada?
+    porQue: Operações que exigem dados sempre atualizados pedem que as partes fiquem juntas ou com consistência imediata; as que toleram atraso aceitam filas e eventos.
+    tipo: opcao
+    opcoes:
+      - { id: nenhuma, rotulo: Nenhuma }
+      - { id: algumas, rotulo: Algumas operações }
+      - { id: quase_todas, rotulo: Quase todas }
+    padrao: [nenhuma, algumas, quase_todas]
+    modo: E
+    subniveis: *todos
+    peso: 3
+    cobre: [F3]
+    alimenta: [E3.N, E2.N, T1.N]
+    segundos: 20
+    permiteMedida: false
+
+  - id: D-01
+    ambito: estrutura
+    texto: Quantas partes de {existente} são publicadas separadamente?
+    porQue: O número de partes publicadas separadamente é a medida de distribuição. Cada parte a mais cobra comunicação e operação.
+    termos:
+      - { termo: publicar, explicacao: "Colocar uma versão em produção (implantar). Uma parte com processo de publicação próprio conta como uma." }
+    tipo: opcao
+    opcoes:
+      - { id: "1", rotulo: Uma só }
+      - { id: 2_5, rotulo: 2 a 5 }
+      - { id: 6_20, rotulo: 6 a 20 }
+      - { id: 21_100, rotulo: 21 a 100 }
+      - { id: mais_100, rotulo: Mais de 100 }
+    padrao: ["1", 2_5, 6_20]
+    modo: E
+    subniveis: *existente
+    peso: 5
+    obrigatoria: true
+    alimenta: [E2.C, E6.C, E7.N]
+    pontes:
+      - id: D-01.p1
+        texto: Quantos processos de publicação distintos existem?
+        opcoes:
+          - { id: um, rotulo: Um, converte: ["1"], explicacao: Cada processo de publicação costuma corresponder a uma parte. }
+          - { id: poucos, rotulo: 2 a 5, converte: [2_5], explicacao: Cada processo de publicação costuma corresponder a uma parte. }
+          - { id: varios, rotulo: 6 a 20, converte: [6_20], explicacao: Cada processo de publicação costuma corresponder a uma parte. }
+          - { id: muitos, rotulo: Mais de 20, converte: [21_100, mais_100], explicacao: Cada processo de publicação costuma corresponder a uma parte. }
+      - id: D-01.p2
+        texto: Quantos repositórios de código têm publicação própria?
+        opcoes:
+          - { id: um, rotulo: Um, converte: ["1", 2_5], explicacao: "Um repositório pode publicar mais de uma parte, mas raramente muitas." }
+          - { id: poucos, rotulo: 2 a 5, converte: [2_5], explicacao: Repositórios com publicação própria são partes separadas. }
+          - { id: muitos, rotulo: Mais de 5, converte: [6_20, 21_100], explicacao: Repositórios com publicação própria são partes separadas. }
+    comoDescobrir: Conte os processos de publicação na ferramenta de integração contínua.
+    quemPodeSaber: Líder técnico ou operações
+    segundos: 15
+    permiteMedida: true
+
+  - id: D-02
+    ambito: estrutura
+    texto: Dentro de {existente}, as divisões entre áreas do código são claras?
+    porQue: Fronteiras internas claras dão os benefícios da separação sem o custo da rede. É o primeiro passo antes de distribuir (RN-21).
+    tipo: opcao
+    opcoes:
+      - { id: sem, rotulo: "Não há divisões: qualquer parte usa qualquer outra" }
+      - { id: fracas, rotulo: "Existem, mas são desrespeitadas com frequência" }
+      - { id: claras, rotulo: Claras e respeitadas na maior parte do tempo }
+      - { id: automaticas, rotulo: Garantidas por verificações automáticas }
+    padrao: [fracas, claras, automaticas]
+    modo: E
+    subniveis: *existente
+    peso: 4
+    obrigatoria: true
+    alimenta: [E1.C]
+    pontes:
+      - id: D-02.p1
+        texto: Para mudar uma regra típica, quantas áreas do código precisam ser tocadas?
+        opcoes:
+          - { id: uma, rotulo: Uma área, converte: [claras, automaticas], explicacao: Mudanças que ficam numa área indicam fronteiras respeitadas. }
+          - { id: poucas, rotulo: Duas ou três, converte: [fracas, claras], explicacao: Mudanças que vazam para algumas áreas indicam fronteiras parciais. }
+          - { id: muitas, rotulo: Muitas, converte: [sem, fracas], explicacao: Mudanças espalhadas indicam fronteiras ausentes ou fracas. }
+      - id: D-02.p2
+        texto: Dá para testar uma área isoladamente, sem subir o resto?
+        opcoes:
+          - { id: sim, rotulo: Sim, converte: [claras, automaticas], explicacao: Teste isolado só é possível com fronteiras claras. }
+          - { id: nao, rotulo: Não, converte: [sem, fracas], explicacao: "Sem teste isolado, as áreas dependem umas das outras por dentro." }
+    comoDescobrir: Veja quantos arquivos e pastas as últimas mudanças típicas tocaram.
+    quemPodeSaber: Líder técnico
+    segundos: 20
+    permiteMedida: false
+
+  - id: D-03
+    ambito: estrutura
+    texto: Para acrescentar um campo novo numa tela, quantos lugares do código precisam mudar?
+    porQue: Muitas camadas para mudanças simples são estrutura além da necessidade.
+    tipo: opcao
+    opcoes:
+      - { id: 1_2, rotulo: 1 ou 2 }
+      - { id: 3_5, rotulo: 3 a 5 }
+      - { id: 6_10, rotulo: 6 a 10 }
+      - { id: mais_10, rotulo: Mais de 10 }
+    padrao: [1_2, 3_5, 6_10]
+    modo: C
+    subniveis: *existente
+    peso: 2
+    alimenta: [E1.C, E8.C]
+    segundos: 15
+    permiteMedida: false
+
+  - id: D-04
+    ambito: estrutura
+    texto: Como as partes de {existente} conversam entre si?
+    porQue: Cada chamada pela rede herda latência e falhas; mensagens desacoplam no tempo, mas cobram consistência eventual e reprocessamento.
+    termos:
+      - { termo: chamada que espera resposta, explicacao: "Uma parte chama outra e fica esperando (síncrono)." }
+      - { termo: mensagem que não espera, explicacao: "Uma parte deixa um recado numa fila e segue (assíncrono)." }
+    tipo: opcao
+    opcoes:
+      - { id: mesmo_processo, rotulo: Dentro do mesmo processo }
+      - { id: sincrono, rotulo: "Pela rede, esperando a resposta" }
+      - { id: assincrono, rotulo: "Por mensagens que não esperam resposta (filas, eventos)" }
+      - { id: mistura, rotulo: Uma mistura das duas }
+    padrao: [sincrono, assincrono, mistura]
+    modo: E
+    subniveis: *existente
+    condicao: *variasPartes
+    peso: 4
+    alimenta: [E3.C]
+    segundos: 20
+    permiteMedida: false
+
+  - id: D-05
+    ambito: estrutura
+    texto: No fluxo mais importante, quantas partes são chamadas em sequência antes da resposta?
+    porQue: "Com mais partes em sequência, a chance de uma ficar lenta ou fora do ar cresce: 1 − (1 − p)^n (Dean e Barroso, 2013)."
+    tipo: opcao
+    opcoes:
+      - { id: "1", rotulo: Uma }
+      - { id: 2_3, rotulo: 2 ou 3 }
+      - { id: 4_6, rotulo: 4 a 6 }
+      - { id: 7_mais, rotulo: 7 ou mais }
+    padrao: ["1", 2_3, 4_6]
+    modo: C
+    subniveis: *existente
+    condicao: *variasPartes
+    peso: 3
+    alimenta: [E3.C]
+    pontes:
+      - id: D-05.p1
+        texto: Quantas partes precisam estar no ar para o fluxo principal terminar?
+        opcoes:
+          - { id: uma, rotulo: Uma, converte: ["1"], explicacao: "Se só uma parte precisa estar no ar, não há cadeia." }
+          - { id: poucas, rotulo: Duas ou três, converte: [2_3], explicacao: Cada parte necessária costuma ser um salto da cadeia. }
+          - { id: muitas, rotulo: Quatro ou mais, converte: [4_6, 7_mais], explicacao: Cada parte necessária costuma ser um salto da cadeia. }
+    comoDescobrir: O rastreamento de uma requisição do fluxo principal mostra a sequência de chamadas.
+    quemPodeSaber: Líder técnico
+    segundos: 20
+    permiteMedida: true
+
+  - id: D-05b
+    ambito: disponibilidade
+    texto: Qual é a disponibilidade típica de cada parte desse fluxo?
+    porQue: Combinada com o número de partes em sequência, ela diz se a meta de disponibilidade é alcançável.
+    tipo: opcao
+    opcoes:
+      - { id: "99_5", rotulo: "Cerca de 99,5%" }
+      - { id: "99_9", rotulo: "Cerca de 99,9%" }
+      - { id: "99_95", rotulo: "Cerca de 99,95%" }
+      - { id: "99_99", rotulo: "Cerca de 99,99%" }
+    padrao: ["99_9", "99_95", "99_99"]
+    modo: C
+    subniveis: *existente
+    condicao:
+      todas:
+        - *variasPartes
+        - { profundidade: [avancado] }
+    peso: 2
+    alimenta: [E3.C]
+    segundos: 15
+    permiteMedida: true
+
+  - id: D-06
+    ambito: dados
+    texto: Que mecanismos mantêm os dados coerentes entre as partes?
+    porQue: Compensações, eventos e registros de mensagens são complexidade nova; só se pagam quando os fluxos pedem.
+    termos:
+      - { termo: compensação, explicacao: "Desfazer passos já feitos quando um passo seguinte falha (saga)." }
+      - { termo: outbox, explicacao: "Gravar a mensagem a enviar junto com os dados, para não perder nem duplicar." }
+    tipo: multipla
+    opcoes:
+      - { id: transacoes, rotulo: Transações dentro de cada parte }
+      - { id: compensacoes, rotulo: Compensações para desfazer passos }
+      - { id: eventos, rotulo: Eventos com atualização posterior }
+      - { id: outbox, rotulo: Registro de mensagens junto com os dados }
+      - { id: nenhum, rotulo: Nenhum mecanismo especial }
+    padrao: [transacoes, eventos, nenhum]
+    modo: C
+    subniveis: *existente
+    condicao: *variasPartes
+    peso: 2
+    alimenta: [E3.C]
+    segundos: 20
+    permiteMedida: false
+
+  - id: D-07
+    ambito: dados
+    texto: Como os dados de {existente} estão organizados?
+    porQue: Dividir dados é a parte mais cara de qualquer migração (Taibi et al., 2017).
+    tipo: opcao
+    opcoes:
+      - { id: um_banco, rotulo: Um banco compartilhado por todas as partes }
+      - { id: por_parte, rotulo: Cada parte tem o próprio banco }
+      - { id: misto, rotulo: Um pouco de cada }
+    padrao: [um_banco, por_parte, misto]
+    modo: C
+    subniveis: *existente
+    condicao: *variasPartes
+    peso: 3
+    cobre: [F3]
+    alimenta: [Dados]
+    segundos: 15
+    permiteMedida: false
+
+  - id: D-08
+    ambito: dados
+    texto: Quantas partes escrevem nos mesmos dados?
+    porQue: Várias partes escrevendo nos mesmos dados é uma força que pede juntar, e não separar (RN-19).
+    tipo: opcao
+    opcoes:
+      - { id: uma, rotulo: Cada dado tem uma única parte que escreve }
+      - { id: duas, rotulo: Duas partes }
+      - { id: tres_mais, rotulo: Três ou mais }
+    padrao: [uma, duas, tres_mais]
+    modo: E
+    subniveis: *existente
+    condicao: *variasPartes
+    peso: 4
+    cobre: [F3]
+    alimenta: [E2.N]
+    pontes:
+      - id: D-08.p1
+        texto: Existe alguma tabela que quase todo mundo altera?
+        opcoes:
+          - { id: sim, rotulo: Sim, converte: [duas, tres_mais], explicacao: Uma tabela alterada por todos indica escrita compartilhada. }
+          - { id: nao, rotulo: Não, converte: [uma], explicacao: "Sem tabela compartilhada, cada dado tem um dono." }
+    comoDescobrir: Procure no código quais partes gravam nas tabelas principais.
+    quemPodeSaber: Líder técnico ou time de dados
+    segundos: 20
+    permiteMedida: false
+
+  - id: D-09
+    ambito: dados
+    texto: Algum relatório, integração ou sistema externo lê o banco de {existente} diretamente?
+    porQue: Quem lê o banco direto precisa de destino em qualquer mudança de dados. É a cauda longa que atrasa migrações (RN-28).
+    tipo: opcao
+    opcoes:
+      - { id: nao, rotulo: Não }
+      - { id: poucos, rotulo: 1 ou 2 }
+      - { id: varios, rotulo: 3 a 10 }
+      - { id: muitos, rotulo: Mais de 10 }
+    padrao: [nao, poucos, varios]
+    modo: E
+    subniveis: [refatoracao.sistema, refatoracao.modulo, planejamento.modulo, refatoracao.ferramenta]
+    peso: 5
+    obrigatoria: true
+    cobre: [F3]
+    alimenta: [Dados, Custo de mudar]
+    pontes:
+      - id: D-09.p1
+        texto: A área de relatórios ou de dados tem acesso ao banco?
+        opcoes:
+          - { id: sim, rotulo: Sim, converte: [poucos, varios], explicacao: Uma réplica ou acesso de outra área é um consumidor direto do banco. }
+          - { id: nao, rotulo: Não, converte: [nao, poucos], explicacao: "Sem acesso de outras áreas, os consumidores diretos são poucos ou nenhum." }
+      - id: D-09.p2
+        texto: Há rotinas agendadas fora do sistema que consultam o banco?
+        opcoes:
+          - { id: sim, rotulo: Sim, converte: [poucos, varios], explicacao: Rotinas externas que consultam o banco são consumidores diretos. }
+          - { id: nao, rotulo: Não, converte: [nao, poucos], explicacao: "Sem rotinas externas, sobra o acesso de relatórios." }
+    comoDescobrir: Liste os usuários de banco e as conexões abertas fora da aplicação.
+    quemPodeSaber: Time de dados ou operações
+    segundos: 20
+    permiteMedida: true
+
+  - id: D-10
+    ambito: times
+    texto: Um time consegue testar e publicar a sua parte sem combinar com outros?
+    porQue: Independência de publicação é o critério de acoplamento que mais pesa na entrega (DORA), mais que o número de partes.
+    tipo: opcao
+    opcoes:
+      - { id: sempre, rotulo: Sempre }
+      - { id: geralmente, rotulo: Geralmente }
+      - { id: raramente, rotulo: Raramente }
+      - { id: nunca, rotulo: Nunca }
+    padrao: [geralmente, raramente, nunca]
+    modo: E
+    subniveis: *existente
+    condicao: *multiplosTimes
+    peso: 4
+    cobre: [F2]
+    alimenta: [E2.N, E6.C]
+    pontes:
+      - id: D-10.p1
+        texto: Na última entrega, os times precisaram combinar a data de publicação?
+        opcoes:
+          - { id: sim, rotulo: Sim, converte: [raramente, nunca], explicacao: Publicação combinada indica que os times não publicam sozinhos. }
+          - { id: nao, rotulo: Não, converte: [sempre, geralmente], explicacao: Publicação sem combinar indica independência. }
+    comoDescobrir: Veja as últimas 10 publicações e quantas precisaram de outro time.
+    quemPodeSaber: Líderes dos times
+    segundos: 15
+    permiteMedida: false
+
+  - id: D-11
+    ambito: carga
+    texto: Quando o uso aumenta, o que acontece com {existente}?
+    porQue: A forma de escalar diz a capacidade de absorver carga; ela só precisa acompanhar a carga real.
+    tipo: opcao
+    opcoes:
+      - { id: nao_aguenta, rotulo: Fica lento ou cai }
+      - { id: manual, rotulo: Alguém acrescenta recursos à mão }
+      - { id: automatica, rotulo: Cresce sozinho como um todo }
+      - { id: por_parte, rotulo: As partes crescem separadamente }
+      - { id: regioes, rotulo: Roda em várias regiões do mundo }
+    padrao: [manual, automatica, por_parte]
+    modo: E
+    subniveis: *existente
+    peso: 3
+    alimenta: [E4.C]
+    pontes:
+      - id: D-11.p1
+        texto: No último pico, o que foi feito para aguentar?
+        opcoes:
+          - { id: nada_caiu, rotulo: Nada; ficou lento ou caiu, converte: [nao_aguenta], explicacao: Pico sem resposta indica capacidade no limite. }
+          - { id: manual, rotulo: Aumentamos servidores à mão, converte: [manual], explicacao: Ação manual no pico indica escala manual. }
+          - { id: sozinho, rotulo: Nada; cresceu sozinho, converte: [automatica, por_parte], explicacao: Crescimento sem ação indica escala automática. }
+    comoDescobrir: Veja o que foi feito no último pico de uso.
+    quemPodeSaber: Operações
+    segundos: 15
+    permiteMedida: false
+
+  - id: D-12
+    ambito: disponibilidade
+    texto: Se o servidor principal de {existente} parar agora, o que acontece?
+    porQue: Redundância só precisa acompanhar a criticidade; acima disso, é custo; abaixo, é risco.
+    tipo: opcao
+    opcoes:
+      - { id: para_tudo, rotulo: Tudo para até alguém consertar }
+      - { id: basica, rotulo: "Há uma cópia, mas a troca é manual" }
+      - { id: automatica, rotulo: Troca sozinha para outra cópia }
+      - { id: isolada, rotulo: Só a parte afetada para; o resto segue }
+      - { id: regioes, rotulo: Outra região assume }
+    padrao: [para_tudo, basica, automatica]
+    modo: E
+    subniveis: *existente
+    peso: 3
+    alimenta: [E5.C]
+    segundos: 15
+    permiteMedida: false
+
+  - id: D-13
+    ambito: mudanca
+    texto: Quanto do comportamento de {existente} muda por configuração, sem mexer no código?
+    porQue: Pontos de extensão sem uso são generalidade especulativa; a falta deles torna cada variação invasiva.
+    tipo: opcao
+    opcoes:
+      - { id: quase_nada, rotulo: "Quase nada: toda variação exige mudar código" }
+      - { id: condicionais, rotulo: Variações tratadas com condições espalhadas }
+      - { id: pontos, rotulo: Pontos de extensão nos lugares que mais variam }
+      - { id: amplo, rotulo: Configuração ampla com módulos de extensão }
+      - { id: quase_tudo, rotulo: Quase tudo é configurável }
+    padrao: [condicionais, pontos, amplo]
+    modo: C
+    subniveis: *existente
+    peso: 2
+    alimenta: [E8.C]
+    segundos: 20
+    permiteMedida: false
+
+  - id: D-14
+    ambito: estrutura
+    texto: Quanto do custo de infraestrutura vai para a comunicação entre as partes?
+    porQue: "Comunicação cara entre partes é sinal clássico de distribuição além da necessidade (Prime Video, 2023: mais de 90% de economia ao consolidar)."
+    tipo: opcao
+    opcoes:
+      - { id: pouco, rotulo: Menos de 10% }
+      - { id: medio, rotulo: Entre 10% e 30% }
+      - { id: muito, rotulo: Mais de 30% }
+    padrao: [pouco, medio, muito]
+    modo: C
+    subniveis: *existente
+    condicao:
+      todas:
+        - *variasPartes
+        - { profundidade: [avancado] }
+    peso: 2
+    alimenta: [E2.C, E3.C]
+    segundos: 20
+    permiteMedida: true
+
+  - id: E-01
+    ambito: times
+    texto: Quantas pessoas desenvolvem {alvo}, e em quantos times?
+    textoPorSubnivel:
+      planejamento.sistema: Quantas pessoas vão desenvolver {alvo}, e em quantos times?
+      planejamento.modulo: Quantas pessoas vão desenvolver {alvo}, e em quantos times?
+      planejamento.ferramenta: Quantas pessoas vão trabalhar com a ferramenta?
+    porQue: A arquitetura que se consegue manter é a que a organização consegue espelhar (Conway, 1968). Times e fronteiras precisam combinar.
+    tipo: opcao
+    opcoes:
+      - { id: dupla, rotulo: 1 a 3 pessoas }
+      - { id: time, rotulo: "Um time (4 a 10 pessoas)" }
+      - { id: time_grande, rotulo: "Um time grande (mais de 10 pessoas)" }
+      - { id: times_2_3, rotulo: 2 ou 3 times }
+      - { id: times_4_8, rotulo: 4 a 8 times }
+      - { id: times_mais_8, rotulo: Mais de 8 times }
+    padrao: [time, times_2_3, times_4_8]
+    modo: E
+    subniveis: *todos
+    peso: 5
+    obrigatoria: true
+    cobre: [F2]
+    alimenta: [E6.N, E2.N, E1.N, T4.N]
+    segundos: 15
+    permiteMedida: true
+
+  - id: E-02
+    ambito: times
+    texto: Como os times se dividem?
+    porQue: Times divididos por camada técnica tendem a produzir fronteiras que exigem coordenação constante (Conway, 1968).
+    tipo: opcao
+    opcoes:
+      - { id: camada, rotulo: "Por camada técnica (tela, servidor, banco)" }
+      - { id: area, rotulo: Por área de negócio }
+      - { id: misto, rotulo: Um pouco de cada }
+    padrao: [camada, area, misto]
+    modo: C
+    subniveis: *existente
+    condicao: *multiplosTimes
+    peso: 3
+    alimenta: [E6.C]
+    segundos: 15
+    permiteMedida: false
+
+  - id: E-03
+    ambito: times
+    texto: Cada parte de {existente} tem um time dono claro?
+    porQue: Partes sem dono acumulam falhas; propriedade clara reduz defeitos (Bird et al., 2011).
+    tipo: opcao
+    opcoes:
+      - { id: todas, rotulo: Todas }
+      - { id: maioria, rotulo: A maioria }
+      - { id: poucas, rotulo: Poucas }
+      - { id: nenhuma, rotulo: "Nenhuma: quem estiver disponível resolve" }
+    padrao: [todas, maioria, poucas]
+    modo: C
+    subniveis: *existente
+    condicao:
+      alguma:
+        - *multiplosTimes
+        - *variasPartes
+    peso: 4
+    alimenta: [E6.C]
+    pontes:
+      - id: E-03.p1
+        texto: Quando uma parte quebra, quem é chamado?
+        opcoes:
+          - { id: sempre_mesmo, rotulo: Sempre o mesmo time, converte: [todas, maioria], explicacao: Um time acionado por padrão é o dono. }
+          - { id: quem_puder, rotulo: Quem estiver disponível, converte: [poucas, nenhuma], explicacao: "Sem um time acionado por padrão, a propriedade não está definida." }
+    comoDescobrir: Veja quem atendeu os últimos incidentes de cada parte.
+    quemPodeSaber: Líderes dos times
+    segundos: 15
+    permiteMedida: false
+
+  - id: E-05
+    ambito: times
+    texto: Com que frequência uma entrega exige trabalho combinado entre times?
+    porQue: Coordenação constante entre times é o sinal mais claro de fronteiras desalinhadas com a organização.
+    tipo: opcao
+    opcoes:
+      - { id: raramente, rotulo: Raramente }
+      - { id: as_vezes, rotulo: Às vezes }
+      - { id: quase_sempre, rotulo: Quase sempre }
+    padrao: [raramente, as_vezes, quase_sempre]
+    modo: E
+    subniveis: *existente
+    condicao: *multiplosTimes
+    peso: 5
+    cobre: [F2]
+    alimenta: [E6.C, E2.N]
+    pontes:
+      - id: E-05.p1
+        texto: Das últimas 10 funcionalidades entregues, quantas envolveram mais de um time?
+        opcoes:
+          - { id: poucas, rotulo: Até 2, converte: [raramente], explicacao: Poucas entregas conjuntas indicam coordenação rara. }
+          - { id: metade, rotulo: 3 a 6, converte: [as_vezes], explicacao: Metade das entregas conjuntas indica coordenação frequente. }
+          - { id: quase_todas, rotulo: 7 ou mais, converte: [quase_sempre], explicacao: Quase todas as entregas conjuntas indicam coordenação constante. }
+    comoDescobrir: Olhe as últimas 10 funcionalidades entregues e conte quantas precisaram de mais de um time.
+    quemPodeSaber: Líderes dos times
+    segundos: 15
+    permiteMedida: true
+
+  - id: E-06
+    ambito: saude
+    texto: Quantas pessoas conhecem bem as partes mais críticas de {existente}?
+    porQue: Conhecimento concentrado em uma pessoa é risco, e a mudança precisa envolver quem conhece o legado (Xia et al., 2018).
+    tipo: opcao
+    opcoes:
+      - { id: uma, rotulo: Uma pessoa ou ninguém }
+      - { id: duas, rotulo: Duas }
+      - { id: tres_mais, rotulo: Três ou mais }
+    padrao: [uma, duas, tres_mais]
+    modo: C
+    subniveis: *existente
+    peso: 2
+    alimenta: [H5]
+    segundos: 15
+    permiteMedida: false
+
+  - id: E-09
+    ambito: operacao
+    texto: Quem atende quando algo quebra fora do horário?
+    porQue: Plantão estruturado é parte da capacidade operacional que a arquitetura exige.
+    tipo: opcao
+    opcoes:
+      - { id: ninguem, rotulo: Ninguém de forma combinada }
+      - { id: informal, rotulo: Quem estiver disponível }
+      - { id: escala, rotulo: Uma escala de plantão }
+      - { id: time_dedicado, rotulo: Um time dedicado à confiabilidade }
+    padrao: [informal, escala, time_dedicado]
+    modo: C
+    subniveis: *arqOrg
+    peso: 3
+    alimenta: [E7.C, T6.N]
+    segundos: 15
+    permiteMedida: false
+
+  - id: F-01
+    ambito: saude
+    texto: Com que frequência há publicação em produção?
+    porQue: Frequência de publicação é uma das quatro métricas de entrega (DORA) e a linha de base para comparar depois.
+    tipo: opcao
+    opcoes:
+      - { id: varias_dia, rotulo: Várias vezes por dia }
+      - { id: diaria, rotulo: Uma vez por dia }
+      - { id: semanal, rotulo: Semanal }
+      - { id: mensal, rotulo: Mensal }
+      - { id: rara, rotulo: Mais rara que mensal }
+    padrao: [diaria, semanal, mensal]
+    modo: C
+    subniveis: *existente
+    peso: 2
+    alimenta: [H6]
+    segundos: 15
+    permiteMedida: true
+
+  - id: F-02
+    ambito: saude
+    texto: Uma correção pequena aprovada hoje chega à produção em quanto tempo?
+    porQue: O tempo até a produção mostra o custo de coordenação que a arquitetura cobra hoje.
+    tipo: opcao
+    opcoes:
+      - { id: horas, rotulo: Em horas }
+      - { id: dias, rotulo: Em alguns dias }
+      - { id: semanas, rotulo: Em 1 a 4 semanas }
+      - { id: mes, rotulo: Mais de um mês }
+    padrao: [horas, dias, semanas]
+    modo: C
+    subniveis: *existente
+    peso: 3
+    alimenta: [H6]
+    pontes:
+      - id: F-02.p1
+        texto: Uma correção de uma linha aprovada hoje chega à produção quando?
+        opcoes:
+          - { id: hoje, rotulo: Hoje, converte: [horas], explicacao: Correções que saem no mesmo dia indicam tempo em horas. }
+          - { id: semana, rotulo: Em até uma semana, converte: [dias, semanas], explicacao: "Correções pequenas costumam ser o caminho mais rápido; mudanças típicas tendem a levar mais." }
+          - { id: depois, rotulo: Depois disso, converte: [semanas, mes], explicacao: Correções que esperam semanas indicam um trem de publicações. }
+    comoDescobrir: Veja quando a última correção pequena foi aprovada e quando chegou à produção.
+    quemPodeSaber: Líder técnico
+    segundos: 15
+    permiteMedida: true
+
+  - id: F-03
+    ambito: saude
+    texto: Das últimas 10 publicações, quantas precisaram de correção fora do planejado ou de reversão?
+    porQue: A taxa de falha de mudança é uma das métricas de entrega (DORA).
+    tipo: opcao
+    opcoes:
+      - { id: 0_1, rotulo: Nenhuma ou uma }
+      - { id: 2_3, rotulo: 2 ou 3 }
+      - { id: 4_mais, rotulo: 4 ou mais }
+    padrao: [0_1, 2_3, 4_mais]
+    modo: C
+    subniveis: *existente
+    peso: 2
+    alimenta: [H6]
+    segundos: 15
+    permiteMedida: true
+
+  - id: F-04
+    ambito: disponibilidade
+    texto: Na última queda, quanto tempo levou para voltar ao normal?
+    porQue: O tempo de restauração mostra a resiliência real, além da redundância declarada.
+    tipo: opcao
+    opcoes:
+      - { id: menos_1h, rotulo: Menos de 1 hora }
+      - { id: horas, rotulo: Algumas horas }
+      - { id: dia, rotulo: Cerca de um dia }
+      - { id: mais, rotulo: Mais que isso }
+    padrao: [menos_1h, horas, dia]
+    modo: C
+    subniveis: *existente
+    peso: 2
+    alimenta: [E5.C, H6]
+    segundos: 15
+    permiteMedida: true
+
+  - id: F-05
+    ambito: saude
+    texto: As mudanças e os defeitos se concentram em algumas áreas?
+    porQue: Dívida técnica cobra juros onde o código muda e quebra com frequência; é ali que mexer compensa primeiro (Tornhill e Borg, 2022).
+    tipo: opcao
+    opcoes:
+      - { id: concentrados, rotulo: "Sim, em poucas áreas" }
+      - { id: espalhados, rotulo: Estão espalhados }
+      - { id: sem_padrao, rotulo: Não há defeitos que voltam }
+    padrao: [concentrados, espalhados, sem_padrao]
+    modo: C
+    subniveis: *existente
+    peso: 3
+    alimenta: [H1, E1.C]
+    segundos: 15
+    permiteMedida: false
+
+  - id: F-06
+    ambito: saude
+    texto: Numa semana típica, quanto do tempo do time vai para contornar problemas do código?
+    porQue: Tempo perdido com contornos é o custo de não agir (média relatada de 23%, Besker et al., 2019).
+    tipo: opcao
+    opcoes:
+      - { id: menos_10, rotulo: Menos de 10% }
+      - { id: 10_25, rotulo: Entre 10% e 25% }
+      - { id: mais_25, rotulo: Mais de 25% }
+    padrao: [menos_10, 10_25, mais_25]
+    modo: C
+    subniveis: *existente
+    peso: 3
+    alimenta: [H1]
+    segundos: 15
+    permiteMedida: true
+
+  - id: F-08
+    ambito: saude
+    texto: Que testes protegem o comportamento atual de {existente}?
+    porQue: Sem testes que fixem o comportamento atual, não há como provar que uma mudança preserva o que funciona (Feathers, 2004).
+    tipo: opcao
+    opcoes:
+      - { id: nenhum, rotulo: Quase nenhum }
+      - { id: poucos, rotulo: Poucos }
+      - { id: criticas, rotulo: Boa cobertura nas áreas críticas }
+      - { id: contratos, rotulo: Inclui testes de contrato entre partes }
+    padrao: [poucos, criticas, contratos]
+    modo: C
+    subniveis: *ref
+    peso: 3
+    alimenta: [H2]
+    segundos: 15
+    permiteMedida: false
+
+  - id: F-10
+    ambito: operacao
+    texto: Quais destas tarefas já são automáticas em {existente}?
+    textoPorSubnivel:
+      planejamento.sistema: Quais destas tarefas a organização já faz de forma automática em outros sistemas?
+      planejamento.ferramenta: Quais destas tarefas a organização já faz de forma automática?
+    porQue: Publicação, monitoramento e provisionamento automáticos são pré-requisito antes de distribuir (Fowler, 2014).
+    tipo: multipla
+    opcoes:
+      - { id: publicacao, rotulo: Publicação em produção }
+      - { id: alertas, rotulo: Monitoramento com alertas }
+      - { id: provisionamento, rotulo: Criação de ambientes e servidores }
+      - { id: rastreamento, rotulo: Rastreamento de requisições entre partes }
+      - { id: nenhuma, rotulo: Nenhuma }
+    padrao: [publicacao, alertas, nenhuma]
+    modo: E
+    subniveis: *arqOrg
+    peso: 4
+    obrigatoria: true
+    alimenta: [E7.C, T6.N]
+    pontes:
+      - id: F-10.p1
+        texto: Como vocês descobrem que algo caiu?
+        opcoes:
+          - { id: alerta, rotulo: Por um alerta, faixaSinal: { sinal: automacao, faixa: [0.5, 2.25] }, explicacao: Descobrir por alerta indica monitoramento automático. }
+          - { id: cliente, rotulo: Pelo cliente, faixaSinal: { sinal: automacao, faixa: [0, 1.0] }, explicacao: Falhas descobertas pelo cliente indicam falta de monitoramento com alertas. }
+      - id: F-10.p2
+        texto: Criar um ambiente novo leva horas ou semanas?
+        opcoes:
+          - { id: horas, rotulo: Horas, faixaSinal: { sinal: automacao, faixa: [1.0, 2.25] }, explicacao: Ambientes em horas indicam provisionamento automático. }
+          - { id: semanas, rotulo: Semanas, faixaSinal: { sinal: automacao, faixa: [0, 1.5] }, explicacao: Ambientes em semanas indicam provisionamento manual. }
+    comoDescobrir: Veja como foi a última publicação e como o último incidente foi descoberto.
+    quemPodeSaber: Operações
+    segundos: 20
+    permiteMedida: false
+
+  - id: F-11
+    ambito: saude
+    texto: Quando as dependências principais foram atualizadas pela última vez?
+    porQue: Dependências desatualizadas são a regra, não a exceção (81,5% dos projetos, Kula et al., 2018), e acumulam vulnerabilidades.
+    tipo: opcao
+    opcoes:
+      - { id: menos_6m, rotulo: Nos últimos 6 meses }
+      - { id: 6_12m, rotulo: Entre 6 e 12 meses }
+      - { id: mais_1a, rotulo: Há mais de 1 ano }
+      - { id: vulneravel, rotulo: Há vulnerabilidade conhecida sem correção }
+    padrao: [menos_6m, 6_12m, mais_1a]
+    modo: C
+    subniveis: *ref
+    peso: 2
+    alimenta: [H3]
+    segundos: 15
+    permiteMedida: false
+
+  - id: F-12
+    ambito: obrigacoes
+    texto: O runtime, o framework principal ou o banco de {existente} perdem suporte em breve?
+    porQue: A data de fim de suporte costuma ser o gatilho real e inadiável; ela fixa o prazo máximo (RN-02).
+    tipo: opcao
+    opcoes:
+      - { id: ja_perdeu, rotulo: Já perderam suporte }
+      - { id: menos_6m, rotulo: Em menos de 6 meses }
+      - { id: 6_18m, rotulo: Entre 6 e 18 meses }
+      - { id: mais_18m, rotulo: Só daqui a mais de 18 meses }
+    padrao: [menos_6m, 6_18m, mais_18m]
+    modo: C
+    subniveis: *refarq
+    peso: 3
+    alimenta: [H4, Obrigações]
+    comoDescobrir: "O endoflife.date lista as datas de fim de suporte por versão."
+    quemPodeSaber: Líder técnico
+    segundos: 15
+    permiteMedida: true
+
+  - id: G-T
+    ambito: transicao
+    texto: Se a mudança exigir manter o antigo e o novo funcionando juntos por alguns meses, isso é viável?
+    porQue: Toda mudança incremental tem um período com antigo e novo em paralelo, e esse custo costuma ser subestimado (Taibi et al., 2017).
+    tipo: opcao
+    opcoes:
+      - { id: viavel, rotulo: Viável }
+      - { id: dificil, rotulo: "Difícil, mas possível" }
+      - { id: inviavel, rotulo: Inviável }
+    padrao: [viavel, dificil, inviavel]
+    modo: E
+    subniveis: [refatoracao.sistema, refatoracao.modulo, refatoracao.ferramenta, planejamento.modulo]
+    condicao: { profundidade: [equilibrado, avancado] }
+    peso: 4
+    cobre: [F4]
+    alimenta: [Custo de mudar, P5]
+    segundos: 15
+    permiteMedida: false
+
+  - id: G-T2
+    ambito: transicao
+    texto: Há prazo fixo ou limite de pessoas para a primeira entrega?
+    porQue: Prazo e pessoas limitados favorecem a forma mais simples que atende; complexidade extra cobra esforço desde o primeiro dia.
+    tipo: opcao
+    opcoes:
+      - { id: rigido, rotulo: "Sim, prazo e pessoas apertados" }
+      - { id: folga, rotulo: Há alguma folga }
+      - { id: sem_restricao, rotulo: Sem restrição relevante }
+    padrao: [rigido, folga, sem_restricao]
+    modo: E
+    subniveis: [planejamento.sistema, planejamento.ferramenta]
+    condicao: { profundidade: [equilibrado, avancado] }
+    peso: 4
+    cobre: [F4]
+    alimenta: [Custo de mudar, P5]
+    segundos: 15
+    permiteMedida: false
+
+  - id: G-R
+    ambito: reversibilidade
+    texto: Mudanças grandes em {existente} podem ser feitas aos poucos, com volta atrás em cada etapa?
+    porQue: Um caminho em etapas, com ponto de volta em cada uma, é condição para aprovar mudanças estruturais (RN-49).
+    tipo: opcao
+    opcoes:
+      - { id: sim, rotulo: "Sim, em etapas pequenas" }
+      - { id: parcial, rotulo: "Em parte: algumas etapas não têm volta" }
+      - { id: nao, rotulo: Só dá para fazer de uma vez }
+    padrao: [sim, parcial, nao]
+    modo: E
+    subniveis: [refatoracao.sistema, refatoracao.modulo, refatoracao.ferramenta, planejamento.modulo]
+    condicao: { profundidade: [equilibrado, avancado] }
+    peso: 4
+    cobre: [F5]
+    alimenta: [Reversibilidade, P5]
+    segundos: 15
+    permiteMedida: false
+
+  - id: G-R2
+    ambito: reversibilidade
+    texto: "Alguma decisão deste planejamento será difícil de desfazer depois? Por exemplo, o modelo de dados, um contrato com terceiros ou o fornecedor de nuvem."
+    porQue: Decisões difíceis de desfazer merecem análise antes; as fáceis devem ser tomadas rápido e ficar atrás de uma interface (RN-49).
+    tipo: opcao
+    opcoes:
+      - { id: nenhuma, rotulo: Nenhuma relevante }
+      - { id: algumas, rotulo: Algumas }
+      - { id: varias, rotulo: Várias }
+    padrao: [nenhuma, algumas, varias]
+    modo: E
+    subniveis: [planejamento.sistema, planejamento.ferramenta]
+    condicao: { profundidade: [equilibrado, avancado] }
+    peso: 4
+    cobre: [F5]
+    alimenta: [Reversibilidade, P5]
+    segundos: 15
+    permiteMedida: false

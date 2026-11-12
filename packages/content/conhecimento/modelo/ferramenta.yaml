@@ -1,0 +1,331 @@
+# Modelo de ajuste de ferramenta técnica (P3 5.9: fatores 10, 11, 12, 15 e 16 da Parte 1; UC-09).
+# A capacidade vem do perfil da tecnologia na base de referência (DT-31), avaliado pelo motor.
+# Ecossistema, ciclo de vida, pessoas e segurança só têm déficit: sobra nesses eixos não é custo.
+id: ferramenta
+nome: Ferramenta técnica
+
+sinais:
+  volume:
+    pergunta: C-02
+    rotulo: Volume de uso
+    mapa: { baixo: [0.25, 0.75], moderado: [1.25, 1.75], alto: [2.25, 2.75], muito_alto: [3.25, 3.75] }
+    dominio: [0, 4]
+    efeito: eleva
+    regras: [RN-08]
+    evidencias: [iso-25010]
+  crescimento:
+    pergunta: C-03
+    rotulo: Crescimento esperado
+    mapa: { estavel: [0.25, 0.75], ate_2x: [1.25, 1.75], 2_10x: [2.75, 3.25], mais_10x: [3.5, 4] }
+    dominio: [0, 4]
+    efeito: eleva
+    regras: [RN-08]
+    evidencias: [iso-25010]
+  vazao_mensagens:
+    pergunta: T-03-msg
+    rotulo: Mensagens por segundo no pico
+    mapa: { ate_100: [0.75, 1.25], milhares: [2.25, 2.75], dezenas_milhares: [3.5, 4] }
+    dominio: [0, 4]
+    efeito: eleva
+    regras: [RN-32]
+    evidencias: [meyerovich-rabkin-2013]
+  tipo_trabalho:
+    pergunta: T-03-lang
+    rotulo: Tipo de trabalho dominante
+    mapa: { web_io: [1.75, 2.25], calculo: [3, 3.5], tempo_real: [3.5, 4], dados: [1.75, 2.25] }
+    dominio: [0, 4]
+    efeito: eleva
+    regras: [RN-30, RN-37]
+    evidencias: [pereira-2021, berger-2019]
+  entrega_framework:
+    pergunta: T-03-fw
+    rotulo: O que o framework entrega
+    mapa: { api: [1.75, 2.25], paginas: [2.5, 3], ambos: [3, 3.5] }
+    dominio: [0, 4]
+    efeito: eleva
+    regras: [RN-32]
+    evidencias: [meyerovich-rabkin-2013]
+  tamanho_infra:
+    pergunta: T-03-iac
+    rotulo: Tamanho da infraestrutura descrita
+    mapa: { poucos: [1, 1.5], varios: [2, 2.5], muitos: [3, 3.5] }
+    dominio: [0, 4]
+    efeito: eleva
+    regras: [RN-43]
+    evidencias: [fowler-prerequisitos-2014]
+  uso_cache:
+    pergunta: T-03-cache
+    rotulo: Uso do cache
+    mapa: { leitura: [1.25, 1.75], sessoes: [1.75, 2.25], estruturas: [2.75, 3.25] }
+    dominio: [0, 4]
+    efeito: eleva
+    regras: [RN-32]
+    evidencias: [meyerovich-rabkin-2013]
+  exigencia_desempenho:
+    pergunta: T-06
+    rotulo: Desempenho máximo exigido
+    mapaMultipla: { pesos: { desempenho: 3.5, memoria: 0, tipagem: 0, nenhuma: 0 }, teto: 4 }
+    dominio: [0, 4]
+    efeito: eleva
+    regras: [RN-30]
+    evidencias: [pereira-2021]
+  dependencia_bibliotecas:
+    pergunta: T-04
+    rotulo: Dependência de bibliotecas especializadas
+    mapa: { pouco: [0.75, 1.25], algumas: [1.75, 2.25], muito: [3, 3.5] }
+    dominio: [0, 4]
+    efeito: eleva
+    regras: [RN-32]
+    evidencias: [meyerovich-rabkin-2013, he-2021]
+  horizonte:
+    pergunta: B-01
+    rotulo: Vida útil esperada
+    mapa: { menos_1: [0.5, 1], 1_3: [1.5, 2], 3_5: [2.5, 3], mais_5: [3, 3.5], sem_prazo: [3, 3.5] }
+    dominio: [0, 4]
+    efeito: eleva
+    regras: [RN-02, RN-35]
+    evidencias: [eol-praticas]
+  tamanho_time:
+    pergunta: E-01
+    rotulo: Pessoas que vão trabalhar com a ferramenta
+    mapa: { dupla: [1.5, 2], time: [2, 2.5], time_grande: [2.5, 3], times_2_3: [2.5, 3], times_4_8: [3, 3.5], times_mais_8: [3.5, 4] }
+    dominio: [0, 4]
+    efeito: eleva
+    regras: [RN-36]
+    evidencias: [meyerovich-rabkin-2013]
+  exposicao:
+    pergunta: T-05
+    rotulo: Exposição e sensibilidade dos dados
+    mapa: { interno: [1, 1.5], exposto: [2.5, 3], regulado: [3.5, 4] }
+    dominio: [0, 4]
+    efeito: eleva
+    regras: [RN-31, RN-34]
+    evidencias: [google-android-2024, zimmermann-2019]
+  automacao:
+    pergunta: F-10
+    rotulo: Automação que a organização já tem
+    mapaMultipla: { pesos: { publicacao: 0.5, alertas: 0.5, provisionamento: 0.5, rastreamento: 0.75, nenhuma: 0 }, teto: 2.25 }
+    dominio: [0, 2.25]
+    efeito: eleva
+    regras: [RN-43]
+    evidencias: [fowler-prerequisitos-2014]
+  plantao:
+    pergunta: E-09
+    rotulo: Plantão fora do horário
+    mapa: { ninguem: [0, 0], informal: [0.25, 0.25], escala: [0.5, 0.75], time_dedicado: [1, 1.25] }
+    dominio: [0, 1.25]
+    efeito: eleva
+    regras: [RN-44]
+    evidencias: [fowler-prerequisitos-2014]
+
+eixos:
+  - id: T1
+    nome: Capacidade técnica
+    perguntaGuia: A ferramenta entrega a escala e o desempenho que o uso pede, sem complexidade além disso?
+    mecanismos: capacidade técnica
+    direcaoSobra: Preferir uma ferramenta mais simples, que já atende ao uso.
+    direcaoFalta: Escolher uma ferramenta que atenda ao volume e ao tipo de uso.
+    sinaisSobra: Ferramenta feita para escala muito maior do que o uso.
+    sinaisFalta: A ferramenta não atende ao volume, ao formato dos dados ou ao tipo de trabalho.
+    evidencias: [berger-2019, pereira-2021, meyerovich-rabkin-2013]
+    regras: [RN-30, RN-32, RN-37]
+    necessidade:
+      expr:
+        limita:
+          faixa: [0, 4]
+          valor:
+            max:
+              - media:
+                  - { peso: 2, expr: { sinal: volume } }
+                  - { peso: 2, expr: { sinal: crescimento } }
+              - { sinal: vazao_mensagens }
+              - { sinal: tipo_trabalho }
+              - { sinal: entrega_framework }
+              - { sinal: tamanho_infra }
+              - { sinal: uso_cache }
+              - { sinal: exigencia_desempenho }
+      ancoras:
+        - Uso mínimo, sem exigência de escala.
+        - Uso moderado e previsível.
+        - Uso relevante, com picos ou crescimento até 2 vezes.
+        - Uso alto, crescimento forte ou trabalho exigente.
+        - Escala muito alta ou desempenho máximo.
+    capacidade:
+      expr: { tecnologia: capacidade }
+      ancoras:
+        - Atende só uso mínimo.
+        - Atende uso moderado.
+        - Atende uso relevante com folga.
+        - Atende uso alto.
+        - Feita para escala muito alta.
+
+  - id: T2
+    nome: Ecossistema
+    perguntaGuia: As bibliotecas e integrações de que o sistema precisa existem e são mantidas?
+    mecanismos: ecossistema
+    direcaoSobra: Nenhuma.
+    direcaoFalta: Escolher uma ferramenta com bibliotecas mantidas para o domínio.
+    sinaisSobra: Não se aplica.
+    sinaisFalta: Bibliotecas do domínio ausentes ou abandonadas.
+    evidencias: [meyerovich-rabkin-2013, he-2021]
+    regras: [RN-32, RN-33]
+    necessidade:
+      expr:
+        primeiro:
+          - { sinal: dependencia_bibliotecas }
+          - { constante: 1.5 }
+      ancoras:
+        - Quase nenhuma biblioteca específica.
+        - Bibliotecas comuns.
+        - Algumas integrações especializadas.
+        - Muitas integrações especializadas.
+        - O domínio depende de bibliotecas raras.
+    capacidade:
+      expr: { tecnologia: ecossistema }
+      ancoras:
+        - Ecossistema escasso ou abandonado.
+        - Ecossistema pequeno.
+        - Ecossistema razoável.
+        - Ecossistema amplo e mantido.
+        - Ecossistema vasto, com governança estável.
+
+  - id: T3
+    nome: Ciclo de vida e licença
+    perguntaGuia: A versão tem suporte pelo tempo que o sistema vai durar, com licença estável?
+    mecanismos: ciclo de vida
+    direcaoSobra: Nenhuma.
+    direcaoFalta: Atualizar para uma versão com suporte, ou trocar se a licença ou a manutenção pararem.
+    sinaisSobra: Não se aplica.
+    sinaisFalta: Fim de suporte vencido ou próximo; mudança de licença restritiva.
+    evidencias: [eol-praticas, licencas-2023-2025]
+    regras: [RN-02, RN-35]
+    necessidade:
+      expr:
+        primeiro:
+          - { sinal: horizonte }
+          - { constante: 2.5 }
+      ancoras:
+        - Uso por poucos meses.
+        - Uso por cerca de 1 ano.
+        - Uso por 1 a 3 anos.
+        - Uso por 3 a 5 anos.
+        - Uso por mais de 5 anos.
+    capacidade:
+      expr: { tecnologia: ciclo }
+      ancoras:
+        - Fim de suporte vencido.
+        - Suporte termina em menos de 6 meses.
+        - Suporte por 6 a 18 meses.
+        - Suporte por 18 a 36 meses, ou versões mantidas sem data anunciada.
+        - Suporte por mais de 3 anos.
+
+  - id: T4
+    nome: Pessoas
+    perguntaGuia: O time conhece a ferramenta e há gente para contratar?
+    mecanismos: dependência de pessoas
+    direcaoSobra: Nenhuma.
+    direcaoFalta: Preferir o que o time já conhece ou planejar o treinamento.
+    sinaisSobra: Não se aplica.
+    sinaisFalta: Time sem experiência e mercado de trabalho pequeno.
+    evidencias: [meyerovich-rabkin-2013]
+    regras: [RN-36]
+    necessidade:
+      expr:
+        primeiro:
+          - { sinal: tamanho_time }
+          - { constante: 2 }
+      ancoras:
+        - Uma pessoa.
+        - Equipe muito pequena.
+        - Um time.
+        - Vários times.
+        - Organização grande, contratando.
+    capacidade:
+      expr:
+        media:
+          - { peso: 2, expr: { tecnologia: conhecimento } }
+          - { peso: 1, expr: { tecnologia: mercado } }
+      ancoras:
+        - Ninguém conhece e quase não há quem contratar.
+        - Pouca experiência e mercado pequeno.
+        - Alguma experiência ou mercado razoável.
+        - O time conhece e há mercado.
+        - O time domina e o mercado é amplo.
+
+  - id: T5
+    nome: Segurança e cadeia de suprimentos
+    perguntaGuia: A ferramenta atende à exposição do sistema e às propriedades exigidas?
+    mecanismos: segurança
+    direcaoSobra: Nenhuma.
+    direcaoFalta: Escolher uma ferramenta com a propriedade exigida e cadeia de suprimentos sob controle.
+    sinaisSobra: Não se aplica.
+    sinaisFalta: Propriedade exigida ausente; dependências com vulnerabilidade conhecida.
+    evidencias: [google-android-2024, zimmermann-2019, kula-2018]
+    regras: [RN-31, RN-34]
+    necessidade:
+      expr:
+        primeiro:
+          - { sinal: exposicao }
+          - { constante: 2 }
+      ancoras:
+        - Uso interno sem dado sensível.
+        - Uso interno com algum dado sensível.
+        - Exposto na internet.
+        - Exposto e com dados sensíveis.
+        - Setor regulado e exposto.
+    capacidade:
+      expr: { tecnologia: seguranca }
+      ancoras:
+        - Sem proteções de base.
+        - Proteções frágeis.
+        - Proteções razoáveis.
+        - Proteções sólidas e governança ativa.
+        - Propriedades de segurança fortes por construção.
+
+  - id: T6
+    nome: Exigência operacional
+    perguntaGuia: A ferramenta exige mais operação do que a organização sustenta?
+    mecanismos: exigência de operação
+    direcaoSobra: Preferir uma ferramenta que a organização consiga operar, ou serviço gerenciado.
+    direcaoFalta: Nenhuma.
+    sinaisSobra: Ferramenta que pede cluster, plantão e ajuste fino sem time para isso.
+    sinaisFalta: Não se aplica.
+    evidencias: [fowler-prerequisitos-2014]
+    regras: [RN-43, RN-44]
+    necessidade:
+      expr:
+        primeiro:
+          - limita:
+              faixa: [0, 4]
+              valor:
+                soma:
+                  - { sinal: automacao }
+                  - { sinal: plantao }
+          - { constante: 1.5 }
+      ancoras:
+        - Nenhuma automação nem plantão.
+        - Alguma automação.
+        - Publicação e ambientes automáticos, com alertas.
+        - O anterior mais plantão estruturado.
+        - Plataforma interna e time de confiabilidade.
+    capacidade:
+      expr: { tecnologia: exigenciaOperacional }
+      ancoras:
+        - Quase nenhuma operação.
+        - Operação leve.
+        - Operação moderada.
+        - Operação pesada, com cluster e ajuste.
+        - Operação especializada contínua.
+
+# Requisitos de compatibilidade: a resposta exige um atributo que a tecnologia precisa ter.
+requisitos:
+  - { categoria: banco_dados, quando: { pergunta: T-03-db, em: [relacionais] }, requer: relacional, eixo: T1, penalidade: 2, motivo: Dados relacionados com regras de consistência pedem um banco relacional. }
+  - { categoria: banco_dados, quando: { pergunta: T-03-db, em: [documentos] }, requer: documentos, eixo: T1, penalidade: 1, motivo: Documentos de formato variável pedem suporte nativo a documentos. }
+  - { categoria: banco_dados, quando: { pergunta: T-03-db, em: [chave_valor] }, requer: chave_valor, eixo: T1, penalidade: 1, motivo: Pares de chave e valor pedem acesso simples por chave. }
+  - { categoria: banco_dados, quando: { nao: { pergunta: T-03-db, em: [embarcado] } }, requer: servidor, eixo: T1, penalidade: 2, motivo: "Vários usuários ao mesmo tempo pedem um banco em servidor, não embutido." }
+  - { categoria: mensageria, quando: { pergunta: T-03-msg2, em: [sim] }, requer: reprocessamento, eixo: T1, penalidade: 2, motivo: Reler o histórico de mensagens exige registro durável. }
+  - { categoria: cache, quando: { pergunta: T-03-cache, em: [estruturas] }, requer: estruturas, eixo: T1, penalidade: 2, motivo: "Filas e contadores em memória exigem estruturas de dados no cache." }
+  - { categoria: framework_web, quando: { pergunta: T-03-fw, em: [paginas, ambos] }, requer: paginas, eixo: T1, penalidade: 1, motivo: Páginas renderizadas no servidor pedem suporte nativo a modelos de página. }
+  - { categoria: linguagem, quando: { pergunta: T-06, em: [memoria] }, requer: memoria_segura, eixo: T5, penalidade: 3, motivo: "Segurança de memória exigida pede linguagem com essa propriedade (Google, 2024)." }
+  - { categoria: linguagem, quando: { pergunta: T-06, em: [tipagem] }, requer: tipagem_estatica, eixo: T5, penalidade: 1, motivo: Tipagem estática exigida pede linguagem com tipos verificados na compilação. }
+  - { categoria: linguagem, quando: { pergunta: T-03-lang, em: [dados] }, requer: dados, eixo: T2, penalidade: 1.5, motivo: Análise de dados depende de bibliotecas maduras de dados. }

@@ -1,0 +1,426 @@
+# Base de referência de tecnologias (DT-31, RN-95). Cresce por curadoria em pull request.
+# Fatos datados (licença, fim de suporte, popularidade) têm fonte e data de consulta.
+# Os níveis de perfil (0 a 4) são avaliações comparativas dentro da categoria, revisáveis.
+# Popularidade é sinal de ecossistema e de mercado de trabalho, nunca motivo sozinho (RN-01).
+
+consulta: "2026-11-10"
+levantamento: &so "Stack Overflow Developer Survey 2025, seção Technology, todos os respondentes"
+fonteSo: &fonteSo https://survey.stackoverflow.co/2025/technology
+
+categorias:
+  banco_dados: { rotulo: Banco de dados, decisao: banco_dados, troca: { escopo: total, reversivel: false, movimentaDados: true } }
+  mensageria: { rotulo: Mensageria e filas, decisao: mensageria, troca: { escopo: parcial, reversivel: true, movimentaDados: true } }
+  cache: { rotulo: Cache em memória, decisao: cache, troca: { escopo: parcial, reversivel: true, movimentaDados: false } }
+  linguagem: { rotulo: Linguagem e plataforma de execução, decisao: linguagem, troca: { escopo: total, reversivel: false, movimentaDados: false } }
+  framework_web: { rotulo: Framework de servidor web, decisao: framework_web, troca: { escopo: total, reversivel: false, movimentaDados: false } }
+  iac: { rotulo: Infraestrutura como código, decisao: iac, troca: { escopo: parcial, reversivel: true, movimentaDados: false } }
+
+decisoes:
+  banco_dados: { nome: Banco de dados principal, categoria: banco_dados, descricao: Onde os dados do sistema vivem. }
+  mensageria: { nome: Fila de mensagens, categoria: mensageria, descricao: O componente que desacopla as interações no tempo. }
+  cache: { nome: Cache, categoria: cache, descricao: Memória rápida na frente dos dados. }
+  linguagem: { nome: Linguagem e plataforma de execução, categoria: linguagem, descricao: Em que o código é escrito e executado. }
+  framework_web: { nome: Framework de servidor web, categoria: framework_web, descricao: A base do serviço web. }
+  iac: { nome: Infraestrutura como código, categoria: iac, descricao: Como ambientes e servidores são descritos e criados. }
+
+tecnologias:
+  # ---------------------------------------------------------------- Bancos de dados
+  - id: postgresql
+    nome: PostgreSQL
+    categorias: [banco_dados]
+    resumo: Banco relacional aberto, com tipos ricos e documentos em JSON.
+    licenca: { nome: PostgreSQL License (permissiva), aberta: true, fonte: "https://github.com/postgres/postgres/blob/master/COPYRIGHT", consultadoEm: "2026-11-10" }
+    eol: { produto: postgresql }
+    popularidade: { percentual: 55.6, levantamento: *so, fonte: *fonteSo, consultadoEm: "2026-11-10" }
+    governanca: Grupo global de desenvolvimento, sem empresa dona.
+    complexidade: Exige um servidor e cuidados de operação moderados.
+    simplicidade: Um banco atende transações, consultas e documentos sem componentes extras.
+    atende: [relacional, documentos, chave_valor, servidor]
+    perfil: { capacidade: { banco_dados: [3, 3.5] }, ecossistema: [3.5, 4], seguranca: [3, 3.5], mercado: [3.5, 4], exigenciaOperacional: [2, 2.5] }
+
+  - id: mysql
+    nome: MySQL
+    categorias: [banco_dados]
+    resumo: Banco relacional aberto muito difundido, mantido pela Oracle.
+    licenca: { nome: GPLv2 (edição Community), aberta: true, fonte: "https://github.com/mysql/mysql-server/blob/trunk/LICENSE", consultadoEm: "2026-11-10" }
+    eol: { produto: mysql }
+    popularidade: { percentual: 40.5, levantamento: *so, fonte: *fonteSo, consultadoEm: "2026-11-10" }
+    governanca: Mantido por uma única empresa (Oracle), com edição comercial paralela.
+    complexidade: Exige um servidor e cuidados de operação moderados.
+    simplicidade: Amplamente conhecido e com muita hospedagem gerenciada.
+    atende: [relacional, servidor]
+    perfil: { capacidade: { banco_dados: [3, 3.5] }, ecossistema: [3.5, 4], seguranca: [3, 3.5], mercado: [3.5, 4], exigenciaOperacional: [2, 2.5] }
+
+  - id: mariadb
+    nome: MariaDB
+    categorias: [banco_dados]
+    resumo: Banco relacional aberto derivado do MySQL.
+    licenca: { nome: GPLv2, aberta: true, fonte: "https://github.com/MariaDB/server/blob/main/COPYING", consultadoEm: "2026-11-10" }
+    eol: { produto: mariadb }
+    popularidade: { percentual: 22.5, levantamento: *so, fonte: *fonteSo, consultadoEm: "2026-11-10" }
+    governanca: Fundação MariaDB e empresa MariaDB plc.
+    complexidade: Exige um servidor e cuidados de operação moderados.
+    simplicidade: Compatível com boa parte do ecossistema do MySQL.
+    atende: [relacional, servidor]
+    perfil: { capacidade: { banco_dados: [2.5, 3] }, ecossistema: [3, 3.5], seguranca: [3, 3], mercado: [3, 3.5], exigenciaOperacional: [2, 2.5] }
+
+  - id: sqlite
+    nome: SQLite
+    categorias: [banco_dados]
+    resumo: Banco relacional embutido num arquivo, sem servidor.
+    licenca: { nome: Domínio público, aberta: true, fonte: "https://www.sqlite.org/copyright.html", consultadoEm: "2026-11-10" }
+    eol: { produto: sqlite }
+    popularidade: { percentual: 37.5, levantamento: *so, fonte: *fonteSo, consultadoEm: "2026-11-10" }
+    governanca: Mantido por um pequeno grupo de desenvolvedores, com contratos de suporte.
+    complexidade: Quase nenhuma operação; um único escritor por vez.
+    simplicidade: Um arquivo, sem servidor; ideal para dados locais de um aplicativo.
+    atende: [relacional, embarcado]
+    perfil: { capacidade: { banco_dados: [1, 1.5] }, ecossistema: [3.5, 4], seguranca: [3, 3.5], mercado: [3, 3.5], exigenciaOperacional: [0.5, 1] }
+
+  - id: mongodb
+    nome: MongoDB
+    categorias: [banco_dados]
+    resumo: Banco de documentos com esquema flexível.
+    licenca: { nome: SSPL v1 (não aprovada pela OSI), aberta: false, fonte: "https://github.com/mongodb/mongo/blob/master/LICENSE-Community.txt", consultadoEm: "2026-11-10" }
+    mudancasLicenca:
+      - { ano: 2018, descricao: Mudou de AGPLv3 para SSPL v1., fonte: "https://www.mongodb.com/legal/licensing/server-side-public-license/faq" }
+    eol: { produto: mongodb }
+    popularidade: { percentual: 24, levantamento: *so, fonte: *fonteSo, consultadoEm: "2026-11-10" }
+    governanca: Mantido por uma única empresa (MongoDB Inc.).
+    complexidade: Réplicas e particionamento exigem operação cuidadosa.
+    simplicidade: Documentos sem esquema fixo evitam migrações para dados variáveis.
+    atende: [documentos, chave_valor, servidor]
+    perfil: { capacidade: { banco_dados: [3, 3.5] }, ecossistema: [3, 3.5], seguranca: [2.5, 3], mercado: [3, 3.5], exigenciaOperacional: [2.5, 3] }
+
+  # ---------------------------------------------------------------- Mensageria
+  - id: fila_postgresql
+    nome: Fila no próprio PostgreSQL
+    categorias: [mensageria]
+    resumo: Tarefas e mensagens guardadas no banco que o sistema já usa (por exemplo, com pg-boss ou graphile-worker).
+    licenca: { nome: PostgreSQL License; bibliotecas de fila em MIT, aberta: true, fonte: "https://github.com/postgres/postgres/blob/master/COPYRIGHT", consultadoEm: "2026-11-10" }
+    eol: { produto: postgresql }
+    governanca: Herda a governança do PostgreSQL; as bibliotecas de fila são projetos abertos menores.
+    complexidade: Nenhum componente novo para operar.
+    simplicidade: A mensagem e o dado entram na mesma transação, sem escrita dupla.
+    atende: []
+    perfil: { capacidade: { mensageria: [1, 1.5] }, ecossistema: [2, 2.5], seguranca: [3, 3.5], mercado: [3, 3.5], exigenciaOperacional: [0.5, 1] }
+
+  - id: rabbitmq
+    nome: RabbitMQ
+    categorias: [mensageria]
+    resumo: Intermediário de mensagens com filas, roteamento e fluxos duráveis.
+    licenca: { nome: MPL 2.0, aberta: true, fonte: "https://github.com/rabbitmq/rabbitmq-server/blob/main/LICENSE", consultadoEm: "2026-11-10" }
+    eol: { produto: rabbitmq }
+    governanca: Mantido pela Broadcom (antes VMware), com comunidade ativa.
+    complexidade: Um serviço a mais para operar, com cluster opcional.
+    simplicidade: Filas e roteamento prontos, com reprocessamento por fluxos duráveis.
+    atende: [reprocessamento]
+    perfil: { capacidade: { mensageria: [2.5, 3] }, ecossistema: [3, 3.5], seguranca: [3, 3], mercado: [3, 3.5], exigenciaOperacional: [2, 2.5] }
+
+  - id: kafka
+    nome: Apache Kafka
+    categorias: [mensageria]
+    resumo: Plataforma de registro distribuído de eventos, feita para vazão muito alta e reprocessamento.
+    licenca: { nome: Apache 2.0, aberta: true, fonte: "https://github.com/apache/kafka/blob/trunk/LICENSE", consultadoEm: "2026-11-10" }
+    eol: { produto: apache-kafka }
+    governanca: Fundação Apache.
+    complexidade: Cluster com vários nós, ajuste fino e operação especializada.
+    simplicidade: Reprocessamento do histórico e vazão muito alta já vêm prontos.
+    atende: [reprocessamento]
+    perfil: { capacidade: { mensageria: [4, 4] }, ecossistema: [3.5, 4], seguranca: [3, 3], mercado: [3, 3.5], exigenciaOperacional: [3.5, 4] }
+
+  - id: nats
+    nome: NATS
+    categorias: [mensageria]
+    resumo: Sistema de mensagens leve, com persistência e reprocessamento pelo JetStream.
+    licenca: { nome: Apache 2.0, aberta: true, fonte: "https://github.com/nats-io/nats-server/blob/main/LICENSE", consultadoEm: "2026-11-10" }
+    governanca: Projeto da CNCF, com a Synadia como principal mantenedora.
+    complexidade: Um serviço leve, com cluster simples.
+    simplicidade: Um binário pequeno cobre mensagens e persistência.
+    atende: [reprocessamento]
+    perfil: { capacidade: { mensageria: [3, 3.5] }, ecossistema: [2.5, 3], seguranca: [3, 3], mercado: [2, 2.5], exigenciaOperacional: [1.5, 2] }
+
+  # ---------------------------------------------------------------- Cache
+  - id: valkey
+    nome: Valkey
+    categorias: [cache]
+    resumo: Armazenamento em memória aberto, derivado do Redis 7.2 depois da mudança de licença.
+    licenca: { nome: BSD-3-Clause, aberta: true, fonte: "https://github.com/valkey-io/valkey/blob/unstable/COPYING", consultadoEm: "2026-11-10" }
+    eol: { produto: valkey }
+    popularidade: { percentual: 2.4, levantamento: *so, fonte: *fonteSo, consultadoEm: "2026-11-10" }
+    governanca: Projeto da Linux Foundation.
+    complexidade: Um serviço a mais, operação leve.
+    simplicidade: Compatível com clientes e comandos do Redis.
+    atende: [estruturas, sessoes, leitura]
+    perfil: { capacidade: { cache: [3, 3.5] }, ecossistema: [3, 3.5], seguranca: [3, 3], mercado: [3, 3.5], exigenciaOperacional: [1.5, 2] }
+
+  - id: redis
+    nome: Redis
+    categorias: [cache]
+    resumo: Armazenamento em memória com estruturas de dados.
+    licenca: { nome: "Escolha entre RSALv2, SSPLv1 e AGPLv3", aberta: true, fonte: "https://github.com/redis/redis/blob/unstable/LICENSE.txt", consultadoEm: "2026-11-10" }
+    mudancasLicenca:
+      - { ano: 2024, descricao: Mudou de BSD para RSALv2 e SSPLv1., fonte: "https://redis.io/legal/licenses/" }
+      - { ano: 2025, descricao: Acrescentou a AGPLv3 como opção., fonte: "https://redis.io/legal/licenses/" }
+    eol: { produto: redis }
+    popularidade: { percentual: 28, levantamento: *so, fonte: *fonteSo, consultadoEm: "2026-11-10" }
+    governanca: Mantido por uma única empresa (Redis Ltd.).
+    complexidade: Um serviço a mais, operação leve.
+    simplicidade: Muito conhecido, com estruturas de dados prontas.
+    atende: [estruturas, sessoes, leitura]
+    perfil: { capacidade: { cache: [3, 3.5] }, ecossistema: [3.5, 4], seguranca: [3, 3], mercado: [3.5, 4], exigenciaOperacional: [1.5, 2] }
+
+  - id: memcached
+    nome: Memcached
+    categorias: [cache]
+    resumo: Cache em memória simples, só de chave e valor.
+    licenca: { nome: BSD-3-Clause, aberta: true, fonte: "https://github.com/memcached/memcached/blob/master/LICENSE", consultadoEm: "2026-11-10" }
+    eol: { produto: memcached }
+    governanca: Projeto aberto com poucos mantenedores.
+    complexidade: Operação mínima.
+    simplicidade: Só guarda e devolve valores por chave.
+    atende: [sessoes, leitura]
+    perfil: { capacidade: { cache: [2.5, 3] }, ecossistema: [2.5, 3], seguranca: [2.5, 3], mercado: [2.5, 3], exigenciaOperacional: [1, 1.5] }
+
+  # ---------------------------------------------------------------- Linguagens
+  - id: nodejs
+    nome: Node.js com TypeScript
+    categorias: [linguagem]
+    resumo: Plataforma JavaScript no servidor, com TypeScript para tipagem estática.
+    licenca: { nome: MIT, aberta: true, fonte: "https://github.com/nodejs/node/blob/main/LICENSE", consultadoEm: "2026-11-10" }
+    eol: { produto: nodejs }
+    popularidade: { percentual: 48.7, levantamento: *so, fonte: *fonteSo, consultadoEm: "2026-11-10" }
+    governanca: OpenJS Foundation.
+    complexidade: Cadeia de dependências profunda no npm, que pede política de atualização.
+    simplicidade: A mesma linguagem no servidor e no navegador.
+    atende: [memoria_segura, tipagem_estatica, tipagem_gradual]
+    perfil: { capacidade: { linguagem: [2, 2.5] }, ecossistema: [3.5, 4], seguranca: [2.5, 3], mercado: [3.5, 4], exigenciaOperacional: [1.5, 2] }
+
+  - id: python
+    nome: Python
+    categorias: [linguagem]
+    resumo: Linguagem interpretada com o maior ecossistema de dados e aprendizado de máquina.
+    licenca: { nome: PSF License, aberta: true, fonte: "https://docs.python.org/3/license.html", consultadoEm: "2026-11-10" }
+    eol: { produto: python }
+    popularidade: { percentual: 57.9, levantamento: *so, fonte: *fonteSo, consultadoEm: "2026-11-10" }
+    governanca: Python Software Foundation.
+    complexidade: Desempenho de processamento menor; tipagem só gradual.
+    simplicidade: Sintaxe simples e bibliotecas para quase tudo.
+    atende: [memoria_segura, tipagem_gradual, dados]
+    perfil: { capacidade: { linguagem: [1.5, 2] }, ecossistema: [3.5, 4], seguranca: [2.5, 3], mercado: [3.5, 4], exigenciaOperacional: [1.5, 2] }
+
+  - id: java
+    nome: Java (OpenJDK)
+    categorias: [linguagem]
+    resumo: Linguagem compilada para a máquina virtual Java, com distribuições abertas como a Eclipse Temurin.
+    licenca: { nome: GPLv2 com Classpath Exception, aberta: true, fonte: "https://openjdk.org/legal/gplv2+ce.html", consultadoEm: "2026-11-10" }
+    eol: { produto: eclipse-temurin }
+    popularidade: { percentual: 29.4, levantamento: *so, fonte: *fonteSo, consultadoEm: "2026-11-10" }
+    governanca: Comunidade OpenJDK, com várias distribuições.
+    complexidade: Mais cerimônia de código e consumo de memória maior.
+    simplicidade: Desempenho alto e ecossistema corporativo maduro.
+    atende: [memoria_segura, tipagem_estatica]
+    perfil: { capacidade: { linguagem: [3, 3.5] }, ecossistema: [3.5, 4], seguranca: [3, 3.5], mercado: [3.5, 4], exigenciaOperacional: [2, 2.5] }
+
+  - id: go
+    nome: Go
+    categorias: [linguagem]
+    resumo: Linguagem compilada, simples, com concorrência embutida.
+    licenca: { nome: BSD-3-Clause, aberta: true, fonte: "https://github.com/golang/go/blob/master/LICENSE", consultadoEm: "2026-11-10" }
+    eol: { produto: go }
+    popularidade: { percentual: 16.4, levantamento: *so, fonte: *fonteSo, consultadoEm: "2026-11-10" }
+    governanca: Mantida pelo Google, com comunidade aberta.
+    complexidade: Ecossistema menor em algumas áreas de domínio.
+    simplicidade: Um binário estático, linguagem pequena e desempenho alto.
+    atende: [memoria_segura, tipagem_estatica]
+    perfil: { capacidade: { linguagem: [3, 3.5] }, ecossistema: [3, 3.5], seguranca: [3, 3.5], mercado: [2.5, 3], exigenciaOperacional: [1, 1.5] }
+
+  - id: dotnet
+    nome: C# com .NET
+    categorias: [linguagem]
+    resumo: Plataforma aberta da Microsoft, com C# e tipagem estática.
+    licenca: { nome: MIT, aberta: true, fonte: "https://github.com/dotnet/runtime/blob/main/LICENSE.TXT", consultadoEm: "2026-11-10" }
+    eol: { produto: dotnet }
+    popularidade: { percentual: 27.8, levantamento: *so, fonte: *fonteSo, consultadoEm: "2026-11-10" }
+    governanca: .NET Foundation, com a Microsoft como principal mantenedora.
+    complexidade: Versões com suporte curto fora das LTS.
+    simplicidade: Desempenho alto e ferramentas integradas.
+    atende: [memoria_segura, tipagem_estatica]
+    perfil: { capacidade: { linguagem: [3, 3.5] }, ecossistema: [3.5, 4], seguranca: [3, 3.5], mercado: [3.5, 4], exigenciaOperacional: [2, 2.5] }
+
+  - id: rust
+    nome: Rust
+    categorias: [linguagem]
+    resumo: Linguagem compilada com segurança de memória sem coletor de lixo.
+    licenca: { nome: MIT ou Apache 2.0, aberta: true, fonte: "https://github.com/rust-lang/rust/blob/master/COPYRIGHT", consultadoEm: "2026-11-10" }
+    eol: { produto: rust }
+    popularidade: { percentual: 14.8, levantamento: *so, fonte: *fonteSo, consultadoEm: "2026-11-10" }
+    governanca: Rust Foundation.
+    complexidade: Curva de aprendizado alta; compilação mais lenta.
+    simplicidade: Desempenho máximo com segurança de memória por construção.
+    atende: [memoria_segura, tipagem_estatica]
+    perfil: { capacidade: { linguagem: [4, 4] }, ecossistema: [3, 3.5], seguranca: [3.5, 4], mercado: [2, 2.5], exigenciaOperacional: [1, 1.5] }
+
+  - id: php
+    nome: PHP
+    categorias: [linguagem]
+    resumo: Linguagem interpretada voltada para a web.
+    licenca: { nome: BSD-3-Clause, aberta: true, fonte: "https://github.com/php/php-src/blob/master/LICENSE", consultadoEm: "2026-11-10" }
+    eol: { produto: php }
+    popularidade: { percentual: 18.9, levantamento: *so, fonte: *fonteSo, consultadoEm: "2026-11-10" }
+    governanca: Comunidade PHP e PHP Foundation.
+    complexidade: Tipagem só gradual; desempenho de processamento menor.
+    simplicidade: Hospedagem barata e muito difundida.
+    atende: [memoria_segura, tipagem_gradual]
+    perfil: { capacidade: { linguagem: [1.5, 2] }, ecossistema: [3, 3.5], seguranca: [2.5, 3], mercado: [3, 3.5], exigenciaOperacional: [1, 1.5] }
+
+  # ---------------------------------------------------------------- Frameworks web
+  - id: spring_boot
+    nome: Spring Boot
+    categorias: [framework_web]
+    linguagem: java
+    resumo: Framework Java completo para serviços e aplicações web.
+    licenca: { nome: Apache 2.0, aberta: true, fonte: "https://github.com/spring-projects/spring-boot/blob/main/LICENSE.txt", consultadoEm: "2026-11-10" }
+    eol: { produto: spring-boot }
+    popularidade: { percentual: 14.7, levantamento: *so, fonte: *fonteSo, consultadoEm: "2026-11-10" }
+    governanca: Mantido pela Broadcom (antes VMware).
+    complexidade: Muitas convenções e configuração para aprender.
+    simplicidade: Quase tudo pronto para serviços corporativos.
+    atende: [paginas]
+    perfil: { capacidade: { framework_web: [3, 3.5] }, ecossistema: [3.5, 4], seguranca: [3, 3.5], mercado: [3.5, 4], exigenciaOperacional: [2, 2.5] }
+
+  - id: django
+    nome: Django
+    categorias: [framework_web]
+    linguagem: python
+    resumo: Framework Python completo, com administração e modelo de dados prontos.
+    licenca: { nome: BSD-3-Clause, aberta: true, fonte: "https://github.com/django/django/blob/main/LICENSE", consultadoEm: "2026-11-10" }
+    eol: { produto: django }
+    popularidade: { percentual: 12.6, levantamento: *so, fonte: *fonteSo, consultadoEm: "2026-11-10" }
+    governanca: Django Software Foundation.
+    complexidade: Estrutura completa mesmo para serviços pequenos.
+    simplicidade: Páginas, formulários e administração prontos.
+    atende: [paginas]
+    perfil: { capacidade: { framework_web: [3, 3.5] }, ecossistema: [3.5, 4], seguranca: [3, 3.5], mercado: [3, 3.5], exigenciaOperacional: [1.5, 2] }
+
+  - id: rails
+    nome: Ruby on Rails
+    categorias: [framework_web]
+    linguagem: ruby
+    resumo: Framework Ruby completo, com convenções fortes.
+    licenca: { nome: MIT, aberta: true, fonte: "https://github.com/rails/rails/blob/main/MIT-LICENSE", consultadoEm: "2026-11-10" }
+    eol: { produto: rails }
+    popularidade: { percentual: 5.9, levantamento: *so, fonte: *fonteSo, consultadoEm: "2026-11-10" }
+    governanca: Rails Foundation e equipe principal.
+    complexidade: Mercado de trabalho menor.
+    simplicidade: Convenções que dispensam configuração.
+    atende: [paginas]
+    perfil: { capacidade: { framework_web: [3, 3.5] }, ecossistema: [3, 3.5], seguranca: [3, 3.5], mercado: [2, 2.5], exigenciaOperacional: [1.5, 2] }
+
+  - id: laravel
+    nome: Laravel
+    categorias: [framework_web]
+    linguagem: php
+    resumo: Framework PHP completo.
+    licenca: { nome: MIT, aberta: true, fonte: "https://github.com/laravel/framework/blob/12.x/LICENSE.md", consultadoEm: "2026-11-10" }
+    eol: { produto: laravel }
+    popularidade: { percentual: 8.9, levantamento: *so, fonte: *fonteSo, consultadoEm: "2026-11-10" }
+    governanca: Mantido pela Laravel LLC, com comunidade ampla.
+    complexidade: Suporte de cada versão é relativamente curto.
+    simplicidade: Páginas, filas e autenticação prontas.
+    atende: [paginas]
+    perfil: { capacidade: { framework_web: [3, 3.5] }, ecossistema: [3, 3.5], seguranca: [3, 3], mercado: [3, 3.5], exigenciaOperacional: [1.5, 2] }
+
+  - id: aspnet_core
+    nome: ASP.NET Core
+    categorias: [framework_web]
+    linguagem: dotnet
+    resumo: Framework web da plataforma .NET.
+    licenca: { nome: MIT, aberta: true, fonte: "https://github.com/dotnet/aspnetcore/blob/main/LICENSE.txt", consultadoEm: "2026-11-10" }
+    eol: { produto: dotnet }
+    popularidade: { percentual: 19.7, levantamento: *so, fonte: *fonteSo, consultadoEm: "2026-11-10" }
+    governanca: .NET Foundation, com a Microsoft como principal mantenedora.
+    complexidade: Versões com suporte curto fora das LTS.
+    simplicidade: Desempenho alto e páginas ou serviços no mesmo framework.
+    atende: [paginas]
+    perfil: { capacidade: { framework_web: [3, 3.5] }, ecossistema: [3.5, 4], seguranca: [3, 3.5], mercado: [3.5, 4], exigenciaOperacional: [2, 2.5] }
+
+  - id: express
+    nome: Express
+    categorias: [framework_web]
+    linguagem: nodejs
+    resumo: Framework mínimo para servidores web em Node.js.
+    licenca: { nome: MIT, aberta: true, fonte: "https://github.com/expressjs/express/blob/master/LICENSE", consultadoEm: "2026-11-10" }
+    eol: { produto: express }
+    popularidade: { percentual: 19.9, levantamento: *so, fonte: *fonteSo, consultadoEm: "2026-11-10" }
+    governanca: OpenJS Foundation.
+    complexidade: Estrutura e validação ficam por conta do time.
+    simplicidade: Muito pequeno e conhecido.
+    atende: []
+    perfil: { capacidade: { framework_web: [1.5, 2] }, ecossistema: [3.5, 4], seguranca: [2.5, 3], mercado: [3.5, 4], exigenciaOperacional: [1, 1.5] }
+
+  - id: fastapi
+    nome: FastAPI
+    categorias: [framework_web]
+    linguagem: python
+    resumo: Framework Python para serviços com validação por tipos.
+    licenca: { nome: MIT, aberta: true, fonte: "https://github.com/fastapi/fastapi/blob/master/LICENSE", consultadoEm: "2026-11-10" }
+    popularidade: { percentual: 14.8, levantamento: *so, fonte: *fonteSo, consultadoEm: "2026-11-10" }
+    governanca: Mantido principalmente pelo autor original, com patrocínio.
+    complexidade: Sem data de fim de suporte publicada; governança concentrada.
+    simplicidade: Serviços com documentação gerada a partir dos tipos.
+    atende: []
+    perfil: { capacidade: { framework_web: [2, 2.5] }, ecossistema: [3, 3.5], seguranca: [2.5, 3], mercado: [3, 3.5], exigenciaOperacional: [1, 1.5] }
+
+  - id: nestjs
+    nome: NestJS
+    categorias: [framework_web]
+    linguagem: nodejs
+    resumo: Framework estruturado para Node.js com TypeScript.
+    licenca: { nome: MIT, aberta: true, fonte: "https://github.com/nestjs/nest/blob/master/LICENSE", consultadoEm: "2026-11-10" }
+    eol: { produto: nestjs }
+    popularidade: { percentual: 6.7, levantamento: *so, fonte: *fonteSo, consultadoEm: "2026-11-10" }
+    governanca: Mantido pelo autor original e pela empresa Trilon.
+    complexidade: Injeção de dependências e decoradores pesam para serviços pequenos.
+    simplicidade: Estrutura pronta para times grandes.
+    atende: [paginas]
+    perfil: { capacidade: { framework_web: [2.5, 3] }, ecossistema: [3, 3.5], seguranca: [2.5, 3], mercado: [3, 3.5], exigenciaOperacional: [1.5, 2] }
+
+  # ---------------------------------------------------------------- Infraestrutura como código
+  - id: opentofu
+    nome: OpenTofu
+    categorias: [iac]
+    resumo: Ferramenta aberta de infraestrutura como código, derivada do Terraform.
+    licenca: { nome: MPL 2.0, aberta: true, fonte: "https://github.com/opentofu/opentofu/blob/main/LICENSE", consultadoEm: "2026-11-10" }
+    eol: { produto: opentofu }
+    governanca: Projeto da Linux Foundation.
+    complexidade: Linguagem própria de configuração (HCL) e gestão de estado.
+    simplicidade: Compatível com os provedores do ecossistema Terraform.
+    atende: []
+    perfil: { capacidade: { iac: [3, 3.5] }, ecossistema: [3, 3.5], seguranca: [3, 3], mercado: [3, 3.5], exigenciaOperacional: [1.5, 2] }
+
+  - id: terraform
+    nome: Terraform
+    categorias: [iac]
+    resumo: Ferramenta de infraestrutura como código da HashiCorp.
+    licenca: { nome: Business Source License 1.1 (não aprovada pela OSI), aberta: false, fonte: "https://github.com/hashicorp/terraform/blob/main/LICENSE", consultadoEm: "2026-11-10" }
+    mudancasLicenca:
+      - { ano: 2023, descricao: Mudou de MPL 2.0 para BSL 1.1., fonte: "https://www.hashicorp.com/license-faq" }
+    eol: { produto: terraform }
+    popularidade: { percentual: 17.8, levantamento: *so, fonte: *fonteSo, consultadoEm: "2026-11-10" }
+    governanca: Mantido por uma única empresa (HashiCorp, da IBM).
+    complexidade: Linguagem própria de configuração (HCL) e gestão de estado.
+    simplicidade: O ecossistema de provedores mais amplo.
+    atende: []
+    perfil: { capacidade: { iac: [3, 3.5] }, ecossistema: [3.5, 4], seguranca: [3, 3], mercado: [3.5, 4], exigenciaOperacional: [1.5, 2] }
+
+  - id: pulumi
+    nome: Pulumi
+    categorias: [iac]
+    resumo: Infraestrutura como código escrita em linguagens de programação comuns.
+    licenca: { nome: Apache 2.0, aberta: true, fonte: "https://github.com/pulumi/pulumi/blob/master/LICENSE", consultadoEm: "2026-11-10" }
+    governanca: Mantido por uma única empresa (Pulumi Corp.).
+    complexidade: Programas de infraestrutura têm a complexidade de qualquer código.
+    simplicidade: Usa a linguagem que o time já conhece.
+    atende: []
+    perfil: { capacidade: { iac: [3, 3.5] }, ecossistema: [2.5, 3], seguranca: [3, 3], mercado: [2, 2.5], exigenciaOperacional: [2, 2.5] }

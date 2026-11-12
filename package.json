@@ -1,0 +1,20 @@
+{
+  "name": "stacksync",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@12.18.0",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "conteudo": "pnpm --filter @stacksync/content run build",
+    "build": "pnpm --filter @stacksync/content run build && pnpm --filter @stacksync/web run build && pnpm --filter @stacksync/api run build",
+    "dev": "pnpm --filter @stacksync/content run build && node scripts/dev.mjs",
+    "start": "pnpm --filter @stacksync/api run start",
+    "test": "pnpm --filter @stacksync/content run build && pnpm -r --workspace-concurrency=1 run test",
+    "typecheck": "pnpm -r run typecheck",
+    "lint:design": "node scripts/lint-design.mjs",
+    "lint:fronteiras": "node scripts/lint-fronteiras.mjs",
+    "verificar": "pnpm run lint:design && pnpm run lint:fronteiras && pnpm run typecheck && pnpm run test"
+  }
+}

@@ -1,0 +1,70 @@
+# Resumo das regras de negócio citadas pelo motor e pela interface (Partes 2 e 3).
+regras:
+  - { id: RN-01, resumo: "Popularidade, tendência ou imitação nunca são motivo suficiente para mudar." }
+  - { id: RN-02, resumo: "Datas de fim de suporte, licença e regulação fixam o prazo máximo." }
+  - { id: RN-03, resumo: "Amarrar a mudança a funcionalidades do roadmap facilita financiá-la." }
+  - { id: RN-04, resumo: "Motivos legítimos: manutenibilidade, escalabilidade, times independentes e entrega contínua." }
+  - { id: RN-05, resumo: "Decidir por atributo de qualidade, nunca pelo estilo arquitetural." }
+  - { id: RN-06, resumo: "Toda proposta precisa de uma meta mensurável." }
+  - { id: RN-07, resumo: "A linha de base de entrega (DORA) é registrada para comparar antes e depois." }
+  - { id: RN-08, resumo: "A ISO/IEC 25010:2023 serve de checklist de atributos de qualidade." }
+  - { id: RN-09, resumo: "Dívida técnica é priorizada pelos juros, não pelo tamanho." }
+  - { id: RN-11, resumo: "Dívida arquitetural é difícil de ver e precisa ser buscada." }
+  - { id: RN-12, resumo: "Legado não é sinônimo de ruim." }
+  - { id: RN-14, resumo: "Avaliar ao menos três alternativas, incluindo não fazer nada, em ordem neutra." }
+  - { id: RN-15, resumo: "Reescrever raramente é necessário para colher o benefício." }
+  - { id: RN-16, resumo: "Ganho atribuído à linguagem tem peso baixo; práticas adotáveis capturam parte dele." }
+  - { id: RN-17, resumo: "Monólito modular é alternativa de primeira classe." }
+  - { id: RN-19, resumo: "Avaliar sempre as forças que pedem juntar." }
+  - { id: RN-20, resumo: "O critério é independência de publicação, não número de serviços." }
+  - { id: RN-21, resumo: "Fronteiras internas fortes antes de distribuir." }
+  - { id: RN-22, resumo: "Rede confiável, latência zero e banda infinita são premissas falsas." }
+  - { id: RN-23, resumo: "Mesmo sem partição, sistemas distribuídos trocam latência por consistência." }
+  - { id: RN-24, resumo: "A latência de cauda cresce com o número de chamadas em sequência." }
+  - { id: RN-25, resumo: "Distribuir tem custo físico e financeiro." }
+  - { id: RN-26, resumo: "Compensações, registro de mensagens e contratos são complexidade nova." }
+  - { id: RN-28, resumo: "Dados são mais difíceis que código; consumidores diretos do banco aparecem no fim." }
+  - { id: RN-30, resumo: "Trocar de linguagem só por propriedade verificável, não por popularidade." }
+  - { id: RN-31, resumo: "Código novo em linguagem segura, sem reescrever o código antigo e estável." }
+  - { id: RN-32, resumo: "Avaliar o ecossistema do domínio antes da sintaxe." }
+  - { id: RN-33, resumo: "Abandono do mantenedor é motivo legítimo de migração." }
+  - { id: RN-34, resumo: "Cadeia de suprimentos e dependências desatualizadas são risco." }
+  - { id: RN-35, resumo: "Ciclo de vida, licença e regulação com data pesam na escolha." }
+  - { id: RN-36, resumo: "Mercado de trabalho e custo de treinar entram no custo total." }
+  - { id: RN-37, resumo: "Eficiência energética: medir a carga real." }
+  - { id: RN-38, resumo: "Sistemas copiam a estrutura de comunicação de quem os constrói." }
+  - { id: RN-39, resumo: "A carga cognitiva do time limita o tamanho de cada fronteira." }
+  - { id: RN-40, resumo: "A estrutura da organização prevê falhas melhor que a do código." }
+  - { id: RN-41, resumo: "Cada fronteira precisa de um dono claro." }
+  - { id: RN-42, resumo: "Reescrever descarta conhecimento acumulado." }
+  - { id: RN-43, resumo: "Automação de publicação, monitoramento e ambientes antes de distribuir." }
+  - { id: RN-44, resumo: "Operação e segurança crescem com o número de componentes." }
+  - { id: RN-45, resumo: "Infraestrutura de operação exige esforço próprio." }
+  - { id: RN-46, resumo: "Mudança é investimento: o retorno precisa superar a transição." }
+  - { id: RN-47, resumo: "Critério e data de desligamento do legado antes de começar." }
+  - { id: RN-49, resumo: "Separar decisões reversíveis das irreversíveis." }
+  - { id: RN-50, resumo: "Modularidade vale mais onde o futuro é incerto." }
+  - { id: RN-58, resumo: "Fatores de peso 1 e 2 nunca justificam a mudança sozinhos." }
+  - { id: RN-71, resumo: "Ajuste é relacional: necessidade contra capacidade, por eixo." }
+  - { id: RN-72, resumo: "Sobreajuste e subajuste nunca se compensam." }
+  - { id: RN-73, resumo: "O ônus da prova é da mudança." }
+  - { id: RN-74, resumo: "Nos portões, vale o limite desfavorável da faixa." }
+  - { id: RN-75, resumo: "Não fazer nada é resultado de primeira classe." }
+  - { id: RN-76, resumo: "Ganho abaixo do limiar de materialidade é irrisório." }
+  - { id: RN-77, resumo: "A incerteza vira faixa; muita falta de sinal gera Inconclusivo." }
+  - { id: RN-78, resumo: "Não sei nunca bloqueia o diagnóstico." }
+  - { id: RN-79, resumo: "Inferências exigem confirmação e ficam marcadas." }
+  - { id: RN-80, resumo: "Perguntas-ponte têm um nível só." }
+  - { id: RN-81, resumo: "Sem veredito parcial; alterações depois do veredito ficam registradas." }
+  - { id: RN-82, resumo: "Todo veredito mostra a versão da calibração." }
+  - { id: RN-84, resumo: "Desajuste que não se paga no horizonte vira conviver." }
+  - { id: RN-85, resumo: "Saúde e obrigações são fatos, separados do ajuste." }
+  - { id: RN-87, resumo: "Nenhum estilo é favorecido." }
+  - { id: RN-89, resumo: "Ramo e subnível definem perguntas e lentes." }
+  - { id: RN-90, resumo: "Três níveis com orçamento de tempo; fatores de peso 5 cobertos em todos." }
+  - { id: RN-91, resumo: "A próxima pergunta é escolhida dentro de uma estrutura com pesos." }
+  - { id: RN-92, resumo: "Respostas sugeridas: nenhuma marcada, sem ver a ideia prévia." }
+  - { id: RN-93, resumo: "Frase por faixa; duas frases no limite; comparação contra não mudar." }
+  - { id: RN-94, resumo: "Plano ideal em camadas por nível, ou não mexa." }
+  - { id: RN-95, resumo: "Tecnologias comparadas por critérios, com fonte." }
+  - { id: RN-96, resumo: "Perguntas simples e não invasivas." }

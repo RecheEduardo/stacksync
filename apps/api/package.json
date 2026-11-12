@@ -1,0 +1,37 @@
+{
+  "name": "@stacksync/api",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch --clear-screen=false src/main.ts",
+    "build": "node -e \"console.log('API roda com tsx; sem etapa de build no MVP')\"",
+    "start": "tsx src/main.ts",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit -p tsconfig.json"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^1.4.0",
+    "@electric-sql/pglite": "^0.5.0",
+    "@fastify/cookie": "^11.1.0",
+    "@fastify/helmet": "^13.2.0",
+    "@fastify/rate-limit": "^11.2.0",
+    "@fastify/static": "^10.1.0",
+    "@google/genai": "^2.32.0",
+    "@stacksync/content": "workspace:*",
+    "@stacksync/contracts": "workspace:*",
+    "@stacksync/engine": "workspace:*",
+    "fastify": "^5.12.0",
+    "openai": "^7.47.0",
+    "pg": "^8.23.0",
+    "tsx": "^4.23.0",
+    "undici": "^8.12.0",
+    "zod": "^4.6.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "@types/pg": "^8.15.0",
+    "typescript": "^7.0.0",
+    "vitest": "^5.1.0"
+  }
+}

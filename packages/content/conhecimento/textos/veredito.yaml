@@ -1,0 +1,161 @@
+# Modelos de texto oficiais do veredito (Parte 4, 9.8; P3 10.4 e 12.6).
+# Sintaxe: {variavel}, {n, plural, one {...} other {...}} e {x, select, a {...} other {...}}.
+# Passam pelo lint de vocabulário (FF-06): sem superlativo, urgência, exclamação ou condicional vago.
+
+categoria.ajustado: Ajustado
+categoria.sobreajustado: Sobreajustado
+categoria.subajustado: Subajustado
+categoria.misto: Misto
+categoria.indefinido: Indefinido
+categoria.inconclusivo: Inconclusivo
+
+sujeito.arquitetura: A arquitetura
+sujeito.modulo: O módulo
+sujeito.ferramenta: A ferramenta atual
+sujeito.mais_simples: A solução mais simples
+sujeito.existente: O sistema que vai receber o módulo
+
+veredito.ajustado.frase: "{sujeito} atende às necessidades declaradas."
+veredito.ajustado.fechamento.refatoracao: Nenhuma refatoração estrutural se justifica hoje.
+veredito.ajustado.fechamento.ferramenta: Nenhuma troca de ferramenta se justifica hoje.
+veredito.ajustado.fechamento.planejamento: Nada além da forma mais simples se justifica hoje.
+veredito.ajustado.saudavel: Ajustado e saudável. Nenhuma ação necessária.
+veredito.ajustado.comAlerta: "{n, plural, one {Com # alerta de saúde crítico, reportado como fato.} other {Com # alertas de saúde críticos, reportados como fato.}}"
+veredito.sobreajustado.frase: "{sujeito} tem mais {mecanismos} do que as necessidades declaradas pedem, principalmente em {eixos}."
+veredito.subajustado.frase: "{sujeito} limita as necessidades declaradas, principalmente em {eixos}."
+veredito.misto.frase: Sobra estrutura em {eixosSobra} e falta em {eixosFalta}.
+veredito.misto.predominante: "{lado, select, sobra {Predominantemente sobreajustado.} other {Predominantemente subajustado.}}"
+veredito.misto.dependencia: A falta em {eixoFalta} diminui se a sobra em {eixoSobra} for reduzida.
+veredito.indefinido.frase: "Com as respostas atuais, não dá para afirmar se {objeto} está {x} ou {y}. {n, plural, one {Uma resposta concentra a incerteza.} other {# respostas concentram a incerteza.}}"
+veredito.inconclusivo.frase: Faltam respostas para um veredito. Comece pelas perguntas abaixo.
+veredito.conviver.frase: "Há {lado} em {eixos}, mas a correção não se paga no horizonte de {horizonte}. Conviver é a decisão racional."
+veredito.naoAvaliados: "{n, plural, one {Não avaliado nesta profundidade: {eixos}.} other {Não avaliados nesta profundidade: {eixos}.}}"
+
+objeto.sistema: o sistema
+objeto.ferramenta: a ferramenta
+lado.sobra: sobreajuste
+lado.falta: subajuste
+
+aderencia.85: Sua proposta atende à necessidade real.
+aderencia.70: Sua proposta atende à necessidade na maior parte; alguns pontos pedem ajuste.
+aderencia.50: Sua proposta resolve parte do problema, mas deixa necessidades importantes de fora ou cria outras.
+aderencia.30: Sua proposta se afasta da necessidade real em pontos centrais.
+aderencia.0: Sua proposta não corresponde à necessidade descrita.
+aderencia.curta.85: atende à necessidade real
+aderencia.curta.70: atende na maior parte
+aderencia.curta.50: resolve parte do problema
+aderencia.curta.30: se afasta em pontos centrais
+aderencia.curta.0: não corresponde à necessidade
+aderencia.entre: "Entre “{a}” e “{b}”."
+aderencia.decidiriam: "{n, plural, one {Uma resposta decidiria.} other {# respostas decidiriam.}}"
+
+plano.aderencia.85: O plano atende à necessidade real.
+plano.aderencia.70: O plano atende à necessidade na maior parte; alguns pontos pedem ajuste.
+plano.aderencia.50: O plano resolve parte do problema.
+plano.aderencia.30: O plano se afasta da necessidade em pontos centrais.
+plano.aderencia.0: O plano não corresponde à necessidade descrita.
+
+comparacao.contraBase: "Comparada a {base}: {pt} pontos, entre {lo} e {hi}."
+comparacao.planoContraBase: "Comparado a {base}: {pt} pontos, entre {lo} e {hi}."
+
+ideia.veredito.justificada_em_principio: A mudança se justifica em princípio. Custo, retorno e prontidão ainda não foram avaliados.
+ideia.veredito.existe_caminho_melhor: "O problema é real, mas {alternativa} alcança ao menos {pct}% do ganho com {criterio}."
+ideia.veredito.ganho_irrisorio: "O ganho estimado ({ganho} pontos) fica abaixo do limiar de materialidade ({limiar}). {base, select, nao_mudar {Não mudar é a decisão recomendada.} other {{baseRotulo} é a decisão recomendada.}}"
+ideia.veredito.contraproducente: "A mudança afasta o sistema do ajuste: Índice de Ajuste projetado entre {projLo} e {projHi}, contra entre {atualLo} e {atualHi} hoje."
+ideia.veredito.sem_fundamento: O motivo informado não basta para mudar. Qual atributo de qualidade está sendo afetado?
+ideia.veredito.inconclusiva: "Não dá para concluir no portão {portao}: {motivo}"
+ideia.criterio.menos_invasiva: menos invasividade
+ideia.criterio.mais_reversivel: mais reversibilidade
+
+portao.P1: Gatilho legítimo
+portao.P2: Meta mensurável
+portao.P3: Direção do ajuste
+portao.P4: Materialidade
+portao.P5: Alternativa menos invasiva
+portao.P1.passa: O motivo é legítimo e tem evidência.
+portao.P1.passaEstimado: O motivo é legítimo; no nível Rápido, a evidência conta como estimativa.
+portao.P1.naoPassa: Tendência ou o que outras empresas fazem não basta como motivo (RN-01).
+portao.P1.indeterminado: O motivo é legítimo, mas ainda sem evidência.
+portao.P1.semResposta: O motivo da ideia não foi informado.
+portao.P2.passa: Há valor de hoje e meta.
+portao.P2.naoPassa: Falta uma meta com valor de hoje e alvo.
+portao.P2.indeterminado: A meta existe, mas falta o valor de hoje ou o alvo.
+portao.P2.semMeta: "A meta é saber se está adequado; não há métrica a melhorar."
+portao.P3.passa: O ajuste projetado melhora mesmo no limite desfavorável.
+portao.P3.naoPassa: O ajuste projetado piora em toda a faixa.
+portao.P3.indeterminado: As faixas do ajuste atual e do projetado se sobrepõem.
+portao.P4.passa: "O ganho passa do limiar de materialidade ({limiar} pontos) mesmo no limite desfavorável."
+portao.P4.naoPassa: "O ganho fica abaixo do limiar de materialidade ({limiar} pontos) em toda a faixa."
+portao.P4.indeterminado: "A faixa do ganho atravessa o limiar de materialidade ({limiar} pontos)."
+portao.P5.passa: Nenhuma alternativa menos invasiva alcança ganho equivalente.
+portao.P5.naoPassa: "{alternativa} alcança ao menos {pct}% do ganho com menos invasividade."
+portao.P5.indeterminado: Faltam dados para comparar a invasividade.
+portao.estado.passa: Passa
+portao.estado.nao_passa: Não passa
+portao.estado.indeterminado: Indeterminado
+portao.estado.nao_avaliado: Não avaliado
+
+plano.naoMexa.refatoracao.sistema: "Não mexa: nenhuma mudança se paga com a necessidade descrita."
+plano.naoMexa.refatoracao.modulo: "Não mexa no módulo: nenhuma mudança se paga com a necessidade descrita."
+plano.naoMexa.refatoracao.ferramenta: "Mantenha a ferramenta: nenhuma troca se paga com a necessidade descrita."
+plano.naoMexa.planejamento.sistema: "A solução mais simples basta: {forma}"
+plano.naoMexa.planejamento.modulo: "Cabe no que existe: o módulo entra no sistema atual sem mudar a estrutura."
+plano.naoMexa.planejamento.ferramenta: "A opção mais simples que atende: {forma}"
+plano.deixariaDeBastar: "Deixaria de bastar se {condicao}."
+plano.atualizar: "Atualize a versão: {tecnologia} {ciclo} tem suporte até {data}."
+plano.trocar: "Troque para {tecnologia}."
+plano.conviver: "Conviver: a correção não se paga em {horizonte} de vida útil restante."
+plano.inconclusivo: "Ainda não dá para dizer se mudar compensa: o ganho fica entre {lo} e {hi} pontos. As perguntas de maior valor, neste laudo, decidiriam."
+plano.custoNaoAvaliado: Custo e retorno ainda não avaliados.
+plano.custo.baixo: Custo de transição baixo
+plano.custo.medio: Custo de transição médio
+plano.custo.alto: Custo de transição alto
+plano.paralelo.inviavel: "Você indicou que operar o antigo e o novo juntos é inviável; o passo exige esse período."
+plano.forma.eixo: "{eixo}: {ancora}"
+plano.sensibilidade: "Se “{pergunta}” for “{valor}”, este passo {efeito, select, desnecessario {deixa de ser necessário} other {muda de forma}}."
+
+direcao.texto: "{descricao} Ganho potencial de ajuste: até {ganho} pontos."
+
+confianca.alta: Confiança alta
+confianca.media: Confiança média
+confianca.baixa: Confiança baixa
+confianca.explicacao: "A faixa do índice tem {largura} pontos de largura. {motivo}"
+confianca.motivo.medidas: A maior parte das respostas tem dado medido.
+confianca.motivo.estimativas: Parte das respostas são estimativas.
+confianca.motivo.lacunas: Há respostas desconhecidas ou inferidas.
+
+robustez.robusto: "Robusto: o veredito se mantém em {pct}% das variações testadas."
+robustez.moderado: "Moderado: o veredito se mantém em {pct}% das variações testadas. O ponto mais sensível é {sensivel}."
+robustez.fragil: "Frágil: o veredito se mantém em {pct}% das variações testadas. O ponto mais sensível é {sensivel}."
+
+lacuna.podePular: "Pode pular: esta resposta não muda o resultado."
+lacuna.estreitaria: "Estreitaria a faixa do índice em cerca de {reducao} pontos."
+lacuna.definiria: Definiria a categoria.
+
+mudaria.texto: "Se “{pergunta}” for “{valor}”, o veredito passa a {categoria}."
+descartado.direcao: "{eixo}: ganho potencial de {ganho} pontos, abaixo do limiar de {limiar}."
+descartado.semGanho: "Nenhum eixo tem ganho potencial acima do limiar de {limiar} pontos. O maior é de cerca de {maior}."
+descartado.movimento: "{movimento}: Índice de Ajuste projetado entre {lo} e {hi}, menor que o do plano."
+
+razao.sobra: "{eixo}: a capacidade passa da necessidade ({desvio, plural, one {# nível} other {# níveis}}). {sinais}"
+razao.falta: "{eixo}: a capacidade fica aquém da necessidade ({desvio, plural, one {# nível} other {# níveis}}). {sinais}"
+razao.ajustado: "{eixo}: necessidade e capacidade dentro da tolerância. {sinais}"
+razao.ideia.melhora: "{eixo}: a ideia aproxima a capacidade da necessidade."
+razao.ideia.piora: "{eixo}: a ideia afasta a capacidade da necessidade."
+razao.plano: "{eixo}: {direcao}"
+
+saude.saudavel: Saudável
+saude.atencao: Atenção
+saude.critico: Crítico
+saude.desconhecido: Desconhecido
+
+obrigacao.eol: "Fim de suporte de {produto} {ciclo}"
+obrigacao.cra.notificacao: "Cyber Resilience Act: notificar vulnerabilidades exploradas"
+obrigacao.cra.sbom: "Cyber Resilience Act: lista de componentes (SBOM) obrigatória"
+obrigacao.lgpd: "LGPD: transferência internacional de dados pessoais"
+
+composicao.texto: "{medida}% medidas, {estimativa}% estimadas, {inferencia}% inferidas, {desconhecida}% desconhecidas"
+horizonte.menos_1: menos de 1 ano
+horizonte.1_3: 1 a 3 anos
+
+quant.disponibilidade: "Disponibilidade composta do fluxo principal: entre {lo}% e {hi}%, contra a meta de {meta}%."
