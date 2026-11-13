@@ -24,6 +24,7 @@ Regras inegociáveis para qualquer agente que mexa neste repositório. Leia ante
 - **O veredito não anima** (IV-23, FD-16): `motion` só em troca de etapa, contadores de progresso, na página de entrada e na barra do topo que se recolhe (`components/ui/barra-retratil.tsx`); nunca em `features/resultado`, `features/relatorio` ou `components/laudo`. Os esqueletos de carregamento ali usam `parado` (DV-52; o lint confere). A rolagem suave (Lenis, DV-51) vale para a aplicação inteira e desliga com "reduzir movimento".
 - **Todo carregamento tem esqueleto** (DV-52): o que depende de resposta da API ou da IA aparece com o esqueleto da sua forma (`components/ui/esqueleto.tsx`), nunca em branco nem com um texto solto de "carregando".
 - **"Índice de Ajuste" sempre por extenso.** "IA" significa só inteligência artificial.
+- **Edições manuais do responsável valem como decisão de design.** Se o código ou os textos mudaram à mão em relação aos `.md` (cor, medida, movimento, texto), não questione nem reverta para o que está nos documentos: o código é a preferência atual. Atualize `DESIGN.md` (e `.interface-design/system.md`) onde isso se refletir, com uma linha na tabela de decisões (DV), sem pedir confirmação.
 - **Toda dependência nova é justificada** no pull request (DT-26).
 - **Gabaritos dos casos-âncora e testes de aceitação da Parte 3 nunca mudam para fazer um teste passar** (FF-18). Mudança de gabarito só com registro de calibração.
 

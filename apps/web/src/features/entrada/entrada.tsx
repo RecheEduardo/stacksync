@@ -22,14 +22,16 @@ import { MarcaOrigem } from '../../components/laudo/certeza.tsx';
 
 const CartazExemplo = lazy(() => import('./cartaz.tsx'));
 const SAIDA = [0.23, 1, 0.32, 1] as const;
-const NA_TELA = { once: true, margin: '0px 0px -12% 0px' } as const;
+/** Pop-in: a escala nasce de zero e passa um pouco do ponto antes de assentar. */
+const POP = { type: 'spring', stiffness: 110, damping: 14, mass: 1 } as const;
+const NA_TELA ={ once: true, margin: '0px 0px -12% 0px' } as const;
 
 /** Linha do título que sobe de dentro de uma máscara. */
 function Linha({ children, ordem }: { children: ReactNode; ordem: number }) {
   const sem = useReducedMotion();
   return (
-    <span className="block overflow-hidden pb-micro">
-      <m.span className="block" initial={sem ? false : { y: '105%' }} animate={{ y: 0 }} transition={{ duration: 0.75, ease: SAIDA, delay: 0.08 * ordem }}>
+    <span className="block pb-micro">
+      <m.span className="block origin-left" initial={sem ? false : { scale: 0 }} animate={{ scale: 1 }} transition={{ ...POP, delay: 0.2 + 0.1 * ordem }}>
         {children}
       </m.span>
     </span>
@@ -48,9 +50,9 @@ function PalavraQueCai({ palavra }: { palavra: string }) {
           <m.span
             key={`${letra}${i}`}
             className="inline-block"
-            initial={sem ? false : { y: '-120%', rotate: i % 2 ? 10 : -10, opacity: 0 }}
-            animate={{ y: 0, rotate: 0, opacity: 1 }}
-            transition={{ type: 'spring', stiffness: 420, damping: 14, mass: 0.9, delay: 0.3 + i * 0.07 }}
+            initial={sem ? false : { scale: 0 }}
+            animate={{ scale: 1 }}
+            transition={{ ...POP, delay: 0.55 + i * 0.14 }}
           >
             {letra}
           </m.span>
@@ -119,7 +121,7 @@ function Abertura() {
         </h1>
       </div>
       <div className="mx-auto grid w-full max-w-pagina gap-amplo px-base pt-medio md:px-amplo lg:grid-cols-12 lg:gap-medio">
-        <m.div className="lg:col-span-5 lg:pt-secao" initial={sem ? false : { opacity: 0, x: -60 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.6, ease: SAIDA, delay: 0.7 }}>
+        <m.div className="lg:col-span-5 lg:pt-secao" initial={sem ? false : { scale: 0 }} animate={{ scale: 1 }} transition={{ ...POP, delay: 1.4 }}>
           <Projecao grande>
             <div className="flex h-full flex-col justify-between gap-base borda bg-folha p-medio">
               <p className="text-subtitulo text-nanquim">{t('entrada.sub')}</p>
@@ -127,7 +129,7 @@ function Abertura() {
             </div>
           </Projecao>
         </m.div>
-        <m.div className="lg:col-span-7 lg:-mt-amplo" initial={sem ? false : { opacity: 0, y: 80 }} animate={{ opacity: 1, y: 0 }} transition={{ type: 'spring', stiffness: 300, damping: 26, delay: 0.85 }}>
+        <m.div className="lg:col-span-7 lg:-mt-amplo" initial={sem ? false : { scale: 0 }} animate={{ scale: 1 }} transition={{ ...POP, delay: 1.7 }}>
           <Projecao tipo="sinal" lado="direita" grande>
             <div className="flex flex-col gap-base borda bg-nanquim p-medio text-folha md:p-amplo">
               <Placa cor="bg-sinal text-sobre-sinal">{t('entrada.pergunta.rotulo')}</Placa>
@@ -466,7 +468,7 @@ function Fechamento() {
             </h2>
             <div className="flex flex-col gap-base border-t-4 border-sobre-sinal pt-medio md:flex-row md:items-center md:justify-between">
               <p className="text-subtitulo">{t('entrada.fim.texto')}</p>
-              <Botao variante="carimbo" comoFilho className="self-start md:self-auto">
+              <Botao variante="carimbo" comoFilho className="carimbo-zebrado self-start md:self-auto">
                 <Link to="/analises/nova">{t('entrada.fim.acao')}</Link>
               </Botao>
             </div>

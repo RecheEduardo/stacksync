@@ -7,7 +7,7 @@ ui.menu.analises: Minhas análises
 
 # ---------------------------------------------------------------- página de entrada
 entrada.nav.rotulo: Navegação principal
-entrada.nav.metodo: Como decide
+entrada.nav.metodo: Método de decisão
 entrada.nav.analises: Minhas análises
 entrada.titulo: Meça antes de mudar.
 entrada.sub: O StackSync compara o que o sistema precisa com o que a arquitetura entrega. Diz o quanto a sua ideia adere à necessidade real, entrega um plano ideal e, quando é o caso, diz para não mexer.

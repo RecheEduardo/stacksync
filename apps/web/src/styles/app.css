@@ -514,6 +514,45 @@
     }
   }
 }
+/* Carimbo com projeção em faixa de obra: no lugar da sombra amarela chapada, a projeção é zebrada (amarelo e preto a
+   45°) com contorno em tinta. A faixa é um ::before deslocado e recortado em "L", para só aparecer fora do botão. */
+@utility carimbo-zebrado {
+  --carimbo-d: 6px;
+  box-shadow: none;
+  &::before {
+    content: '';
+    position: absolute;
+    inset: calc(var(--borda) * -1);
+    border: var(--borda) solid var(--cor-nanquim);
+    background-image: repeating-linear-gradient(-45deg, var(--cor-sinal) 0 calc(var(--zebrado) / 3), var(--cor-nanquim) calc(var(--zebrado) / 3) calc(var(--zebrado) * 2 / 3));
+    print-color-adjust: exact;
+    transform: translate(var(--carimbo-d), var(--carimbo-d));
+    clip-path: polygon(
+      calc(100% - var(--carimbo-d)) 0,
+      100% 0,
+      100% 100%,
+      0 100%,
+      0 calc(100% - var(--carimbo-d)),
+      calc(100% - var(--carimbo-d)) calc(100% - var(--carimbo-d))
+    );
+    transition-property: transform, clip-path;
+    transition-duration: 140ms;
+    transition-timing-function: cubic-bezier(0.3, 1.7, 0.5, 1);
+    pointer-events: none;
+  }
+  &:hover:not(:disabled):not([aria-disabled='true']) {
+    --carimbo-d: 9px;
+    box-shadow: none;
+  }
+  &:active:not(:disabled):not([aria-disabled='true']) {
+    --carimbo-d: 0px;
+    box-shadow: none;
+  }
+  &:disabled::before,
+  &[aria-disabled='true']::before {
+    display: none;
+  }
+}
 @keyframes carimbo-onda {
   from {
     opacity: 1;
@@ -857,6 +896,22 @@
     outline-offset: 3px;
   }
   ::selection {
+    background-color: var(--cor-sinal);
+    color: var(--cor-sobre-sinal);
+  }
+  /* Sobre um bloco amarelo a seleção amarela some: lá, ela inverte (fundo na tinta escura, texto amarelo). O CSS não
+     lê a cor do fundo, então a regra segue a classe do bloco; blocos de papel ou tinta dentro dele voltam ao padrão. */
+  .bg-sinal::selection,
+  .bg-sinal ::selection,
+  .hover\:bg-sinal:hover::selection,
+  .hover\:bg-sinal:hover ::selection {
+    background-color: var(--cor-sobre-sinal);
+    color: var(--cor-sinal);
+  }
+  .bg-sinal :is(.bg-folha, .bg-campo, .bg-mesa)::selection,
+  .bg-sinal :is(.bg-folha, .bg-campo, .bg-mesa) ::selection,
+  .bg-sinal :is(.bg-nanquim, .bg-cabecalho)::selection,
+  .bg-sinal :is(.bg-nanquim, .bg-cabecalho) ::selection {
     background-color: var(--cor-sinal);
     color: var(--cor-sobre-sinal);
   }
