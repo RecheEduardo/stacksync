@@ -46,16 +46,20 @@ function tema(cores, invertida) {
   return linhas;
 }
 
-/** Textura de forma de concreto (DESIGN.md, Camadas de fundo; DV-42): placa de 360x180 com as marcas das tábuas,
- *  as juntas e os furos dos tirantes, na tinta do tema. SVG em data URI, um por tema. */
+/** Textura de forma de concreto (DESIGN.md, Camadas de fundo; DV-42): uma placa com as marcas das tábuas, as juntas
+ *  (no topo e na esquerda) e os furos dos tirantes, na tinta do tema. SVG em data URI, um por tema. O SVG não tem
+ *  tamanho próprio: ele se estica até o tamanho de ladrilho que o CSS der (utilitário textura-planta), com as posições
+ *  em porcentagem, para que cada placa seja exatamente uma célula da grade dos eixos A–F e 1–4. */
 function texturaForma(tinta) {
   const t = tinta.replace('#', '%23');
-  const tabuas = [36, 72, 108, 144].map((y) => `M0 ${y}h360`).join('');
-  const furos = [[42, 42], [312, 42], [42, 132], [312, 132]].map(([x, y]) => `%3Crect x='${x}' y='${y}' width='6' height='6'/%3E`).join('');
+  const r = (x, y, w, h) => `%3Crect x='${x}' y='${y}' width='${w}' height='${h}'/%3E`;
+  const tabuas = ['20%25', '40%25', '60%25', '80%25'].map((y) => r(0, y, '100%25', 1)).join('');
+  const juntas = r(0, 0, '100%25', 2) + r(0, 0, 2, '100%25');
+  const furos = [['12%25', '23%25'], ['88%25', '23%25'], ['12%25', '73%25'], ['88%25', '73%25']].map(([x, y]) => r(x, y, 6, 6)).join('');
   return (
-    `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='360' height='180'%3E` +
-    `%3Cpath d='${tabuas}' stroke='${t}' stroke-opacity='.035' stroke-width='1'/%3E` +
-    `%3Cpath d='M0 179h360M359 0v180' stroke='${t}' stroke-opacity='.08' stroke-width='2'/%3E` +
+    `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E` +
+    `%3Cg fill='${t}' fill-opacity='.035'%3E${tabuas}%3C/g%3E` +
+    `%3Cg fill='${t}' fill-opacity='.08'%3E${juntas}%3C/g%3E` +
     `%3Cg fill='${t}' fill-opacity='.16'%3E${furos}%3C/g%3E%3C/svg%3E")`
   );
 }

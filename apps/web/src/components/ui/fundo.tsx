@@ -1,5 +1,6 @@
 // Camadas de fundo e projeções (DESIGN.md v2.1: Camadas de fundo; Elevation & Depth > Projeção; DV-42 a DV-46).
-// O fundo nunca é um cinza liso: sobre a textura de forma de concreto (no <html>, via --textura-forma) entram os
+// O fundo nunca é um cinza liso: a textura de forma de concreto (--textura-forma, ladrilhada pelo utilitário
+// textura-planta em células da mesma grade dos eixos) fica neste mesmo contêiner, e sobre ela entram os
 // eixos estruturais de uma planta (rótulos quadrados A–F e 1–4, linhas tracejadas e marcas de cruz) e blocos
 // figurativos grandes, parcialmente escondidos atrás do conteúdo. Tudo decorativo, fixo, sem clique e fora da
 // leitura de tela. A projeção zebrada ou chapada fica atrás de blocos estáticos de destaque: é a sombra da obra,
@@ -30,7 +31,7 @@ const BLOCOS: Record<'app' | 'entrada', Bloco[]> = {
 /** Camadas de fundo fixas, atrás do conteúdo. Coloque antes do conteúdo, que deve vir num contêiner `relative z-base`. */
 export function CamadasFundo({ variante = 'app' }: { variante?: 'app' | 'entrada' }) {
   return (
-    <div aria-hidden className="pointer-events-none fixed inset-0 z-base overflow-hidden select-none nao-imprimir">
+    <div aria-hidden className="pointer-events-none fixed inset-0 z-base textura-planta overflow-hidden select-none nao-imprimir">
       {/* Eixos verticais e horizontais da planta, tracejados. */}
       {COLUNAS.map((c, i) => (
         <span key={c} className="absolute inset-y-0 border-l-2 border-dashed border-traco" style={{ left: pct(i, COLUNAS.length) }} />
@@ -93,14 +94,15 @@ export function Projecao({
   grande?: boolean;
   className?: string;
 }) {
-  // Classes escritas por extenso para o Tailwind encontrá-las.
+  // Classes escritas por extenso para o Tailwind encontrá-las. No celular a projeção só desce (borda embaixo, sem
+  // lado); a partir de md ela também desloca para o lado.
   const deslocamento = grande
     ? lado === 'esquerda'
-      ? '-translate-x-base translate-y-base'
-      : 'translate-x-base translate-y-base'
+      ? 'translate-y-base md:-translate-x-base'
+      : 'translate-y-base md:translate-x-base'
     : lado === 'esquerda'
-      ? '-translate-x-curto translate-y-curto'
-      : 'translate-x-curto translate-y-curto';
+      ? 'translate-y-curto md:-translate-x-curto'
+      : 'translate-y-curto md:translate-x-curto';
   return (
     <div className={`relative ${className}`}>
       <div aria-hidden className={`absolute inset-0 borda ${FUNDO[tipo]} ${deslocamento}`} />

@@ -6,6 +6,7 @@
 // - FD-04: todo texto de interface citado por chave existe no pacote de conteúdo (sob o lint de vocabulário).
 // - FD-13 e FD-14: contraste mínimo e paridade de tokens no tema claro (o único) e na região invertida.
 // - FD-15: raio zero em tudo. FD-16: nada de animação no veredito.
+// - DV-65: nenhum cursor do sistema pelas classes do Tailwind; só os cursores em pixel do app.
 // - tokens.css em dia com o frontmatter do DESIGN.md.
 import { execFileSync } from 'node:child_process';
 import { readFileSync, readdirSync, statSync } from 'node:fs';
@@ -30,6 +31,8 @@ const COR = /(#[0-9a-fA-F]{6}\b|#[0-9a-fA-F]{3}\b|\brgba?\(|\bhsla?\(|\boklch\()
 const ARBITRARIO = /(?:^|[\s"'`])(?:[\w-]+:)*[\w-]*-\[[^\]]+\]|(?:^|[\s"'`])\[[a-z-]+:[^\]]+\]/;
 const ESPACO = /(?<![\w-])-?(?:p[xytblrse]?|m[xytblrse]?|gap(?:-[xy])?|space-[xy]|w|h|min-[wh]|max-[wh]|size|inset(?:-[xy])?|top|left|right|bottom|translate-[xy])-(\d+(?:\.\d+)?)(?![\d/.\w])/g;
 const CAMADA = /(?<![\w-])z-\d+/;
+// DV-65: os cursores do Tailwind trariam o do sistema de volta; use os utilitários cursor-* do app.css (pixel grotesco).
+const CURSOR_SISTEMA = /(?<![\w-])cursor-(auto|default|pointer|wait|text|move|help|not-allowed|none|context-menu|progress|cell|crosshair|vertical-text|alias|copy|no-drop|grab|grabbing|all-scroll|[a-z]+-resize|zoom-in|zoom-out)(?![\w-])/;
 
 for (const f of arquivos(src)) {
   const rel = relative(raiz, f).replace(/\\/g, '/');
@@ -49,6 +52,7 @@ for (const f of arquivos(src)) {
         if (ARBITRARIO.test(s.replace(/\$\{[^}]*\}/g, ' '))) problemas.push(`${onde}: valor arbitrário do Tailwind (FD-01): ${s.slice(0, 60)}`);
         for (const m of s.matchAll(ESPACO)) if (Number(m[1]) !== 0) problemas.push(`${onde}: espaço ou medida fora dos tokens (${m[0]})`);
         if (CAMADA.test(s)) problemas.push(`${onde}: z-index fora da escala fixa (FD-12)`);
+        if (CURSOR_SISTEMA.test(s)) problemas.push(`${onde}: cursor do sistema; use cursor-padrao, cursor-clique etc. (DV-65)`);
       }
     }
     if (!ehTokens && rel.endsWith('.css') && /z-index:\s*\d/.test(codigo) && !/@utility z-/.test(linhas.slice(Math.max(0, i - 2), i).join('\n')))

@@ -12,7 +12,7 @@ import { SeloConfianca } from '../../components/laudo/escala.tsx';
 import { PropostaIa, RaciocinioEstatico } from '../../components/laudo/ia.tsx';
 import { CabecalhoLaudo, ListaRazoes, PlanoIdeal } from '../../components/laudo/laudo.tsx';
 import { ListaPortoes, ListaSaude, Obrigacoes } from '../../components/laudo/status.tsx';
-import { Botao } from '../../components/ui/botao.tsx';
+import { Botao, SetaBotao } from '../../components/ui/botao.tsx';
 import { Campo, Selecao } from '../../components/ui/campo.tsx';
 import { GrupoOpcoes, Opcao, OpcaoCaixa } from '../../components/ui/escolha.tsx';
 import { Aviso, Recolhivel, Secao } from '../../components/ui/estado.tsx';
@@ -116,6 +116,34 @@ export function PaginaMostruario() {
       <RaciocinioEstatico raciocinio={raciocinio} />
 
       <section className="folha flex flex-col gap-medio">
+        <h2 className="text-secao">Cursores</h2>
+        <div className="grid grid-cols-2 gap-compacto sm:grid-cols-4 lg:grid-cols-7">
+          {(
+            [
+              ['cursor-padrao', 'Padrão'],
+              ['cursor-clique', 'Clique'],
+              ['cursor-texto', 'Texto'],
+              ['cursor-bloqueado', 'Bloqueado'],
+              ['cursor-espera', 'Espera'],
+              ['cursor-ajuda', 'Ajuda'],
+              ['cursor-agarrar', 'Agarrar'],
+              ['cursor-agarrando', 'Agarrando'],
+              ['cursor-mover', 'Mover'],
+              ['cursor-coluna', 'Coluna'],
+              ['cursor-linha', 'Linha'],
+              ['cursor-ampliar', 'Ampliar'],
+              ['cursor-reduzir', 'Reduzir'],
+              ['cursor-mira', 'Mira'],
+            ] as const
+          ).map(([classe, rotulo]) => (
+            <span key={classe} className={`${classe} grid h-faixa place-items-center borda bg-campo text-rotulo even:bg-cabecalho even:text-sobre-cabecalho`}>
+              {rotulo}
+            </span>
+          ))}
+        </div>
+      </section>
+
+      <section className="folha flex flex-col gap-medio">
         <h2 className="text-secao">Primitivos</h2>
         <div className="flex flex-wrap gap-compacto">
           <Botao variante="primario">Gerar veredito</Botao>
@@ -123,6 +151,24 @@ export function PaginaMostruario() {
           <Botao variante="discreto">Discreto</Botao>
           <Botao variante="primario" disabled>
             Desabilitado
+          </Botao>
+        </div>
+        <div className="flex flex-wrap items-center gap-medio">
+          <Botao variante="placa">
+            Ir para a revisão
+            <SetaBotao />
+          </Botao>
+          <Botao variante="placaClara">
+            Próxima pergunta
+            <SetaBotao />
+          </Botao>
+          <Botao variante="placaClara" disabled>
+            Continuar
+            <SetaBotao />
+          </Botao>
+          <Botao variante="carimbo">Nova análise</Botao>
+          <Botao variante="carimbo" disabled>
+            Começar a análise
           </Botao>
         </div>
         <div className="grid gap-base md:grid-cols-2">

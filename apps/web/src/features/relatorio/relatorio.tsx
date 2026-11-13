@@ -4,7 +4,7 @@
 // depois de tudo (RF-53). Nunca omite incerteza nem alterações após o veredito (IV-14).
 import type { DocumentoVeredito } from '@stacksync/engine/tipos';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { useParams } from '@tanstack/react-router';
+import { Link, useParams } from '@tanstack/react-router';
 import { Check, Copy, Printer } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { api, ehErroApi } from '../../lib/api.ts';
@@ -19,7 +19,7 @@ import { ListaPortoes, ListaSaude, Obrigacoes } from '../../components/laudo/sta
 import { Botao } from '../../components/ui/botao.tsx';
 import { ErroCarga, Secao } from '../../components/ui/estado.tsx';
 import { EsqueletoLaudo } from '../../components/ui/esqueleto.tsx';
-import { BOTAO_CABECALHO, ProjecaoClara } from '../../components/ui/cabecalho.tsx';
+import { BOTAO_CABECALHO } from '../../components/ui/cabecalho.tsx';
 import { Assinatura } from '../../components/ui/marca.tsx';
 import { BlocoIdeia, CabecaVeredito, ListaSimples, PerguntasDecidiriam, ReguasOU, useEMax } from '../resultado/veredito.tsx';
 import { useVeredito } from '../resultado/resultado.tsx';
@@ -265,16 +265,16 @@ export function PaginaRelatorioPublico() {
     <div className="min-h-dvh">
       <header className="nao-imprimir grade-barra h-barra border-b-4 border-sinal bg-cabecalho px-base text-sobre-cabecalho md:px-medio">
         <p className="min-w-0 truncate text-dado text-sobre-cabecalho">{consulta.data?.analise.nome ?? ''}</p>
-        <Assinatura nome={t('ui.produto')} />
+        <Link to="/" className="flex items-center">
+          <Assinatura nome={t('ui.produto')} />
+        </Link>
         <div className="flex justify-end">
           {consulta.data ? (
             // Só ícone no celular: o texto continua como nome acessível (sem rolagem horizontal a 320px).
-            <ProjecaoClara>
-              <button type="button" onClick={() => window.print()} className={BOTAO_CABECALHO}>
-                <Printer aria-hidden className="size-icone" />
-                <span className="sr-only md:not-sr-only">{t('ui.relatorio.imprimir')}</span>
-              </button>
-            </ProjecaoClara>
+            <button type="button" onClick={() => window.print()} className={BOTAO_CABECALHO}>
+              <Printer aria-hidden className="size-icone" />
+              <span className="sr-only md:not-sr-only">{t('ui.relatorio.imprimir')}</span>
+            </button>
           ) : null}
         </div>
       </header>

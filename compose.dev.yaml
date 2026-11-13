@@ -1,0 +1,45 @@
+# docker compose -f compose.dev.yaml up  →  http://localhost:5173
+#
+# Desenvolvimento com hot reload: o repositório é montado no contêiner e roda `pnpm dev` (Vite + API em modo watch).
+# Editar um arquivo em apps/web/src atualiza o navegador na hora, sem recompilar a imagem. Suba uma vez e deixe rodando.
+#
+# - As node_modules ficam em volumes do Docker (instaladas para Linux), não as do Windows. A partida roda
+#   `pnpm install --frozen-lockfile`, então mudar dependências só pede um `docker compose -f compose.dev.yaml restart`.
+# - O Docker no Windows não repassa eventos de arquivo para o contêiner; por isso STACKSYNC_POLLING=1 liga a verificação
+#   periódica (polling) do Vite.
+# - tokens.css e as fontes saem do DESIGN.md na partida: ao mudar o frontmatter do DESIGN.md, reinicie o serviço.
+# - Para ver a versão compilada de produção (porta 8080), use o compose.yaml.
+name: stacksync-dev
+
+services:
+  stacksync:
+    build:
+      context: .
+      target: dev
+    image: stacksync:dev
+    ports:
+      - "5173:5173"
+      - "8787:8787"
+    environment:
+      STACKSYNC_POLLING: "1"
+      STACKSYNC_WEB_HOST: "0.0.0.0"
+      STACKSYNC_PERMITIR_SIMULADO: "1"
+      STACKSYNC_DADOS: /dados
+    volumes:
+      - .:/app
+      - dev-node-modules-raiz:/app/node_modules
+      - dev-node-modules-api:/app/apps/api/node_modules
+      - dev-node-modules-web:/app/apps/web/node_modules
+      - dev-node-modules-content:/app/packages/content/node_modules
+      - dev-node-modules-contracts:/app/packages/contracts/node_modules
+      - dev-node-modules-engine:/app/packages/engine/node_modules
+      - dev-dados:/dados
+
+volumes:
+  dev-node-modules-raiz:
+  dev-node-modules-api:
+  dev-node-modules-web:
+  dev-node-modules-content:
+  dev-node-modules-contracts:
+  dev-node-modules-engine:
+  dev-dados:

@@ -539,7 +539,15 @@ Primitivos sobre Radix (DT-05), estilizados com os tokens. Visualizações em SV
 - **Secundário:** papel, texto tinta, sombra que aperta.
 - **Discreto:** sem fundo, sem sombra, sublinhado grosso (2px, afastado 4px); no hover, fundo realce.
 - **Destrutivo:** crítico, texto claro, sempre com confirmação.
-- **Hover:** sobe 2px e a sombra cresce para 6px. **Pressão:** desce 4px, sombra zero, 80ms. **Foco:** contorno de 3px em vermelho, afastado 3px. **Desabilitado:** papel, contorno e texto em inativo, sem sombra, com o motivo dito ao lado.
+- **Hover:** sobe 2px e a sombra cresce para 6px. **Pressão:** desce 4px, sombra zero, 80ms. **Foco:** contorno de 3px em vermelho, afastado 3px. **Desabilitado:** papel, contorno e texto em inativo, sem sombra, com o motivo dito ao lado. **Cursor:** tudo que se clica mostra a mãozinha; o desabilitado mostra o bloqueio (DV-64).
+- **Placa que sobe (DV-62):** para seguir adiante no fluxo. Contorno em tinta, sem sombra; no hover um bloco sobe de baixo e preenche o botão (200ms) e a seta gira 45° para cima; ao apertar, o bloco troca de cor e o botão desce 2px. **Amarela** (bloco vermelho, texto papel): ir para a próxima etapa da análise ("Ir para a revisão", "Ir para as análises"). **Branca** (bloco tinta, texto papel; ao apertar, amarelo): avançar dentro de uma etapa ("Continuar" do enquadramento, "Próxima pergunta", "Aprofundar").
+- **Carimbo (DV-63):** só para abrir uma análise nova (a chamada final da página de entrada, "Nova análise" no painel e "Começar a análise" no enquadramento), no máximo um por tela. Vermelho da marca como ênfase, texto papel, contorno em tinta, inclinado 2,5° em repouso, com a projeção amarela contornada em tinta. No hover endireita e cresce 6% com um passo além do ponto; ao apertar, bate (escala 0,92) e solta uma onda vermelha. Nunca perto do veredito (IV-21, IV-23): revisão, resultado e relatório ficam com o primário.
+- **Cabeçalho preto, fita de obra (DV-61):** placa branca, texto tinta, dentro de uma moldura zebrada amarela e preta de 5px (listras de 10px a 45°). No hover a fita corre e a placa fica vermelha com texto papel; com o menu aberto, a placa fica vermelha parada; ao apertar, a fita para e a placa fica tinta com texto amarelo. Com "reduzir movimento", a fita não corre.
+
+### Cursores (DV-65)
+- **Pixel grotesco:** cursores de 1 bit em pixels dobrados (mapas de 16 por 16 desenhados em 32px), preto chapado com contorno branco, para ler no concreto, no cabeçalho preto e nos blocos amarelos. O amarelo e o vermelho só entram em detalhes: punho da mão, ampulheta, ajuda, proibido e o centro da mira.
+- **Estados:** padrão (seta), clique (mão), texto (viga em I, nos campos editáveis e sobre o texto lido: parágrafos, títulos, listas; dentro de links e botões vale o cursor do controle), bloqueado (placa de proibido), espera (ampulheta, em `aria-busy`), ajuda (seta com "?" amarelo), agarrar e agarrando (mão aberta e punho), mover (quatro setas), coluna e linha (redimensionar), ampliar e reduzir (lupa) e mira (cruz dos eixos com centro vermelho).
+- **Fonte única:** os mapas ficam em `apps/web/src/lib/cursores.ts`, que desenha os cursores na partida com as cores do tema e o tamanho de `--cursor-tamanho` (no `app.css`; 24px, um pouco menor que os 32px iniciais) e grava as variáveis `--cursor-*` no `<html>`, cada uma com o cursor do sistema como reserva. O navegador não redimensiona a imagem de um cursor pelo CSS; por isso o desenho é refeito a partir da variável. O CSS base aplica padrão, clique, texto, bloqueado e espera; os outros estados usam os utilitários `cursor-agarrar`, `cursor-mover`, `cursor-coluna` etc. Os utilitários de cursor do Tailwind são proibidos pelo lint de design.
 
 ### Inputs / Fields
 - Papel, contorno de 3px em tinta, raio zero, altura 52px, rótulo em caixa-alta acima. Foco: contorno vermelho de 3px. Erro: contorno crítico e mensagem com ícone logo abaixo. Desabilitado: concreto, texto inativo.
@@ -591,7 +599,7 @@ Faixa zebrada amarela e preta a 45° (listras de 12px), com altura de 12 a 24px.
 
 ### Camadas de fundo
 O fundo da aplicação e da página de entrada nunca é um cinza liso (DV-42). São três camadas atrás do conteúdo, todas decorativas, fixas, sem receber clique e fora da leitura de tela:
-1. **Forma de concreto:** o concreto aparente marcado pela forma de madeira, desenhado como textura: juntas das placas (painéis de 360 por 180px) e os furos dos tirantes (quadrados de 6px perto dos cantos), em tinta a 7% e 16%. Vem de `--textura-forma`, gerada por tema no `tokens.css`, e fica fixa na tela: só as seções rolam por cima (DV-54).
+1. **Forma de concreto:** o concreto aparente marcado pela forma de madeira, desenhado como textura: juntas das placas e os furos dos tirantes (quadrados de 6px perto dos cantos), em tinta a 3,5%, 8% e 16%. Vem de `--textura-forma`, gerada no `tokens.css`, e fica no mesmo contêiner fixo dos eixos: cada placa é uma célula da grade A–F por 1–4 e as juntas caem sobre os eixos (DV-59). Só as seções rolam por cima (DV-54).
 2. **Eixos estruturais:** a grade de eixos de uma planta de estrutura, com rótulos quadrados (A, B, C... no topo; 1, 2, 3... na lateral) em Courier, e marcas de cruz nas interseções. Em tinta a 20%.
 3. **Blocos figurativos:** retângulos grandes, parcialmente escondidos atrás do conteúdo: zebrado, madeira (a cor da forma), concreto escuro e, na página de entrada, também vermelho, amarelo e um bloco branco com contorno (nunca um bloco preto, que engole o texto preto que passa por cima; DV-55). Cores decorativas próprias (madeira, concreto escuro) para não roubar o significado do azul e do laranja (Regra das Três Lentes).
 
@@ -729,7 +737,7 @@ Todo elemento que este arquivo não prevê passa pelos oito portões antes de en
 
 ## Telas
 
-**Casca.** Cabeçalho preto de 80px com régua amarela de 4px: análise atual à esquerda, símbolo (48px) e "STACKSYNC" no centro, que levam à página de entrada (DV-56), salvamento, "ANÁLISES" e conta à direita em botões brancos com projeção zebrada branca de 4px (DV-57). No celular, "ANÁLISES" fica só no menu da conta.
+**Casca.** Cabeçalho preto de 80px com régua amarela de 4px: análise atual à esquerda, símbolo (48px) e "STACKSYNC" no centro, que levam à página de entrada (DV-56), salvamento, "ANÁLISES" e conta à direita em botões de fita de obra (DV-61). No celular, "ANÁLISES" fica só no menu da conta. O cabeçalho é fixo no alto e se recolhe: some ao rolar para baixo e volta ao rolar para cima, a barra com uma mola leve e o que há dentro com uma mola mais forte, que passa um pouco do lugar (DV-60). A página de entrada usa o mesmo cabeçalho preto com régua amarela, com o símbolo à esquerda e "COMO DECIDE" e "MINHAS ANÁLISES" à direita.
 
 **T-00 Página de entrada (`/`, Persuade).**
 - **Foco:** o título em display, "MEÇA ANTES DE MUDAR.", com "MUDAR" em vermelho, ocupando a largura da grade.
@@ -837,6 +845,13 @@ Mudar um token, uma regra nomeada ou um componente de assinatura: proposta, capt
 | DV-56 | O símbolo e o nome levam à página de entrada, na landing e na casca; "ANÁLISES" é botão do cabeçalho, à esquerda de "Conta"; símbolo de 48px | Aceita, v2.2; ajusta a DV-50 | Pedido do responsável: logo mais aparente e acesso direto às análises |
 | DV-57 | Projeção zebrada dos botões do cabeçalho de 4px (era 8px); projeção das quatro etapas sempre para a esquerda e para baixo | Aceita, v2.2; ajusta a DV-43 e a DV-50 | Pedido do responsável: projeção longe demais do botão; sem borda à direita nas etapas |
 | DV-58 | "MUDAR." na largura exata da grade, sem passar dela | Aceita, v2.2; substitui a DV-48 no que toca ao vazamento | Pedido do responsável: a palavra passava dos limites da página |
+| DV-59 | Textura de concreto ladrilhada na grade dos eixos (uma placa por célula, juntas sobre os eixos), no mesmo contêiner fixo; no celular, a projeção dos blocos só desce; as quatro etapas entram da esquerda para a direita, uma depois da outra | Aceita, v2.2; ajusta a DV-42, a DV-54 e a DV-57 | Pedido do responsável: a textura e os eixos não seguiam o mesmo espaçamento |
+| DV-60 | Cabeçalho fixo que se recolhe na rolagem, na casca e na página de entrada (preto com régua amarela nas duas), com molas diferentes para a barra e para o que há dentro | Aceita, v2.2; ajusta a DV-50 | Pedido do responsável |
+| DV-61 | Botões do cabeçalho em fita de obra (placa branca em moldura zebrada amarela e preta), no lugar da projeção zebrada branca | Aceita, v2.2; substitui a DV-57 nos botões do cabeçalho | Pedido do responsável: escolhida entre cinco propostas; os botões brancos no preto não agradavam |
+| DV-62 | Variante "placa que sobe" para seguir adiante no fluxo (amarela e branca) | Aceita, v2.2 | Pedido do responsável: escolhida entre as cinco propostas, aplicada onde o botão leva adiante |
+| DV-63 | Variante "carimbo" só para abrir uma análise nova, no máximo uma por tela, nunca perto do veredito | Aceita, v2.2 | Pedido do responsável: escolhida entre as cinco propostas, aplicada à ação de começar |
+| DV-64 | Cursor de clique em todo elemento clicável; bloqueio no desabilitado | Aceita, v2.2 | Pedido do responsável: botões sem indicação de clique |
+| DV-65 | Cursores próprios em pixel grotesco para todos os estados, gerados no tokens.css; cursores do sistema só como reserva | Aceita, v2.2 | Pedido do responsável: escolhida entre cinco direções de cursor |
 
 ## Fontes
 

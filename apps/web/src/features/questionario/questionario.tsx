@@ -12,7 +12,7 @@ import { useCatalogo, useT } from '../../lib/catalogo.tsx';
 import { gravarPuladas, lerPuladas } from '../../lib/sessao.ts';
 import { useMidia } from '../../lib/tela.ts';
 import type { CartaoPergunta, DetalheAnalise, Profundidade, RespostaProxima, VisaoResposta } from '../../lib/tipos.ts';
-import { Botao } from '../../components/ui/botao.tsx';
+import { Botao, SetaBotao } from '../../components/ui/botao.tsx';
 import { Aviso, ErroCarga } from '../../components/ui/estado.tsx';
 import { EsqueletoPergunta } from '../../components/ui/esqueleto.tsx';
 import { Dialogo, FolhaModal } from '../../components/ui/sobreposicao.tsx';
@@ -37,13 +37,14 @@ function Concluido({ dados }: { dados: DetalheAnalise }) {
       <h2 className="text-pergunta text-nanquim">{t('ui.pergunta.fim', { nivel: cat.estrutura.profundidades[dados.analise.profundidade].rotulo })}</h2>
       <p className="max-w-texto text-corpo text-grafite">{t('ui.pergunta.fim.explica')}</p>
       <div className="flex flex-wrap gap-compacto">
-        <Botao variante="primario" comoFilho>
+        <Botao variante="placa" comoFilho>
           <Link to="/analises/$id/revisao" params={{ id: dados.analise.id }}>
             {t('ui.pergunta.irRevisao')}
+            <SetaBotao />
           </Link>
         </Botao>
         {proximo ? (
-          <Botao variante="secundario" onClick={() => aprofundar.mutate()} disabled={aprofundar.isPending}>
+          <Botao variante="placaClara" onClick={() => aprofundar.mutate()} disabled={aprofundar.isPending}>
             {t('ui.pergunta.aprofundar', { nivel: cat.estrutura.profundidades[proximo].rotulo })}
           </Botao>
         ) : null}

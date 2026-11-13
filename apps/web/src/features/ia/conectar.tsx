@@ -9,7 +9,7 @@ import { useT } from '../../lib/catalogo.tsx';
 import { dataHoraPt } from '../../lib/formato.ts';
 import { useEu } from '../../lib/sessao.ts';
 import type { VisaoIa } from '../../lib/tipos.ts';
-import { Botao } from '../../components/ui/botao.tsx';
+import { Botao, SetaBotao } from '../../components/ui/botao.tsx';
 import { Campo } from '../../components/ui/campo.tsx';
 import { CaixaSelecao, GrupoOpcoes, Opcao } from '../../components/ui/escolha.tsx';
 import { Aviso, Secao } from '../../components/ui/estado.tsx';
@@ -106,8 +106,11 @@ function Conectada({ ia, aoTrocar }: { ia: VisaoIa; aoTrocar: () => void }) {
         </p>
       ) : null}
       <div className="flex flex-wrap gap-compacto">
-        <Botao variante="primario" comoFilho>
-          <Link to="/analises">{t('ui.ia.irParaAnalises')}</Link>
+        <Botao variante="placa" comoFilho>
+          <Link to="/analises">
+            {t('ui.ia.irParaAnalises')}
+            <SetaBotao />
+          </Link>
         </Botao>
         <Botao variante="secundario" onClick={() => testar.mutate()} disabled={testar.isPending}>
           {testar.isPending ? t('ui.ia.testando') : t('ui.ia.testarDeNovo')}

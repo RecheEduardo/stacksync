@@ -325,6 +325,16 @@
 }
 
 /* Faixa de obra (DV-37): zebrado amarelo e preto a 45°, só no que está em obra. */
+/* Concreto aparente (DV-42, DV-59), na mesma grade dos eixos do fundo (components/ui/fundo.tsx: 6 colunas A–F e 4 linhas
+   1–4). Cada placa é uma célula (1/6 da largura, 1/4 da altura) e as juntas ficam sobre os eixos, que passam no
+   meio de cada célula: por isso o deslocamento de meia célula. Em background-position, a porcentagem é
+   p × (área − ladrilho): meia célula em x é 10% (= (1/12) ÷ (5/6)) e, em y, 16,6667% (= (1/8) ÷ (3/4)). */
+@utility textura-planta {
+  background-image: var(--textura-forma);
+  background-size: calc(100% / 6) calc(100% / 4);
+  background-position: 10% 16.6667%;
+}
+
 @utility zebrado {
   background-image: repeating-linear-gradient(-45deg, var(--cor-sinal) 0 var(--zebrado), var(--cor-cabecalho) var(--zebrado) calc(var(--zebrado) * 2));
   print-color-adjust: exact;
@@ -348,22 +358,220 @@
   }
 }
 
-/* Zebrado branco (DV-50): só na projeção dos botões do cabeçalho preto, listras de papel sobre o preto do cabeçalho. */
-@utility zebrado-claro {
-  background-image: repeating-linear-gradient(-45deg, var(--cor-folha) 0 calc(var(--zebrado) / 4), transparent calc(var(--zebrado) / 4) calc(var(--zebrado) / 2));
-}
-
-/* Botão sobre uma projeção (DV-50): sobe 2px no hover e, ao apertar, desce para dentro da projeção. */
-@utility aperta-projecao {
-  transition-property: transform, background-color, color;
+/* Fita de obra (DV-61): botão do cabeçalho preto. Uma placa branca dentro de uma moldura zebrada amarela e preta,
+   como fita de interdição. Um elemento só: a placa é a camada de cima do fundo, recortada na caixa de dentro, e a
+   fita é a camada de baixo, que aparece na borda transparente. Ao passar o mouse a fita corre e a placa fica
+   vermelha; com o menu aberto a placa fica vermelha parada; ao apertar, a fita para e a placa fica preta. O passo
+   da animação é um período inteiro das listras de 10px a 45° (20px × √2), então a volta não salta. */
+@utility fita-obra {
+  --placa: var(--cor-folha);
+  --placa-texto: var(--cor-nanquim);
+  --listra: calc(var(--zebrado) * 5 / 6);
+  --passo-fita: calc(var(--listra) * 2.8284);
+  height: calc(var(--altura-botao) + var(--borda-fina) * 2);
+  border: calc(var(--borda) + var(--borda-fina)) solid transparent;
+  color: var(--placa-texto);
+  background-image:
+    linear-gradient(var(--placa), var(--placa)),
+    repeating-linear-gradient(-45deg, var(--cor-sinal) 0 var(--listra), var(--cor-cabecalho) var(--listra) calc(var(--listra) * 2));
+  background-size: 100% 100%, var(--passo-fita) var(--passo-fita);
+  background-repeat: no-repeat, repeat;
+  background-origin: padding-box, border-box;
+  background-clip: padding-box, border-box;
+  cursor: var(--cursor-clique);
+  transition-property: transform, color;
   transition-duration: 80ms;
   transition-timing-function: var(--curva-saida);
-  &:hover:not(:disabled) {
-    transform: translate(-2px, -2px);
+  &:hover,
+  &[aria-expanded='true'] {
+    --placa: var(--cor-marca);
+    --placa-texto: var(--cor-sobre-marca);
   }
-  &:active:not(:disabled) {
-    transform: translate(var(--esp-micro), var(--esp-micro));
+  &:hover {
+    animation: fita-correr 550ms linear infinite;
   }
+  &:active {
+    --placa: var(--cor-nanquim);
+    --placa-texto: var(--cor-sinal);
+    animation-play-state: paused;
+    transform: translate(1px, 1px);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    &:hover {
+      animation: none !important;
+    }
+  }
+}
+@keyframes fita-correr {
+  to {
+    background-position: 0 0, var(--passo-fita) 0;
+  }
+}
+
+/* Placa que sobe (DV-62): para seguir adiante no fluxo. Contorno em tinta e um bloco que sobe de baixo e preenche o
+   botão; a seta gira para cima. Duas versões: amarela, com o bloco vermelho (seguir para a próxima etapa da análise),
+   e branca, com o bloco preto (avançar dentro de uma etapa: continuar, próxima pergunta). Ao apertar, o bloco troca
+   de cor e o botão desce 2px. Sem sombra: o movimento é o próprio preenchimento. */
+@utility placa {
+  --placa-base: var(--cor-sinal);
+  --placa-texto: var(--cor-sobre-sinal);
+  --placa-cheia: var(--cor-marca);
+  --placa-cheia-texto: var(--cor-sobre-marca);
+  --placa-apertada: var(--cor-folha);
+  --placa-apertada-texto: var(--cor-nanquim);
+  border: var(--borda) solid var(--cor-nanquim);
+  background-color: var(--placa-base);
+  background-image: linear-gradient(var(--placa-cheia), var(--placa-cheia));
+  background-repeat: no-repeat;
+  background-position: bottom;
+  background-size: 100% 0%;
+  color: var(--placa-texto);
+  transition-property: background-size, color, transform;
+  transition-duration: 200ms;
+  transition-timing-function: var(--curva-saida);
+  & .seta-botao {
+    transition: transform 200ms var(--curva-saida);
+  }
+  &:hover:not(:disabled):not([aria-disabled='true']) {
+    background-size: 100% 100%;
+    color: var(--placa-cheia-texto);
+    & .seta-botao {
+      transform: rotate(-45deg);
+    }
+  }
+  &:active:not(:disabled):not([aria-disabled='true']) {
+    --placa-cheia: var(--placa-apertada);
+    color: var(--placa-apertada-texto);
+    transform: translateY(2px);
+  }
+  &:disabled,
+  &[aria-disabled='true'] {
+    border-color: var(--cor-inativo);
+    background-color: var(--cor-folha);
+    background-image: none;
+    color: var(--cor-inativo);
+  }
+}
+@utility placa-clara {
+  --placa-base: var(--cor-folha);
+  --placa-texto: var(--cor-nanquim);
+  --placa-cheia: var(--cor-nanquim);
+  --placa-cheia-texto: var(--cor-folha);
+  --placa-apertada: var(--cor-sinal);
+  --placa-apertada-texto: var(--cor-sobre-sinal);
+}
+
+/* Carimbo (DV-63): só para abrir uma análise nova (a chamada da página de entrada, "Nova análise" no painel e
+   "Começar a análise" no enquadramento), no máximo um por tela. Vermelho da marca como ênfase (IV-21: nunca perto do
+   veredito), inclinado em repouso, com a projeção amarela contornada em tinta. Ao passar o mouse, endireita e cresce
+   com um passo além do ponto; ao apertar, bate na superfície e solta uma onda vermelha (data-bate, posto pelo
+   componente Botao a cada clique). */
+@utility carimbo {
+  position: relative;
+  border: var(--borda) solid var(--cor-nanquim);
+  background-color: var(--cor-marca);
+  color: var(--cor-sobre-marca);
+  box-shadow:
+    6px 6px 0 0 var(--cor-sinal),
+    6px 6px 0 var(--borda) var(--cor-nanquim);
+  transform: rotate(-2.5deg);
+  transition-property: transform, box-shadow, background-color, color;
+  transition-duration: 140ms;
+  transition-timing-function: cubic-bezier(0.3, 1.7, 0.5, 1);
+  &::after {
+    content: '';
+    position: absolute;
+    inset: calc(var(--borda) * -1);
+    border: var(--borda) solid var(--cor-marca);
+    opacity: 0;
+    pointer-events: none;
+  }
+  &[data-bate]::after {
+    animation: carimbo-onda 420ms ease-out;
+  }
+  &:hover:not(:disabled):not([aria-disabled='true']) {
+    transform: rotate(0deg) scale(1.06);
+    box-shadow:
+      9px 9px 0 0 var(--cor-sinal),
+      9px 9px 0 var(--borda) var(--cor-nanquim);
+  }
+  &:active:not(:disabled):not([aria-disabled='true']) {
+    transform: rotate(1.5deg) scale(0.92);
+    box-shadow:
+      0 0 0 0 var(--cor-sinal),
+      0 0 0 0 var(--cor-nanquim);
+  }
+  &:disabled,
+  &[aria-disabled='true'] {
+    border-color: var(--cor-inativo);
+    background-color: var(--cor-folha);
+    color: var(--cor-inativo);
+    box-shadow: none;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    &[data-bate]::after {
+      animation: none !important;
+    }
+  }
+}
+@keyframes carimbo-onda {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(1.25, 1.7);
+  }
+}
+
+/* Cursores (DV-65) para quem precisa de um estado que o CSS base não cobre: arrastar, mover, redimensionar,
+   ampliar, mirar, ajuda, espera. Os utilitários cursor-* do Tailwind ficam proibidos (lint de design), porque
+   trariam o cursor do sistema de volta. */
+@utility cursor-padrao {
+  cursor: var(--cursor-padrao);
+}
+@utility cursor-clique {
+  cursor: var(--cursor-clique);
+}
+@utility cursor-texto {
+  cursor: var(--cursor-texto);
+}
+@utility cursor-bloqueado {
+  cursor: var(--cursor-bloqueado);
+}
+@utility cursor-espera {
+  cursor: var(--cursor-espera);
+}
+@utility cursor-ajuda {
+  cursor: var(--cursor-ajuda);
+}
+@utility cursor-agarrar {
+  cursor: var(--cursor-agarrar);
+  &:active {
+    cursor: var(--cursor-agarrando);
+  }
+}
+@utility cursor-agarrando {
+  cursor: var(--cursor-agarrando);
+}
+@utility cursor-mover {
+  cursor: var(--cursor-mover);
+}
+@utility cursor-coluna {
+  cursor: var(--cursor-coluna);
+}
+@utility cursor-linha {
+  cursor: var(--cursor-linha);
+}
+@utility cursor-ampliar {
+  cursor: var(--cursor-ampliar);
+}
+@utility cursor-reduzir {
+  cursor: var(--cursor-reduzir);
+}
+@utility cursor-mira {
+  cursor: var(--cursor-mira);
 }
 
 /* Cabeçalho em três colunas (DV-50): análise atual à esquerda, assinatura no centro, ações à direita. */
@@ -527,6 +735,77 @@
   svg.lucide {
     stroke-width: 3;
   }
+  /* Tudo que se clica mostra a mãozinha (DV-64; o Tailwind v4 deixa os botões com o cursor padrão). O que está desligado
+     mostra o cursor de bloqueio. */
+  /* Os cursores são os de pixel grotesco (DV-65), desenhados por src/lib/cursores.ts com o tamanho abaixo e gravados
+     como --cursor-* no <html>. Até lá (e se o script falhar), valem os cursores do sistema daqui. */
+  :root {
+    /* ▶ TAMANHO DOS CURSORES: lado do desenho, em px. 16 = pixel 1 por 1 e 32 = pixel 2 por 2 (os mais nítidos);
+       valores entre eles funcionam, com pixels um pouco desiguais. No `pnpm dev`, salvar redesenha na hora. */
+    --cursor-tamanho: 24px;
+    --cursor-padrao: default;
+    --cursor-clique: pointer;
+    --cursor-texto: text;
+    --cursor-bloqueado: not-allowed;
+    --cursor-espera: progress;
+    --cursor-ajuda: help;
+    --cursor-agarrar: grab;
+    --cursor-agarrando: grabbing;
+    --cursor-mover: move;
+    --cursor-coluna: col-resize;
+    --cursor-linha: row-resize;
+    --cursor-ampliar: zoom-in;
+    --cursor-reduzir: zoom-out;
+    --cursor-mira: crosshair;
+  }
+  html {
+    cursor: var(--cursor-padrao);
+  }
+  a[href],
+  button:not(:disabled),
+  [role='button']:not([aria-disabled='true']),
+  [role='radio']:not([data-disabled]),
+  [role='checkbox']:not([data-disabled]),
+  [role='tab'],
+  [role='menuitem']:not([data-disabled]),
+  [role='option']:not([data-disabled]),
+  summary,
+  select:not(:disabled),
+  label[for],
+  input[type='radio']:not(:disabled),
+  input[type='checkbox']:not(:disabled),
+  input[type='submit']:not(:disabled),
+  input[type='button']:not(:disabled) {
+    cursor: var(--cursor-clique);
+  }
+  input:not([type='radio'], [type='checkbox'], [type='submit'], [type='button'], [type='range'], [type='color'], [type='file']):not(:disabled),
+  textarea:not(:disabled),
+  [contenteditable='true'] {
+    cursor: var(--cursor-texto);
+  }
+  button:disabled,
+  input:disabled,
+  textarea:disabled,
+  [aria-disabled='true'],
+  [role='radio'][data-disabled],
+  [role='menuitem'][data-disabled],
+  select:disabled {
+    cursor: var(--cursor-bloqueado);
+  }
+  [aria-busy='true'] {
+    cursor: var(--cursor-espera);
+  }
+  /* Texto lido mostra a viga em I, como o cursor "auto" do navegador faz sobre o texto. Especificidade zero, para
+     qualquer regra acima (clique, bloqueado) ganhar dela. */
+  :where(p, h1, h2, h3, h4, h5, h6, li, dt, dd, td, th, caption, blockquote, figcaption, pre, code, kbd, samp, small, strong, em, b, i, u, s, mark, q, cite, abbr, time, span, label, legend) {
+    cursor: var(--cursor-texto);
+  }
+  /* Dentro do que se clica, tudo herda o cursor do controle (mão, ou proibido se estiver desligado); o que não se
+     seleciona também não mostra a viga. */
+  :is(a[href], button, [role='button'], [role='radio'], [role='checkbox'], [role='tab'], [role='menuitem'], [role='option'], summary, label[for], .select-none) *,
+  :where(.select-none) {
+    cursor: inherit;
+  }
   /* O rádio e a caixa nativos (escondidos atrás dos controles do Radix) também ficam quadrados. */
   input[type='radio'],
   input[type='checkbox'] {
@@ -537,10 +816,6 @@
     font-family: var(--fonte);
     color: var(--cor-nanquim);
     background-color: var(--cor-mesa);
-    /* Concreto aparente: a forma de madeira marcada no fundo (DV-42). */
-    background-image: var(--textura-forma);
-    /* Fixa na tela, como o resto do fundo: só as seções rolam por cima dela (DV-54). */
-    background-attachment: fixed;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
     accent-color: var(--cor-sinal);

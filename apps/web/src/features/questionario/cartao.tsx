@@ -11,7 +11,7 @@ import { useEu } from '../../lib/sessao.ts';
 import { useMidia } from '../../lib/tela.ts';
 import type { CartaoPergunta, Profundidade } from '../../lib/tipos.ts';
 import { PropostaIa } from '../../components/laudo/ia.tsx';
-import { Botao } from '../../components/ui/botao.tsx';
+import { Botao, SetaBotao } from '../../components/ui/botao.tsx';
 import { Campo } from '../../components/ui/campo.tsx';
 import { CaixaSelecao, classeOpcao, GrupoOpcoes, Opcao, OpcaoCaixa, SeloAtalho } from '../../components/ui/escolha.tsx';
 import { Aviso, Recolhivel } from '../../components/ui/estado.tsx';
@@ -350,8 +350,9 @@ export function Cartao({
         ) : null}
 
         <div className="flex flex-wrap items-center gap-compacto">
-          <Botao variante="secundario" disabled={salvando || (multipla ? !marcadas.length : !sel)} onClick={() => (multipla ? salvarMultipla() : salvarOpcao(sel))}>
+          <Botao variante="placaClara" disabled={salvando || (multipla ? !marcadas.length : !sel)} onClick={() => (multipla ? salvarMultipla() : salvarOpcao(sel))}>
             {t('ui.pergunta.proxima')}
+            <SetaBotao />
           </Botao>
           <Botao variante="discreto" onClick={aoPular} disabled={salvando}>
             {t('ui.pergunta.pular')}

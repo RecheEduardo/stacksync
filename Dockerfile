@@ -38,3 +38,10 @@ HEALTHCHECK --interval=15s --timeout=5s --start-period=30s --retries=5 \
   CMD node -e "fetch('http://127.0.0.1:8787/api/v1/catalogo').then((r) => process.exit(r.ok ? 0 : 1)).catch(() => process.exit(1))"
 # Chama o tsx direto (o mesmo que `pnpm start` da API), sem baixar o pnpm na partida do contêiner.
 CMD ["./node_modules/.bin/tsx", "src/main.ts"]
+
+# Desenvolvimento com hot reload (compose.dev.yaml): só as dependências instaladas; o código vem do repositório
+# montado em /app, e o `pnpm dev` (Vite + API em modo watch) roda por cima.
+FROM deps AS dev
+ENV HOST=0.0.0.0
+EXPOSE 5173 8787
+CMD ["sh", "-c", "pnpm install --frozen-lockfile && pnpm dev"]

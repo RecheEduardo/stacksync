@@ -9,7 +9,9 @@ import { Link } from '@tanstack/react-router';
 import { m, useInView, useReducedMotion, useScroll, useTransform } from 'motion/react';
 import { lazy, Suspense, useRef, type ReactNode } from 'react';
 import { useCatalogo, useT } from '../../lib/catalogo.tsx';
+import { BarraRetratil, ItemBarra } from '../../components/ui/barra-retratil.tsx';
 import { Botao } from '../../components/ui/botao.tsx';
+import { BOTAO_CABECALHO } from '../../components/ui/cabecalho.tsx';
 import { useContagem } from '../../components/ui/contador.tsx';
 import { CamadasFundo, Projecao } from '../../components/ui/fundo.tsx';
 import { EsqueletoCartaz } from '../../components/ui/esqueleto.tsx';
@@ -65,28 +67,32 @@ function Placa({ children, cor = 'bg-nanquim text-folha' }: { children: ReactNod
 
 /** Texto de apoio solto sobre o fundo: caixa de tinta com texto em papel, para contrastar com a textura. */
 function CaixaTexto({ children, codigo = false }: { children: ReactNode; codigo?: boolean }) {
-  return <p className={`w-fit max-w-texto bg-nanquim px-curto py-compacto text-folha ${codigo ? 'text-codigo' : 'text-subtitulo'}`}>{children}</p>;
+  return <p className={`w-fit max-w-texto bg-nanquim px-curto py-compacto text-folha ml-auto ${codigo ? 'text-codigo' : 'text-subtitulo'}`}>{children}</p>;
 }
 
+/** Cabeçalho da página de entrada: o mesmo preto com faixa amarela do aplicativo, e também se recolhe ao rolar. */
 function Navegacao() {
   const t = useT();
-  const link = 'h-botao items-center whitespace-nowrap borda bg-folha px-curto text-acao text-nanquim aperta hover:bg-sinal hover:text-sobre-sinal';
   return (
-    <header className="regua-base bg-folha">
+    <BarraRetratil className="border-b-4 border-sinal bg-cabecalho text-sobre-cabecalho">
       <div className="mx-auto flex w-full max-w-pagina items-center gap-base px-base py-curto md:px-amplo">
-        <Link to="/" className="rounded-controle">
-          <Assinatura nome={t('ui.produto')} />
-        </Link>
-        <nav aria-label={t('entrada.nav.rotulo')} className="ml-auto flex items-center gap-curto">
-          <Link to="/metodo" className={`${link} hidden md:inline-flex`}>
-            {t('entrada.nav.metodo')}
+        <ItemBarra>
+          <Link to="/" className="block" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+            <Assinatura nome={t('ui.produto')} />
           </Link>
-          <Link to="/analises" className={`${link} inline-flex`}>
-            {t('entrada.nav.analises')}
-          </Link>
-        </nav>
+        </ItemBarra>
+        <ItemBarra className="ml-auto">
+          <nav aria-label={t('entrada.nav.rotulo')} className="flex items-center gap-base">
+            <Link to="/metodo" className={`${BOTAO_CABECALHO} max-md:hidden`}>
+              {t('entrada.nav.metodo')}
+            </Link>
+            <Link to="/analises" className={BOTAO_CABECALHO}>
+              {t('entrada.nav.analises')}
+            </Link>
+          </nav>
+        </ItemBarra>
       </div>
-    </header>
+    </BarraRetratil>
   );
 }
 
@@ -96,7 +102,7 @@ function Abertura() {
   return (
     <section aria-labelledby="entrada-titulo" className="relative overflow-x-clip pt-amplo md:pt-secao">
       {/* @container: o tamanho de "MUDAR." é medido pela largura desta div (cqw), então a palavra nunca passa dela. */}
-      <div className="@container mx-auto w-full max-w-pagina px-base md:px-amplo">
+      <div className="@container mx-auto w-full max-w-pagina px-base md:px-amplo pb-base">
         <h1 id="entrada-titulo" className="relative text-nanquim">
           <span className="text-display">
             <Linha ordem={0}>
@@ -266,10 +272,11 @@ function ComoFunciona() {
           <m.li
             key={n}
             className="pt-secao md:pt-faixa"
-            initial={sem ? false : { opacity: 0, x: i % 2 ? 80 : -80 }}
+            // Todos entram da esquerda para a direita, um depois do outro (espera de 0,16 s entre cada card).
+            initial={sem ? false : { opacity: 0, x: -80 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={NA_TELA}
-            transition={{ type: 'spring', stiffness: 260, damping: 24, delay: 0.08 * i }}
+            transition={{ type: 'spring', stiffness: 260, damping: 24, delay: 0.16 * i }}
           >
             <div className="relative h-full">
               <Projecao tipo={PROJECAO_ETAPA[i] ?? 'zebra'} lado="esquerda" className="h-full">
@@ -459,7 +466,7 @@ function Fechamento() {
             </h2>
             <div className="flex flex-col gap-base border-t-4 border-sobre-sinal pt-medio md:flex-row md:items-center md:justify-between">
               <p className="text-subtitulo">{t('entrada.fim.texto')}</p>
-              <Botao variante="sobreMarca" comoFilho>
+              <Botao variante="carimbo" comoFilho className="self-start md:self-auto">
                 <Link to="/analises/nova">{t('entrada.fim.acao')}</Link>
               </Botao>
             </div>

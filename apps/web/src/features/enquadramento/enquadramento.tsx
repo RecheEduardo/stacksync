@@ -12,7 +12,7 @@ import { api, ehErroApi } from '../../lib/api.ts';
 import { useCatalogo, useT } from '../../lib/catalogo.tsx';
 import { dataPt } from '../../lib/formato.ts';
 import type { AnaliseResumo } from '../../lib/tipos.ts';
-import { Botao } from '../../components/ui/botao.tsx';
+import { Botao, SetaBotao } from '../../components/ui/botao.tsx';
 import { AreaTexto, Campo } from '../../components/ui/campo.tsx';
 import { GrupoOpcoes, Opcao } from '../../components/ui/escolha.tsx';
 import { FaixaMinutos, NIVEIS } from '../../components/ui/niveis.tsx';
@@ -166,8 +166,9 @@ export function PaginaEnquadramento() {
                     ))}
                   </GrupoOpcoes>
                   <div>
-                    <Botao variante="secundario" disabled={!ramo} onClick={() => setEtapa(2)}>
+                    <Botao variante="placaClara" disabled={!ramo} onClick={() => setEtapa(2)}>
                       {t('ui.continuar')}
+                      <SetaBotao />
                     </Botao>
                   </div>
                 </>
@@ -186,8 +187,9 @@ export function PaginaEnquadramento() {
                     ))}
                   </GrupoOpcoes>
                   <div>
-                    <Botao variante="secundario" disabled={!subnivel} onClick={() => setEtapa(3)}>
+                    <Botao variante="placaClara" disabled={!subnivel} onClick={() => setEtapa(3)}>
                       {t('ui.continuar')}
+                      <SetaBotao />
                     </Botao>
                   </div>
                 </>
@@ -200,8 +202,9 @@ export function PaginaEnquadramento() {
                   </h2>
                   <AreaTexto rotulo={t('ui.enquadramento.ideia')} rotuloOculto ajuda={t('ui.enquadramento.p3.ajuda')} value={ideia} maxLength={2000} rows={5} onChange={(e) => setIdeia(e.target.value)} />
                   <div className="flex flex-wrap gap-compacto">
-                    <Botao variante="secundario" onClick={() => setEtapa(4)}>
+                    <Botao variante="placaClara" onClick={() => setEtapa(4)}>
                       {ideia.trim() ? t('ui.continuar') : t('ui.enquadramento.semIdeiaContinuar')}
+                      <SetaBotao />
                     </Botao>
                   </div>
                 </>
@@ -242,7 +245,7 @@ export function PaginaEnquadramento() {
                     </p>
                   ) : null}
                   <div className="flex flex-wrap items-center gap-compacto">
-                    <Botao variante="primario" disabled={!profundidade || !subnivel || criar.isPending} onClick={() => criar.mutate()}>
+                    <Botao variante="carimbo" disabled={!profundidade || !subnivel || criar.isPending} onClick={() => criar.mutate()}>
                       {t('ui.enquadramento.comecar')}
                     </Botao>
                     <Botao variante="discreto" comoFilho>

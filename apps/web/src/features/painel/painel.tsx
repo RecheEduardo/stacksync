@@ -41,7 +41,7 @@ function AcoesLinha({ a, arquivadas }: { a: Linha; arquivadas: boolean }) {
       void qc.invalidateQueries({ queryKey: ['analises'] });
     },
   });
-  const item = 'flex h-botao cursor-default items-center px-curto text-acao text-nanquim outline-none data-highlighted:bg-sinal data-highlighted:text-sobre-sinal';
+  const item = 'flex h-botao items-center px-curto text-acao text-nanquim outline-none data-highlighted:bg-sinal data-highlighted:text-sobre-sinal';
   return (
     <>
       <DropdownMenu.Root>
@@ -245,7 +245,7 @@ export function PaginaPainel() {
             <Botao variante="discreto" onClick={() => setArquivadas((v) => !v)}>
               {arquivadas ? t('ui.painel.verAtivas') : t('ui.painel.verArquivadas')}
             </Botao>
-            <Botao variante="primario" comoFilho>
+            <Botao variante="carimbo" comoFilho>
               <Link to="/analises/nova">{t('ui.painel.nova')}</Link>
             </Botao>
           </div>

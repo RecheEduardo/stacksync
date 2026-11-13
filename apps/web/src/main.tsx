@@ -7,8 +7,12 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { EsqueletoInicio } from './components/ui/esqueleto.tsx';
 import { ProvedorCatalogo, useConsultaCatalogo } from './lib/catalogo.tsx';
+import { iniciarCursores } from './lib/cursores.ts';
 import { useRolagemSuave } from './lib/rolagem.ts';
 import { roteador } from './rotas.tsx';
+
+// Cursores em pixel, no tamanho de --cursor-tamanho (app.css), antes do primeiro desenho da página.
+iniciarCursores();
 
 const cliente = new QueryClient({
   defaultOptions: {
